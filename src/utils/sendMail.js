@@ -1,3 +1,4 @@
+const path = require('path');
 const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 require('dotenv').config();
@@ -32,7 +33,7 @@ module.exports = async (email, subject, html) => {
 				rejectUnauthorized: false,
 			},
 		});
-
+		
 		await transporter.sendMail({
 			from: process.env.EMAIL_USER,
 			to: email,
@@ -41,7 +42,8 @@ module.exports = async (email, subject, html) => {
 			attachments: [
 				{
 					filename: 'logo.jpg',
-					path: __dirname + '/logo.jpg',
+					// path: __dirname + '/logo.jpg',
+					path: 'src/public/images/logo.jpg',
 					cid: 'logo', //same cid value as in the html img src
 				},
 			],
