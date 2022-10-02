@@ -38,6 +38,13 @@ module.exports = async (email, subject, html) => {
 			to: email,
 			subject: subject,
 			html: html,
+			attachments: [
+				{
+					filename: 'logo.jpg',
+					path: __dirname + '/logo.jpg',
+					cid: 'logo', //same cid value as in the html img src
+				},
+			],
 		});
 		console.log('Email sent successfully!!!');
 	} catch (e) {

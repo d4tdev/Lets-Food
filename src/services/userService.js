@@ -50,8 +50,9 @@ const sendOtpVerification = user => {
 
 			await sendEmail(
 				user.email,
-				'Verify your email',
-				`<h1>✅ Verify your email !</h1><p>💬 Your OTP: <b>${otp}</b></p><h4>Click this link to redirect verify page: </h4><p>Your OTP will be <b>expire in 15 minutes</b></p><h3>If you don't do this, don't do anything ❌❌❌</h3>`
+				`${otp} là mã xác nhận của bạn`,
+				`<h1>✅ Hãy xác nhận tài khoản của bạn !</h1>
+				<img src="cid:logo" alt="" /><p style="font-size: 1rem; font-weight: 500;">💬 Mã OTP: <b>${otp}</b></p><h4>Ấn vào đường dẫn này để chuyển sang trang xác nhận: </h4><p>Mã OTP của bạn sẽ bị <b>huỷ sau 15 phút</b>. Nếu không phải bạn làm điều này, vui lòng không làm gì cả</p>`
 			);
 
 			resolve({
@@ -72,7 +73,7 @@ const verifyUser = (body, params) => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const { otp } = body;
-			const { userId} = params;
+			const { userId } = params;
 
 			// check user id and otp input
 			if (!userId || !otp) {
@@ -80,14 +81,21 @@ const verifyUser = (body, params) => {
 					message: 'User Id and OTP are required',
 				});
 			}
+			const user = await User.findOne({ userId });
 			const userOtp = await UserVerified.findOne({
 				userId: userId,
 			});
 
 			// check user id is exist
-			if (!userOtp) {
+			if (!user) {
 				return reject({
 					message: "User Id doesn't exist",
+				});
+			}
+
+			if (!userOtp) {
+				return reject({
+					message: 'OTP is not exist',
 				});
 			}
 
