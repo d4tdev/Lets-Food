@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const userController = require('../controllers/authController');
+const authController = require('../controllers/authController');
 
-router.post('/register', userController.handleCreateUser);
-router.post('/verifyOTP/:userId', userController.handleVerifyUser);
-router.post('/resendOTP/:userId', userController.handleResendOTP);
+router.post('/register', authController.handleCreateUser);
+router.post('/verifyOTP/:userId', authController.handleVerifyUser);
+router.post('/resendOTP/:userId', authController.handleResendOTP);
 
 
 module.exports = router;
