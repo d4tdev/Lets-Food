@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 
-const User = require('../model/User');
-const UserVerified = require('../model/UserVerified');
+const User = require('../models/User');
+const UserVerified = require('../models/UserVerified');
 const sendEmail = require('../utils/sendMail');
 
 const createUser = data => {
