@@ -1,4 +1,4 @@
-module.exports = (req, res, next) => {
+const validAuth = (req, res, next) => {
 	if (req.isAuthenticated()) {
 		//req.isAuthenticated() will return true if user is logged in
 		next();
@@ -6,3 +6,13 @@ module.exports = (req, res, next) => {
 		res.redirect('/login');
 	}
 };
+
+const validUser = (req, res, next) => {
+	if (!req.isAuthenticated()) {
+		next();
+	} else {
+		res.redirect('/home');
+	}
+};
+
+module.exports = { validUser, validAuth };

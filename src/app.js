@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -17,6 +18,7 @@ db.connect();
 
 // config passport
 require('./config/passportGoogle')(passport);
+require('./config/passportLocal')(passport);
 
 // session cookie
 app.use(
@@ -49,9 +51,10 @@ app.use(passport.session());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public', 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+app.use(flash());
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 routes(app);

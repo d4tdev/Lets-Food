@@ -9,22 +9,29 @@ router.post('/register', authController.handleCreateUser);
 router.post('/verifyOTP/:userId', authController.handleVerifyUser);
 router.post('/resendOTP/:userId', authController.handleResendOTP);
 
-
 router.get('/login', (req, res) => {
-   res.render('login');
-})
+	res.render('login');
+});
 // login local
-router.post('/loginLocal', );
+router.post(
+	'/loginLocal',
+	passport.authenticate('local-login', {
+		successRedirect: '/home',
+		failureRedirect: '/login',
+		failureFlash: true,
+	})
+);
 
 // login google
-router.get('/loginGoogle', passport.authenticate('google', { scope: ['profile', 'email']}));
-router.get('/google/callback', passport.authenticate('google', {
-   successRedirect: '/home',
-   failureRedirect: '/login'
-}));
-
+router.get('/loginGoogle', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get(
+	'/google/callback',
+	passport.authenticate('google', {
+		successRedirect: '/home',
+		failureRedirect: '/login',
+	})
+);
 
 // login facebook
-
 
 module.exports = router;
