@@ -3,21 +3,29 @@ const passport = require('passport');
 const router = express.Router();
 
 const authController = require('../controllers/authController');
+const { validUser } = require('../middleware/checkAuthentication');
 
 // register local
 router.post('/register', authController.handleCreateUser);
 router.post('/verifyOTP/:userId', authController.handleVerifyUser);
 router.post('/resendOTP/:userId', authController.handleResendOTP);
 
-router.get('/login', (req, res) => {
-	res.render('login');
+// website views
+// GET /auth/login
+router.get('/login', validUser, (req, res) => {
+	res.render('index');
 });
+// GET /auth/loginLocal
+router.get('/getLoginLocal', (req, res) => {
+	res.render('loginLocal', { message: req.flash('loginLocal') });
+});
+
 // login local
 router.post(
 	'/loginLocal',
 	passport.authenticate('local-login', {
 		successRedirect: '/home',
-		failureRedirect: '/login',
+		failureRedirect: '/auth/getLoginLocal',
 		failureFlash: true,
 	})
 );
@@ -28,10 +36,18 @@ router.get(
 	'/google/callback',
 	passport.authenticate('google', {
 		successRedirect: '/home',
-		failureRedirect: '/login',
+		failureRedirect: '/auth/login',
 	})
 );
 
 // login facebook
+
+// logout
+router.get('/logout', (req, res) => {
+	req.logout();
+	res.redirect('/');
+});
+
+
 
 module.exports = router;
