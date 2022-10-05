@@ -21,7 +21,7 @@ module.exports = async (email, subject, html) => {
 			secure: Boolean(process.env.SECURE),
 			auth: {
 				type: 'OAuth2',
-				user: process.env.USER,
+				user: process.env.USER_MAIL,
 				// pass: process.env.PASS,
 				clientId: process.env.CLIENT_ID,
 				clientSecret: process.env.CLIENT_SECRET,
@@ -35,7 +35,7 @@ module.exports = async (email, subject, html) => {
 		});
 
 		await transporter.sendMail({
-			from: process.env.EMAIL_USER,
+			from: process.env.USER_MAIL,
 			to: email,
 			subject: subject,
 			html: html,
