@@ -14,12 +14,14 @@ const app = express();
 const db = require('./config/connect');
 const routes = require('./routes');
 
+const auth = require('./routes/auth');
 db.connect();
 
 // config passport
+
 require('./config/passportGoogle')(passport);
 require('./config/passportLocal')(passport);
-
+require('./config/passportFacebook')(passport);
 // session cookie
 app.use(
 	session({
@@ -57,6 +59,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// app.use('/', auth);
 routes(app);
 
 app.listen(process.env.PORT, () => {

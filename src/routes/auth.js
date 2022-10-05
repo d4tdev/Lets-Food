@@ -40,7 +40,32 @@ router.get(
 	})
 );
 
-// login facebook
+//login facebook 
+//   router.get('/account', ensureAuthenticated, function(req, res){
+// 	res.render('account', { user: req.user });
+//   });
+
+  router.get('/loginFacebook',
+  passport.authenticate('facebook', { authType: 'reauthenticate', scope: ['user_posts','email'] }));
+
+router.get('/facebook/callback',
+
+//   passport.authenticate('facebook', { failureRedirect: '/login' }),
+//   function(req, res) {
+// 	// Successful authentication, redirect home.
+// 	res.redirect('/');
+//   }
+passport.authenticate('facebook', {
+	successRedirect: '/home',
+	failureRedirect: '/auth/login',
+})
+  );
+
+//   router.get('/home',(req, res) => {
+// 	  res.json(req.user);
+//   })
+
+  
 
 // logout
 router.get('/logout', (req, res) => {
