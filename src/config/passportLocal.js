@@ -16,11 +16,14 @@ module.exports = function (passport) {
 				try {
 					const user = await User.findOne({ username });
 					if (!user) {
-						return done(null, false, req.flash('loginLocal', 'No user found'));
+						return done(null, false, req.flash('loginLocal', 'Tài khoản hoặc mật khẩu không chính xác'));
 					}
 					if (!user.comparePassword(password)) {
-						return done(null, false, req.flash('loginLocal', 'Wrong password'));
+						return done(null, false, req.flash('loginLocal', 'Tài khoản hoặc mật khẩu không chính xác'));
 					}
+					const empty = [
+						
+					]
 					return done(null, user);
 				} catch (e) {
 					done(e);
