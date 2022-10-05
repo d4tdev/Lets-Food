@@ -50,10 +50,12 @@ module.exports = function (passport) {
 	);
 
 	passport.serializeUser(function (user, done) {
-		done(null, user);
+		done(null, user.id);
 	});
 
-	passport.deserializeUser(function (obj, done) {
-		done(null, obj);
+	passport.deserializeUser(function (user, done) {
+		User.findById(id, function (err, user) {
+			done(err, user);
+		});
 	});
 };
