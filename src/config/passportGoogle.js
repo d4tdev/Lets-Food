@@ -21,12 +21,13 @@ module.exports = function (passport) {
 					email: profile.emails[0].value,
 					avatar: profile.photos[0].value,
 					authType: 'google',
+					verified: true,
 				};
 				try {
-					let user = await User.findOne({ googleId: profile.id });
+					let user = await User.findOne({ googleId: profile.id, authType: 'google' });
 
 					if (user) {
-						done(null, user);
+						return done(null, user);
 					} else {
 						user = await User.create(newUser);
 
@@ -36,10 +37,10 @@ module.exports = function (passport) {
 						//    console.log(sendOtp)
 						//    done(null,  user);
 						// }
-						done(null, user);
+						return done(null, user);
 					}
 				} catch (e) {
-					console.error(e);
+					return done(e, false);
 				}
 			}
 		)
