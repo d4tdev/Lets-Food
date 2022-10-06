@@ -3,7 +3,7 @@ const validAuth = (req, res, next) => {
 		//req.isAuthenticated() will return true if user is logged in
 		next();
 	} else {
-		res.redirect('/login');
+		res.redirect('/auth/login');
 	}
 };
 
