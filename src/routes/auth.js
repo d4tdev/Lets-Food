@@ -15,6 +15,10 @@ router.post('/resendOTP/:userId', authController.handleResendOTP);
 router.get('/login', validUser, (req, res) => {
 	res.render('index');
 });
+// GET /auth/home
+router.get('/home', (req, res) => {
+	res.render('home');
+});
 // GET /auth/loginLocal
 router.get('/getLoginLocal', (req, res) => {
 	res.render('loginLocal', { message: req.flash('loginLocal') });

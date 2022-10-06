@@ -1,4 +1,4 @@
-const authRouter = require('./auth.js')
+const authRouter = require('./auth')
 
 const routes = (app) => {
    app.use('/auth', authRouter);

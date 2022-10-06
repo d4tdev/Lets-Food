@@ -2,13 +2,17 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+require('dotenv').config();
+
 const UserSchema = new mongoose.Schema(
 	{
 		googleId: {
 			type: String,
+			default: null
 		},
 		facebookId: {
 			type: String,
+			default: null
 		},
 		firstName: {
 			type: String,
@@ -19,17 +23,17 @@ const UserSchema = new mongoose.Schema(
 			default: 'Dùng',
 		},
 		number: {
-			type: String
+			type: String,
 		},
 		address: {
-			type: String
+			type: String,
 		},
 		birthday: {
-			type: Date
+			type: Date,
 		},
 		avatar: {
 			type: String,
-			default: 'https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png'
+			default: 'https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png',
 		},
 		username: {
 			type: String,
@@ -50,6 +54,11 @@ const UserSchema = new mongoose.Schema(
 			// required: true,
 			minLength: 6,
 		},
+		authType: {
+			type: String,
+			enum: ['local', 'google', 'facebook', 'twitter'],
+			default: 'local',
+		},
 		verified: {
 			type: Boolean,
 			default: false,
@@ -59,16 +68,31 @@ const UserSchema = new mongoose.Schema(
 );
 
 // hash password
-if (this.password) {
-	UserSchema.pre('save', async function () {
-		const salt = await bcrypt.genSalt(10);
-		this.password = await bcrypt.hash(this.password, salt);
-	});
-}
+
+UserSchema.pre('save', async function () {
+	if(this.authType !== 'local') return;
+
+	const salt = await bcrypt.genSalt(10);
+	this.password = await bcrypt.hash(this.password, salt);
+});
 
 // check valid password
 UserSchema.methods.validPassword = async function (password) {
 	return await bcrypt.compare(password, this.password);
+};
+
+// generate token
+UserSchema.methods.generateToken = async function () {
+	return await jwt.sign(
+		{
+			userId: this._id,
+			iat: new Date().getTime(),
+		},
+		process.env.JWT_SECRET,
+		{
+			expiresIn: process.env.JWT_EXPIRE,
+		}
+	);
 };
 
 module.exports = mongoose.model('User', UserSchema);

@@ -28,10 +28,10 @@
 				<a href="/auth/signup" class="btn btn-default"
 					><span class="fa fa-user"></span> Local Signup</a
 				>
-				<a href="/auth/loginGoogle" class="btn btn-danger"
+				<a href="/v2/auth/google" class="btn btn-danger"
 					><span class="fa fa-google-plus"></span> Google</a
 				>
-				<a href="/auth/loginFacebook" class="btn btn-primary"
+				<a href="/v2/auth/facebook" class="btn btn-primary"
 					><span class="fa fa-facebook"></span> Facebook</a
 				>
 			</div>
@@ -78,6 +78,6 @@
 			}
 		</script>
 
-		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"> </fb:login-button>
+		<fb:login-button scope="email" onlogin="checkLoginState();"> </fb:login-button>
 	</body>
 </html>

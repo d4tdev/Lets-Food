@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
 const flash = require('connect-flash');
 
 const session = require('express-session');
@@ -14,7 +15,6 @@ const app = express();
 const db = require('./config/connect');
 const routes = require('./routes');
 
-const auth = require('./routes/auth');
 db.connect();
 
 // config passport
@@ -54,12 +54,12 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public', 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+app.use(morgan('combined'));
 app.use(flash());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use('/', auth);
 routes(app);
 
 app.listen(process.env.PORT, () => {
