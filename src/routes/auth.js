@@ -50,11 +50,6 @@ router.get(
 	})
 );
 
-// GET /auth/home
-router.get('/home', (req, res) => {
-	res.json(req.user);
-});
-
 // logout
 router.get('/logout', (req, res) => {
 	req.logout();
