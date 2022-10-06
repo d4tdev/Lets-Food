@@ -25,6 +25,7 @@ module.exports = function (passport) {
 					lastName: profile.name.familyName,
 					email: profile.emails[0].value,
 					avatar: profile.photos[0].value,
+					autType: 'facebook',
 				};
 				try {
 					let user = await User.findOne({ facebookId: profile.id });
