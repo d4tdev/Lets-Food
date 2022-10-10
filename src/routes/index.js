@@ -1,7 +1,7 @@
 const authRouter = require('./auth');
 const cartRouter = require('./cart');
 const userRouter = require('./user');
-const productRouter = require('./productRouter');
+const productRouter = require('./product');
 const { validAuth } = require('../middleware/checkAuthentication');
 
 const routes = app => {
