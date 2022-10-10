@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const cartSchema = require('./cartSchema');
 
 const CartUserSchema = new mongoose.Schema(
    {
