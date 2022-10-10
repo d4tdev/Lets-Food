@@ -43,7 +43,7 @@ module.exports = async (email, subject, html) => {
 				{
 					filename: 'logo.jpg',
 					// path: __dirname + '/logo.jpg',
-					path: 'src/public/images/logo.jpg',
+					path: 'src/public/images/logo.png',
 					cid: 'logo', //same cid value as in the html img src
 				},
 			],

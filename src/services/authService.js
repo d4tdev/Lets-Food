@@ -51,8 +51,128 @@ const sendOtpVerification = user => {
 			await sendEmail(
 				user.email,
 				`${otp} là mã xác nhận của bạn`,
-				`<h1>✅ Hãy xác nhận tài khoản của bạn !</h1>
-				<img src="cid:logo" alt="" /><p style="font-size: 1rem; font-weight: 500;">💬 Mã OTP: <b>${otp}</b></p><h4>Ấn vào đường dẫn này để chuyển sang trang xác nhận: </h4><p>Mã OTP của bạn sẽ bị <b>huỷ sau 15 phút</b>. Nếu không phải bạn làm điều này, vui lòng không làm gì cả</p>`
+				`
+				<body style="padding: 0; margin: 0;">
+				<div
+            class="root"
+            style="
+               background-color: #ffac4b;
+               min-height: 80vh;
+               width: 77vw;
+               font-family: 'Readex Pro', sans-serif;
+            ">
+            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px;">
+               <div
+                  class="container"
+                  style="
+                     max-width: 500px;
+                     height: 500px;
+                     background-color: #fff9ea;
+                     border-radius: 12px;
+                     padding: 20px;
+                     text-align: center;
+							margin-left: auto;
+							margin-right: auto;
+                  ">
+                     <div
+                        class="logo"
+                        style="
+                           margin: 0 auto;
+                           margin-bottom: 10px;
+                        ">
+                        <img src="cid:logo" alt="logo" class="img__logo" />
+                     </div>
+                     <h2
+                        class="title"
+                        style="
+                           font-size: 1.8rem;
+                           font-weight: 700;
+                           color: #1b1b1b;
+                           margin-bottom: 20px;
+                        ">
+                        Hoàn tất quá trình đăng ký
+                     </h2>
+                     <div
+                        class="line"
+                        style="
+                           width: 100%;
+                           height: 1px;
+                           background-color: #1b1b1b;
+                           margin-bottom: 20px;
+                     "></div>
+                     <div class="content" style="margin: 40px 0">
+                        <h5
+                           class="welcome"
+                           style="
+                              font-size: 1.2rem;
+                              font-weight: 400;
+                              color: #1b1b1b;
+                              margin-bottom: 20px;
+                           ">
+                           Xin chào bạn,
+
+                        </h5>
+                        <p
+                           class="description"
+                           style="
+                              font-size: 1rem;
+                              font-weight: 400;
+                              color: #1b1b1b;
+                              margin-bottom: 20px;
+                           ">
+                           Đây là mã OTP của bạn:
+                           <span
+                              class="otp"
+                              style="
+                                    font-size: 1.2rem;
+                                    font-weight: 700;
+                                    color: #1b1b1b;
+                                    margin-bottom: 20px;
+                              "
+                              >${otp}</span
+                           >. Vui lòng nhập mã này để hoàn tất quá trình đăng
+                           ký.
+                        </p>
+                        <div class="button" style="margin-top: 40px">
+                           <a
+                              href="https://api-lets-food.cleverapps.io"
+                              class="btn"
+                              style="
+                                    padding: 10px 20px;
+                                    background-color: #ffcb45;
+                                    border: none;
+                                    border-radius: 20px;
+                                    font-size: 1rem;
+                                    font-weight: 700;
+                                    color: #1b1b1b;
+                                    cursor: pointer;
+                              "
+                              >Chuyển đến trang xác nhận</a
+                           >
+                        </div>
+                     </div>
+                     <div
+                        class="line"
+                        style="
+                           width: 100%;
+                           height: 1px;
+                           background-color: #1b1b1b;
+                           margin-bottom: 20px;
+                        "></div>
+                     <p
+                        class="footer"
+                        style="
+                           font-size: 0.8rem;
+                           font-weight: 400;
+                           color: #1b1b1b;
+                           margin-top: 20px;
+                        ">
+                        Nếu bạn không thực hiện đăng ký, vui lòng bỏ qua email
+                        này. Mã OTP sẽ hết hạn sau 15 phút.
+                     </p>
+               </div>
+            </div>
+        </div></body>`
 			);
 
 			resolve({

@@ -1,6 +1,6 @@
 const userService = require('../services/authService');
 
-class UserController {
+class AuthController {
 	handleCreateUser = async (req, res) => {
 		try {
 			const user = await userService.createUser(req.body);
@@ -29,4 +29,4 @@ class UserController {
 	};
 }
 
-module.exports = new UserController();
+module.exports = new AuthController();
