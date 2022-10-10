@@ -9,6 +9,14 @@ class CartController {
 			return res.status(500).json({ message: e.message });
 		}
     }
+	DeleteCart = async (req, res) => {
+		try{
+			const cart = await cartService.deleteCart(req.params.id)
+			return res.status(200).json(cart);
+		} catch (e) {
+			return res.status(500).json({ message: e.message });
+		}
+	}
 }
 
 module.exports = new CartController();

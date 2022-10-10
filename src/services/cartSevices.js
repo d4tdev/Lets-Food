@@ -22,4 +22,10 @@ const createCart = (newProductId,newQuantity) => {
     })
 }
 
-module.exports = {createCart}
+
+
+const deleteCart = (id) =>{
+    return Product.deleteOne({_id: id})
+}
+
+module.exports = {createCart, deleteCart}

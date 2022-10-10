@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const cartSchema = require('./cartSchema');
 
 const CartUserSchema = new mongoose.Schema({
    userId: {
@@ -12,7 +13,8 @@ const CartUserSchema = new mongoose.Schema({
       ref: 'User',
       required: true,
       unique: true,
-   }
+   },
+   carts:[ cartSchema]
    }, { collection: 'Cart', timestamps: true });
 
 module.exports = mongoose.model('Cart', CartUserSchema);
