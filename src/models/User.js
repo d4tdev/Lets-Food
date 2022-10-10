@@ -56,13 +56,18 @@ const UserSchema = new mongoose.Schema(
 		},
 		authType: {
 			type: String,
-			enum: ['local', 'google', 'facebook', 'twitter'],
+			enum: ['local', 'google', 'facebook', 'twitter', 'github'],
 			default: 'local',
 		},
 		verified: {
 			type: Boolean,
 			default: false,
 		},
+		role: {
+			type: String,
+			enum: ['user', 'admin'],
+			default: 'user',
+		}
 	},
 	{ collection: 'User' }
 );

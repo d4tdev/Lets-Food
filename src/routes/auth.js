@@ -13,47 +13,47 @@ router.post('/resendOTP/:userId', authController.handleResendOTP);
 // website views
 // GET /auth/login
 router.get('/login', validUser, (req, res) => {
-	res.render('index');
+   res.render('index');
 });
 // GET /auth/loginLocal
 router.get('/getLoginLocal', (req, res) => {
-	res.render('loginLocal', { message: req.flash('loginLocal') });
+   res.render('loginLocal', { message: req.flash('loginLocal') });
 });
 
 // login local
 router.post(
-	'/loginLocal',
-	passport.authenticate('local-login', {
-		successRedirect: '/home',
-		failureRedirect: '/auth/getLoginLocal',
-		failureFlash: true,
-	})
+   '/loginLocal',
+   passport.authenticate('local-login', {
+      successRedirect: '/home',
+      failureRedirect: '/auth/getLoginLocal',
+      failureFlash: true,
+   })
 );
 
 // login google
 router.get('/loginGoogle', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get(
-	'/google/callback',
-	passport.authenticate('google', {
-		successRedirect: '/home',
-		failureRedirect: '/auth/login',
-	})
+   '/google/callback',
+   passport.authenticate('google', {
+      successRedirect: '/home',
+      failureRedirect: '/auth/login',
+   })
 );
 
 //login facebook
 router.get('/loginFacebook', passport.authenticate('facebook', { scope: ['email'] }));
 router.get(
-	'/facebook/callback',
-	passport.authenticate('facebook', {
-		successRedirect: '/home',
-		failureRedirect: '/auth/login',
-	})
+   '/facebook/callback',
+   passport.authenticate('facebook', {
+      successRedirect: '/home',
+      failureRedirect: '/auth/login',
+   })
 );
 
 // logout
 router.get('/logout', (req, res) => {
-	req.logout();
-	res.redirect('/');
+   req.logout();
+   res.redirect('/');
 });
 
 module.exports = router;

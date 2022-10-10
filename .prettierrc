@@ -6,7 +6,7 @@
 	"singleQuote": true,
 	"tabWidth": 3,
 	"semi": true,
-	"useTabs": true,
+	"useTabs": false,
 	"bracketSameLine": true,
 	"embeddedLanguageFormatting": "auto",
 	"quoteProps": "as-needed",
