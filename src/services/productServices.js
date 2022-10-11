@@ -1,6 +1,6 @@
 const product = require('../models/Product')
 
-const createProduct = (newName,newPrice,newdescription,newImage,newCategory)=>{
+const createProduct = (newName,newPrice,newDescription,newImage,newCategory)=>{
     return product.create({
         name: newName,
         price: newPrice,
@@ -10,8 +10,8 @@ const createProduct = (newName,newPrice,newdescription,newImage,newCategory)=>{
     })
 }
 
-const deleteProdtuct = (productId) =>{
+const deleteProduct = (productId) =>{
     return product.deleteone({_id: productId})
 }
 
-module.exports = {createProduct, deleteProdtuct}
+module.exports = {createProduct, deleteProduct}

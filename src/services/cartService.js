@@ -3,16 +3,12 @@ const Product = require('../models/Product');
 const CartProduct = require('../models/CartProduct');
 const User = require('../models/User');
 
-const createCart = (productId, quantity, userId) => {
+const createCart = (productId, userId) => {
    return new Promise(async (resolve, reject) => {
       try {
          // product require
          if (!productId) {
             return reject('Product id is required');
-         }
-         // quantity require
-         if (!quantity) {
-            return reject('Quantity is required');
          }
          // user require
          if (!userId) {
@@ -26,29 +22,32 @@ const createCart = (productId, quantity, userId) => {
          if (!user) {
             return reject('User not found');
          }
-         const cart = await Cart.findOne({ userId });
+         let cart = await Cart.findOne({ userId: userId });
          if (!cart) {
             const newCartProduct = await CartProduct.create({
                productId: productId,
-               quantity: quantity,
-               cart: userId,
+               userId: userId,
             });
-            const newCart = await Cart.create({ userId: userId, products: newCartProduct._id });
+            const newCart = await Cart.create({ userId: userId });
+            await newCart.updateOne({ $push: { products: newCartProduct._id } });
 
             return resolve({ newCart, msg: 'Cart created' });
          } else {
-            const cartProduct = await CartProduct.findOne({ productId, cart: userId });
+            let cartProduct = await CartProduct.findOne({
+               productId: productId,
+               userId: userId,
+            });
             if (!cartProduct) {
                const newCartProduct = await CartProduct.create({
                   productId: productId,
-                  quantity: quantity,
-                  cart: userId,
+                  userId: userId,
                });
-               cart.products.push(newCartProduct._id);
-               return resolve({ cart, msg: 'Product added to cart' });
+               await cart.updateOne({ $push: { products: newCartProduct._id } });
+               return resolve({ msg: 'Product added to cart' });
             } else {
-               cartProduct.quantity += quantity;
-               return resolve({ cart, msg: 'Product quantity updated' });
+               let newQuantity = +cartProduct.quantity + 1;
+               await cartProduct.updateOne({quantity: newQuantity});
+               return resolve({ msg: 'Product quantity updated' });
             }
          }
       } catch (e) {
@@ -57,4 +56,23 @@ const createCart = (productId, quantity, userId) => {
    });
 };
 
-module.exports = { createCart };
+const getCart = userId => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         const cart = await Cart.findOne({ userId: userId }).populate({
+            path: 'products',
+            populate: { path: 'productId' },
+         });
+
+         if (!cart) {
+            return reject({ msg: 'Cart not found' });
+         }
+
+         return resolve(cart);
+      } catch (e) {
+         return reject(e);
+      }
+   });
+};
+
+module.exports = { createCart, getCart };
