@@ -23,18 +23,6 @@ class CartController {
          return res.status(500).json({ message: e.message });
       }
    };
-
-   handleUpdateQuantity = async (req, res) => {
-      try {
-         const { productId, userId } = req.params;
-         const { quantity } = req.body;
-         const cart = await cartService.updateQuantity(productId, userId, quantity);
-
-         return res.status(200).json(cart);
-      } catch (e) {
-         return res.status(500).json({ message: e.message });
-      }
-   };
 }
 
 module.exports = new CartController();
