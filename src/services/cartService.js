@@ -75,4 +75,20 @@ const getCart = userId => {
    });
 };
 
-module.exports = { createCart, getCart };
+const deleteCart = (productId, userId) => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         const cart = await Cart.updateOne({userId: userId},{$pull : {products: productId}});
+
+         if (!cart) {
+            return reject({ msg: 'Cart not found' });
+         }
+
+         return resolve(cart);
+      } catch (e) {
+         return reject(e);
+      }
+   });
+};
+
+module.exports = { createCart, getCart , deleteCart };
