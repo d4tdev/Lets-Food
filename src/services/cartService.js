@@ -46,7 +46,7 @@ const createCart = (productId, userId) => {
                return resolve({ msg: 'Product added to cart' });
             } else {
                let newQuantity = +cartProduct.quantity + 1;
-               await cartProduct.updateOne({quantity: newQuantity});
+               await cartProduct.updateOne({ quantity: newQuantity });
                return resolve({ msg: 'Product quantity updated' });
             }
          }
@@ -75,4 +75,101 @@ const getCart = userId => {
    });
 };
 
-module.exports = { createCart, getCart };
+const updateQuantity = (productId, userId, quantity) => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         const cartProduct = await CartProduct.findOne({
+            productId: productId,
+            userId: userId,
+         });
+         if (!cartProduct) {
+            return reject('Product not found');
+         }
+         await cartProduct.updateOne({ quantity: quantity });
+         return resolve({ msg: 'Product quantity updated' });
+      } catch (e) {
+         return reject(e);
+      }
+   });
+};
+const updateQuantityPlus = (productId, userId) => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         const cartProduct = await CartProduct.findOne({
+            productId: productId,
+            userId: userId,
+         });
+         if (!cartProduct) {
+            return reject('Product not found');
+         }
+
+         let newQuantity = cartProduct.quantity + 1;
+         await cartProduct.updateOne({ quantity: newQuantity });
+         return resolve({ msg: 'Product quantity updated' });
+      } catch (e) {
+         return reject(e);
+      }
+   });
+};
+
+const updateQuantityMinus = (productId, userId) => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         const cartProduct = await CartProduct.findOne({
+            productId: productId,
+            userId: userId,
+         });
+         if (!cartProduct) {
+            return reject('Product not found');
+         }
+         let newQuantity = cartProduct.quantity - 1;
+         await cartProduct.updateOne({ quantity: newQuantity });
+         return resolve({ msg: 'Product quantity updated' });
+      } catch (e) {
+         return reject(e);
+      }
+   });
+};
+
+const deleteOneCartProduct = (productId, userId) => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         const cartProduct = await CartProduct.findOne({
+            productId: productId,
+            userId: userId,
+         });
+         if (!cartProduct) {
+            return reject('Product not found');
+         }
+         await cartProduct.deleteOne();
+         return resolve({ msg: 'Product in cart deleted' });
+      } catch (e) {
+         return reject(e);
+      }
+   });
+};
+
+const deleteAllCartProduct = userId => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         const cart = await Cart.findOne({ userId: userId });
+         if (!cart) {
+            return reject('Cart not found');
+         }
+         await cart.deleteOne();
+         return resolve({ msg: 'Cart deleted' });
+      } catch (e) {
+         return reject(e);
+      }
+   });
+};
+
+module.exports = {
+   createCart,
+   getCart,
+   updateQuantity,
+   updateQuantityPlus,
+   updateQuantityMinus,
+   deleteOneCartProduct,
+   deleteAllCartProduct,
+};
