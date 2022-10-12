@@ -11,7 +11,7 @@ const routes = app => {
 
    app.use('/user', userRouter);
 
-	app.use('/auth', productRouter);
+	app.use('/product', productRouter);
 
    app.use('/home', validAuth, (req, res) => {
       res.json(req.user);
