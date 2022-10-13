@@ -16,9 +16,9 @@ const routes = app => {
    app.use('/home', validAuth, (req, res) => {
       res.json(req.user);
    });
-   // app.use('/', (req, res) => {
-   // 	res.render('home', { user: req.user });
-   // });
+   app.use('/', (req, res) => {
+   	res.render('home', { user: req.user });
+   });
 };
 
 module.exports = routes;

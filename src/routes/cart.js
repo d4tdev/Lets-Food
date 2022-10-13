@@ -5,6 +5,10 @@ const cartController = require('../controllers/cartController');
 
 router.post('/create/:productId', cartController.handleCreateCart);
 router.get('/show/:userId', cartController.handleShowCart);
-router.delete('/delete/:productId/:id', cartController.handleDeleteCart);
+router.delete('/delete-one/:productId', cartController.handleDeleteOneCartProduct);
+router.delete('/delete-all', cartController.handleDeleteAllCartProduct);
+router.patch('/update-quantity/:productId', cartController.handleUpdateQuantity);
+router.patch('/update-quantity-plus/:productId', cartController.handleUpdateQuantityPlus);
+router.patch('/update-quantity-minus/:productId', cartController.handleUpdateQuantityMinus);
 
 module.exports = router;

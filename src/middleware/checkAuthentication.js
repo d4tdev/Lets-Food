@@ -15,4 +15,13 @@ const validUser = (req, res, next) => {
 	}
 };
 
+const validAdmin = (req, res, next) => {
+	if (req.user.role === 'admin') {
+		res.redirect('/admin');
+		next();
+	} else {
+		res.redirect('/home');
+	}
+};
+
 module.exports = { validUser, validAuth };
