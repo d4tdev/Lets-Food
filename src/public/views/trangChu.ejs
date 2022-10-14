@@ -106,7 +106,7 @@
                                 ><i class="fas fa-shopping-cart navbar__cart-icon"></i
                             ></a>
                             <% } %>
-                            <span class="navbar__cart__number">0</span>
+                            <span class="navbar__cart__number"><%= cart.count %> </span>
                         </div>
 
                         <% if(user) { %>
@@ -427,7 +427,7 @@
             <img src="../images/ 4.png" alt="" class="footer__decor__3" />
         </footer>
         <!-- FOOTER -->
-
+        
         <!-- javascript -->
 
         <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>

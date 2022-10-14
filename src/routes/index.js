@@ -4,6 +4,12 @@ const userRouter = require('./user');
 const productRouter = require('./product');
 const { validAuth } = require('../middleware/checkAuthentication');
 
+//
+//
+//
+const Cart = require('../models/Cart');
+//
+
 const routes = app => {
 
    app.use('/auth', authRouter);
@@ -13,9 +19,11 @@ const routes = app => {
 
 	app.use('/product', productRouter);
 
-   app.use('/home', (req, res) => {
+   app.use('/home', async (req, res) => {
+      const cart = await Cart.findOne({ userId: req.user._id });
+      console.log(cart);
       // res.json(req.user);
-      res.render('trangChu', { user: req.user });
+      res.render('trangChu', {cart, user: req.user });
    });
 
    app.use('/check_login', (req, res) => {
