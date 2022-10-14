@@ -100,26 +100,27 @@
                             <a href="/cart/show/<%= user._id %>"
                                 ><i class="fas fa-shopping-cart navbar__cart-icon"></i
                             ></a>
+                            <span class="navbar__cart__number"><%= cart.count %> </span>
                             <a data="<%= user._id %>" class="user_id"></a>
                             <% } else { %>
                             <a href="/auth/getLoginLocal"
                                 ><i class="fas fa-shopping-cart navbar__cart-icon"></i
                             ></a>
+                            <span class="navbar__cart__number"> 0 </span>
                             <% } %>
-                            <span class="navbar__cart__number"><%= cart.count %> </span>
                         </div>
 
                         <% if(user) { %>
 
                         <div class="account">
-                            <a href="./pages/userInfomation.html">
+                            <a href="/user/show/<%= user._id %>">
                                 <img src="<%= user.avatar %>" alt="" class="account__avt" />
                             </a>
 
                             <div class="account__container">
                                 <ul class="account__list">
                                     <li class="account__item">
-                                        <a href="./pages/userInfomation.html" class="account__link">
+                                        <a href="/user/show/<%= user._id %>" class="account__link">
                                             <i class="fas fa-user"></i>
                                             <span>Thông tin tài khoản</span>
                                         </a>
@@ -427,7 +428,7 @@
             <img src="../images/ 4.png" alt="" class="footer__decor__3" />
         </footer>
         <!-- FOOTER -->
-        
+
         <!-- javascript -->
 
         <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>

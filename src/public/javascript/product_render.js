@@ -32,7 +32,7 @@ fetch(url).then(async res => {
     console.log(data);
 
     data.forEach(item => {
-        menuItems.innerHTML += `                
+        menuItems.innerHTML += `
                 <div class="menu__item">
                         <img src="${item.image}" alt="${item.name}" class="img__menu" />
                         <div class="content__menu_item_text">

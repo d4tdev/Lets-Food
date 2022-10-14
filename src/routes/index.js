@@ -20,10 +20,14 @@ const routes = app => {
 	app.use('/product', productRouter);
 
    app.use('/home', async (req, res) => {
-      const cart = await Cart.findOne({ userId: req.user._id });
+      if (req.user) {
+         const cart = await Cart.findOne({ userId: req.user._id });
       console.log(cart);
       // res.json(req.user);
       res.render('trangChu', {cart, user: req.user });
+      } else {
+         res.render('trangChu', {cart: null, user: null });
+      }
    });
 
    app.use('/check_login', (req, res) => {

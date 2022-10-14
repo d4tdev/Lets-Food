@@ -14,8 +14,8 @@
         />
 
         <!-- css -->
-        <link rel="stylesheet" href="../css/css-userInfo/style.css" />
-        <link rel="stylesheet" href="../css/css-userInfo/responsive.css" />
+        <link rel="stylesheet" href="../../../../css/css-userInfo/style.css" />
+        <link rel="stylesheet" href="../../../../css/css-userInfo/responsive.css" />
 
         <title>Thông tin người dùng</title>
     </head>
@@ -29,34 +29,34 @@
                             <span class="navbar__title"> Trang chủ </span>
                         </a>
 
-                        <img src="../images/Saly-3.png" alt="" class="" />
+                        <img src="../../images/Saly-3.png" alt="" class="" />
                     </div>
                 </div>
                 <div class="white">
-                    <a href="../index.html" class="back__home-mb">
+                    <a href="../../index.html" class="back__home-mb">
                         <i class="fas fa-arrow-left arrow__home"></i>
                         <span class="navbar__title"> Trang chủ </span>
                     </a>
-                    <form class="form" action="">
+                    <form class="form" action="/user/update_profile/<%= user._id %> " method="POST">
                         <h3 class="form__title">Hồ sơ người dùng</h3>
                         <div class="userInfo__form__item">
-                            <label for="" class="label__form__userInfo"> Họ và tên </label>
-                            <input type="text" class="input__userInfo" />
+                            <label for="" class="label__form__userInfo"> Họ và tên đệm </label>
+                            <input type="text" class="input__userInfo" name="firstName" value="<%= user.firstName %>"/>
+                        </div>
+                        <div class="userInfo__form__item">
+                            <label for="" class="label__form__userInfo"> Tên </label>
+                            <input type="text" class="input__userInfo" name="lastName" value="<%=  user.lastName %>"/>
                         </div>
                         <div class="userInfo__form__item">
                             <label for="" class="label__form__userInfo"> Số điện thoại </label>
-                            <input type="text" class="input__userInfo" />
+                            <input type="text" class="input__userInfo" name="number" value="<%= user.number %> "/>
                         </div>
                         <div class="userInfo__form__item">
                             <label for="" class="label__form__userInfo"> Địa chỉ </label>
-                            <input type="text" class="input__userInfo" />
-                        </div>
-                        <div class="userInfo__form__item">
-                            <label for="" class="label__form__userInfo"> Giới tính </label>
-                            <input type="text" class="input__userInfo" />
+                            <input type="text" class="input__userInfo" name="address" value="<%= user.address %> "/>
                         </div>
                         <div class="form__btn">
-                            <button class="form__save__btn">Lưu thông tin</button>
+                            <button type="submit" class="form__save__btn">Lưu thông tin</button>
                         </div>
                     </form>
                 </div>

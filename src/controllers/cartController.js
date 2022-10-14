@@ -7,7 +7,8 @@ class CartController {
          const { _id } = req.user;
          // const { _id } = req.body;
          const cart = await cartService.createCart(productId, _id);
-         return res.status(200).json(cart);
+         // return res.status(200).json(cart);
+         return res.redirect('/home');
       } catch (e) {
          return res.status(500).json({ message: e.message });
       }

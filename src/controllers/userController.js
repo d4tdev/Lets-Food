@@ -321,14 +321,15 @@ class UserController {
 
 	getUserProfile = async (req, res) => {
       try {
-         const { userId } = req.params;
+         // const { userId } = req.params;
 
-         const user = await User.findById(userId);
-         if (!user) {
-            return res.status(403).json('User not found');
-         }
+         // const user = await User.findById(userId);
+         // if (!user) {
+         //    return res.status(403).json('User not found');
+         // }
 
-         return res.status(200).json(user);
+         // return res.status(200).json(user);
+         return res.render('thongTinNguoiDung', { user: req.user });
       } catch (e) {
          return res.status(500).json({ error: e });
       }
@@ -337,7 +338,7 @@ class UserController {
    updateUserProfile = async (req, res) => {
       try {
          const { userId } = req.params;
-         const { firstName, lastName, phone, address } = req.body;
+         const { firstName, lastName, number, address } = req.body;
 
          const user = await User.findById(userId);
          if (!user) {
@@ -346,7 +347,7 @@ class UserController {
 
          await User.updateOne(
             { _id: userId },
-            { firstName: firstName, lastName: lastName, phone: phone, address: address }
+            { firstName: firstName, lastName: lastName, number: number, address: address }
          );
 
          return res.status(200).json('Updated profile successfully');

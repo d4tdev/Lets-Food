@@ -52,7 +52,10 @@
                                 </div>
                                 <div class="cart__item__mb">
                                     <div class="cart__item__price">
-                                        <span class="cart__item__price__title"><%= product.productId.price %></span>
+                                        <span class="cart__item__price__title"><%= new Intl.NumberFormat('vi-VN', {
+                                            style: 'currency',
+                                            currency: 'VND',
+                                        }).format(product.productId.price) %></span>
                                     </div>
                                     <div class="cart__item__quantity">
                                         <div class="cart__item__quantity__block">
@@ -73,7 +76,12 @@
                                         </div>
                                     </div>
                                     <div class="cart__item__total">
-                                        <span class="cart__item__total__title"><%= (Number(product.productId.price) * Number(product.quantity)) %></span>
+                                        <span class="cart__item__total__title">
+                                            <%= new Intl.NumberFormat('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            }).format((Number(product.productId.price) * Number(product.quantity))) %>
+                                        </span>
                                     </div>
                                     <div class="cart__item__action">
                                         <a class="cart__item__action__btn btn__delete" data="<%= product.productId._id %>">
@@ -108,15 +116,24 @@
                                 <% let totalMoney = total + ship %>
                                 <div class="cart__total__block">
                                     <span class="cart__total__title"> Tạm tính </span>
-                                    <span class="cart__total__price total__price__origin"><%= total %> </span>
+                                    <span class="cart__total__price total__price__origin"><%= new Intl.NumberFormat('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    }).format(total) %> </span>
                                 </div>
                                 <div class="cart__total__block">
                                     <span class="cart__total__title"> Phí vận chuyển </span>
-                                    <span class="cart__total__price ship__price"><%= ship %> </span>
+                                    <span class="cart__total__price ship__price"><%= new Intl.NumberFormat('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    }).format(ship) %> </span>
                                 </div>
                                 <div class="cart__total__block">
                                     <span class="cart__total__title"> Tổng cộng </span>
-                                    <span class="cart__total__price total__price"><%= totalMoney %> </span>
+                                    <span class="cart__total__price total__price"><%= new Intl.NumberFormat('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    }).format(totalMoney) %> </span>
                                 </div>
                             </div>
                             <button class="cart__total__btn">Đặt hàng</button>
@@ -161,7 +178,7 @@
 
             buttonDelete.forEach((button, index) => {
                 button.addEventListener('click', () => {
-                    console.log(button.attributes) 
+                    console.log(button.attributes)
                     productId = button.attributes[1].value;
                     deleteForm.action = `/cart/delete-one/${productId}?_method=DELETE`;
                     deleteForm.submit();
