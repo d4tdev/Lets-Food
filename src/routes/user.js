@@ -10,4 +10,8 @@ router.post('/verify_reset_password/:userId', userController.verifyResetPassword
 router.post('/change_password/:userId', userController.changePassword);
 router.post('/update_profile/:userId', userController.updateUserProfile);
 
+router.get('/forgot_password', (req, res) => {
+    res.render('quenMatKhau');
+})
+
 module.exports = router;

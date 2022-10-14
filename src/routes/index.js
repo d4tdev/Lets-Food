@@ -13,12 +13,18 @@ const routes = app => {
 
 	app.use('/product', productRouter);
 
-   app.use('/home', validAuth, (req, res) => {
+   app.use('/home', (req, res) => {
+      // res.json(req.user);
+      res.render('trangChu', { user: req.user });
+   });
+
+   app.use('/check_login', (req, res) => {
       res.json(req.user);
    });
-   app.use('/', (req, res) => {
-   	res.render('home', { user: req.user });
-   });
+
+   // app.use('/', (req, res) => {
+   // 	res.render('home', { user: req.user });
+   // });
 };
 
 module.exports = routes;

@@ -1,0 +1,140 @@
+@media (max-width: 575.98px) {
+
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    body {
+        overflow-y: hidden;
+    }
+
+    .root {
+        overflow-y: hidden;
+    }
+
+    .navbar {
+        padding-top: 15px;
+        padding-left: 15px;
+    }
+
+    .category {
+        display: none;
+    }
+
+    .cart__content {
+        padding: 15px;
+    }
+
+    .cart__item {
+        position: relative;
+        flex-direction: column;
+    }
+
+    .cart__item__info {
+        width: 100%;
+    }
+
+    .cart__item__name__title {
+        margin-left: 80px;
+    }
+
+    .cart__item__img {
+        position: absolute;
+        left: 0;
+        top: 20%;
+    } 
+    
+    .cart__item__price {
+        width: 20%;
+    }
+
+    .cart__item__price__title {
+        font-size: 1.2rem;
+    }
+
+    .cart__item__mb {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin-top: 10px;
+        margin-left: 100px;
+    }
+
+    .cart__item__quantity {
+        width: 40%;
+    }
+
+    .cart__item__total {
+        width: 0;
+        display: none;
+    }
+
+    .cart__item__action {
+        width: 20%;
+    }
+
+    .cart__list {
+        height: 50vh;
+        overflow-x: hidden;
+    }
+
+    .cart__footer {
+        margin-top: 5px;
+        flex-direction: column;
+    }
+
+    .cart__message {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cart__total__title {
+        font-size: 1.2rem;
+    }
+
+    .cart__message__input {
+        width: 100%;
+    }
+
+    .cart__total {
+        padding: 15px;
+        width: 100%;
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .cart__total__block__mb {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        gap: 15px;
+    }
+
+    .cart__total__block {
+        text-align: center;
+    }
+
+    .cart__total__btn {
+        width: 100%;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+
+}
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+    .orange {
+        display: none;
+    }
+
+    .white {
+        width: 100vw;
+    }
+
+    .cart__total {
+        gap: 15px;
+    }
+}

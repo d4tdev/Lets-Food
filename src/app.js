@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const flash = require('connect-flash');
 
+const methodOverride = require('method-override');
+
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
@@ -27,7 +29,7 @@ app.use(
 	session({
 		store: MongoStore.create({
 			autoRemove: 'interval',
-			autoRemoveInterval: 60,
+			autoRemoveInterval: 1800,
 			mongoUrl: process.env.MONGO_URI,
 			mongoOptions: {
 				useNewUrlParser: true,
@@ -39,7 +41,7 @@ app.use(
 		resave: false,
 		saveUninitialized: false,
 		cookie: {
-			maxAge: 1 * 60 * 1000,
+			maxAge: 30 * 60 * 1000,
 			httpOnly: true
 		},
 	})
@@ -54,6 +56,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public', 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+app.use(methodOverride('_method'));
 app.use(morgan('combined'));
 app.use(flash());
 app.use(cookieParser());

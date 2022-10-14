@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- font google -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- css -->
+
+        <link rel="stylesheet" href="../../css/css-cart/style.css" type="text/css"/>
+        <link rel="stylesheet" href="../../css/css-cart/responsive.css" type="text/css"/>
+
+        <title>Giỏ hàng</title>
+    </head>
+    <body>
+        <div class="root">
+            <div class="white">
+                <div class="navbar__block">
+                    <a class="navbar" href="/home">
+                        <i class="fas fa-arrow-left arrow__home"></i>
+                        <span class="navbar__title"> Trang chủ </span>
+                    </a>
+                </div>
+                <div class="cart__content">
+                    <ul class="category">
+                        <li class="category__item">Sản phẩm</li>
+                        <li class="category__item">Đơn giá</li>
+                        <li class="category__item">Số lượng</li>
+                        <li class="category__item">Số tiền</li>
+                        <li class="category__item">Thao tác</li>
+                    </ul>
+
+                    <div class="cart__list">
+                        <!-- hiện thị sản phẩm trong giỏ hàng -->
+                        <% cart.products.forEach( (product) => { %>
+                            <div class="cart__item">
+                                <div class="cart__item__info">
+                                    <div class="cart__item__img">
+                                        <img src="<%= product.productId.image %>" alt="" />
+                                    </div>
+                                    <div class="cart__item__name">
+                                        <span class="cart__item__name__title"><%= product.productId.name %> </span>
+                                    </div>
+                                </div>
+                                <div class="cart__item__mb">
+                                    <div class="cart__item__price">
+                                        <span class="cart__item__price__title"><%= product.productId.price %></span>
+                                    </div>
+                                    <div class="cart__item__quantity">
+                                        <div class="cart__item__quantity__block">
+                                            <button class="cart__item__quantity__btn btn__minus">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input
+                                                class="cart__item__quantity__input input__number"
+                                                type="number"
+                                                value="<%= product.quantity %>"
+                                                min="1"
+                                                step="1"
+                                                disabled
+                                            />
+                                            <button class="cart__item__quantity__btn btn__plus">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="cart__item__total">
+                                        <span class="cart__item__total__title"><%= (Number(product.productId.price) * Number(product.quantity)) %></span>
+                                    </div>
+                                    <div class="cart__item__action">
+                                        <a class="cart__item__action__btn btn__delete" data="<%= product.productId._id %>">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+
+                    <div class="cart__footer">
+                        <div class="cart__message">
+                            <h3 class="cart__message__title">Thêm chú thích cho đơn hàng</h3>
+                            <input
+                                type="text"
+                                class="cart__message__input"
+                                placeholder="Ví dụ: Không thêm tương ớt,..."
+                            />
+                        </div>
+                        <div class="cart__total">
+                            <div class="cart__total__block__mb">
+                                <!-- hiện thị tổng tiền -->
+                                <!-- tính tổng tiền -->
+                                <% let total = 0 %>
+                                <% cart.products.forEach((product) => { %>
+                                    <% total += (Number(product.productId.price) * Number(product.quantity)) %>
+                                <% }) %>
+                                <!-- tiền ship -->
+                                <% let ship = 10000 %>
+                                <!-- tổng tiền -->
+                                <% let totalMoney = total + ship %>
+                                <div class="cart__total__block">
+                                    <span class="cart__total__title"> Tạm tính </span>
+                                    <span class="cart__total__price total__price__origin"><%= total %> </span>
+                                </div>
+                                <div class="cart__total__block">
+                                    <span class="cart__total__title"> Phí vận chuyển </span>
+                                    <span class="cart__total__price ship__price"><%= ship %> </span>
+                                </div>
+                                <div class="cart__total__block">
+                                    <span class="cart__total__title"> Tổng cộng </span>
+                                    <span class="cart__total__price total__price"><%= totalMoney %> </span>
+                                </div>
+                            </div>
+                            <button class="cart__total__btn">Đặt hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="orange">
+                <div class="pay">
+                    <h3 class="pay__title">Lựa chọn phương thức thanh toán</h3>
+                    <div class="pay__select">
+                        <div class="radio">
+                            <input id="radio-1" name="radio" type="radio" checked />
+                            <label for="radio-1" class="radio-label">Thanh toán bằng Momo</label>
+                        </div>
+                        <div class="radio">
+                            <input id="radio-2" name="radio" type="radio" />
+                            <label for="radio-2" class="radio-label">Thanh toán khi nhận hàng</label>
+                        </div>
+                    </div>
+                </div>
+                <img src="../../images/cart.png" alt="" class="cart__img" />
+            </div>
+        </div>
+
+        <form action="" method="POST" name="delete-form"></form>
+
+        <!-- javascript -->
+        <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
+        <!-- <script src="../../javascript/cartUser.js"></script> -->
+
+        <script>
+            // const pointer = document.querySelectorAll(".pointer");
+            const deleteForm = document.forms["delete-form"];
+            // console.log(pointer)
+
+            let productId;
+
+            const buttonDelete = document.querySelectorAll('.btn__delete');
+
+            // chọn sản phẩm cần xóa và cập nhật lại vị trí của các sản phẩm còn lại
+
+            buttonDelete.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    console.log(button.attributes) 
+                    productId = button.attributes[1].value;
+                    deleteForm.action = `/cart/delete-one/${productId}?_method=DELETE`;
+                    deleteForm.submit();
+                });
+            });
+        </script>
+    </body>
+</html>

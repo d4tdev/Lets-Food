@@ -1,0 +1,170 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+body {
+    font-family: 'Readex Pro', sans-serif;
+    line-height: 1.5;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+    outline: none;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+a {
+    text-decoration: none;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+:root {
+    --max-width: 1200px;
+    --background-color: #fff9ea;
+    --yellow-color: #ffcb45;
+    --orange-color: #ffac4b;
+    --black-color: #1d1d1d;
+}
+
+.container {
+    position: relative;
+}
+
+.content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.orange {
+    width: 50vw;
+    height: 100vh;
+    background-color: var(--orange-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.white {
+    width: 50vw;
+    height: 100vh;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form__container {
+    position: absolute;
+    width: 600px;
+    max-height: 650px;
+    background: #ffffff;
+    box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
+    border-radius: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px 40px;
+}
+
+.welcome p {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--black-color);
+    opacity: 0.6;
+}
+
+.welcome h2{
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--black-color);
+    margin-bottom: 20px;
+}
+
+.label {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--black-color);
+    opacity: 0.6;
+}
+
+.input {
+    width: 100%;
+    height: 50px;
+    background: #f5f5f5;
+    border: 1px solid #f5f5f5;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin: 10px 0;
+}
+
+.input:focus {
+    border: 1px solid var(--orange-color);
+}
+
+.forgot__password {
+    float: right;
+    color: var(--orange-color);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.btn {
+    width: 100%;
+    height: 50px;
+    background: var(--orange-color);
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: var(--yellow-color);
+}
+
+.message__send {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--black-color);
+    margin-bottom: 20px;
+}
+
+.message__send span {
+    color: var(--orange-color);
+    opacity: 1;
+}

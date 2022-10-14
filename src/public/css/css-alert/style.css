@@ -1,0 +1,84 @@
+:root {
+    --red-color: #F96666;
+    --black-color: #1D1D1D;
+    --success-color: #2BDE3F;
+    --info-color: #1D72F3;
+    --warn-color: #FFC007;
+}
+
+body {
+    position: relative;
+}
+
+.alert {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.alert__container {
+    background-color: white;
+    padding: 10px 20px 10px 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.alert__icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.alert__icon-close {
+    font-size: 18px;
+    color: var(--black-color);
+    transition: all 0.3s ease;
+}
+
+.alert__icon-close:hover {
+    color: var(--red-color);
+}
+
+/* success */
+
+.alert-success {
+    border-left: 5px solid var(--success-color);
+}
+
+.alert-success__icon {
+    color: var(--success-color);
+}
+
+/* info */
+
+.alert-info {
+    border-left: 5px solid var(--info-color);
+}
+
+.alert-info__icon {
+    color: var(--info-color);
+}
+
+/* warn */
+
+.alert-warn {
+    border-left: 5px solid var(--warn-color);
+}
+
+.alert-warn__icon {
+    color: var(--warn-color);
+}
+
+/* error */
+
+.alert-error {
+    border-left: 5px solid var(--red-color);
+}
+
+.alert-error__icon {
+    color: var(--red-color);
+}

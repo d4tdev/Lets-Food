@@ -18,9 +18,10 @@ class CartController {
          const { userId } = req.params;
          const cart = await cartService.getCart(userId);
 
-         return res.status(200).json(cart);
+         return res.render('gioHang', { cart, user: req.user });
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         // return res.status(500).json({ message: e.message });
+         return res.render('404');
       }
    };
 
@@ -86,7 +87,8 @@ class CartController {
 
          const cart = cartService.deleteOneCartProduct(productId, _id);
 
-         return res.status(200).json(cart);
+         // res.status(200).json(cart);
+         return res.redirect('/cart/show/' + _id);
       } catch (e) {
          return res.status(500).json({ message: e.message });
       }
