@@ -28,7 +28,7 @@ const createCart = (productId, userId) => {
                productId: productId,
                userId: userId,
             });
-            const newCart = await Cart.create({ userId: userId });
+            const newCart = await Cart.create({ userId: userId, count: 1 });
             await newCart.updateOne({ $push: { products: newCartProduct._id } });
 
             return resolve({ newCart, msg: 'Cart created' });
@@ -42,7 +42,7 @@ const createCart = (productId, userId) => {
                   productId: productId,
                   userId: userId,
                });
-               await cart.updateOne({ $push: { products: newCartProduct._id } });
+               await cart.updateOne({ $push: { products: newCartProduct._id }, count: cart.count + 1 });
                return resolve({ msg: 'Product added to cart' });
             } else {
                let newQuantity = +cartProduct.quantity + 1;
@@ -142,6 +142,10 @@ const deleteOneCartProduct = (productId, userId) => {
             return reject('Product not found');
          }
          await cartProduct.deleteOne();
+
+         // tìm thằng cart của user đó
+         let cart = await Cart.findOne({ userId: userId });
+         await Cart.updateOne({ count: cart.count - 1 });
          return resolve({ msg: 'Product in cart deleted' });
       } catch (e) {
          return reject(e);

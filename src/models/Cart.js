@@ -16,6 +16,9 @@ const CartUserSchema = new mongoose.Schema(
             unique: true,
          },
       ],
+      count: {
+         type: Number,
+      }
    },
    { collection: 'Cart', timestamps: true }
 );
