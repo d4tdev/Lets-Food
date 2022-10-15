@@ -175,7 +175,7 @@ input::-webkit-inner-spin-button {
     width: 40%;
 }
 
-.cart__item__img img{
+.cart__item__img img {
     width: 60px;
     height: 60px;
     object-fit: cover;
@@ -220,6 +220,11 @@ input::-webkit-inner-spin-button {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.btn__minus.disabled {
+    pointer-events: none;
+    cursor: default;
 }
 
 .cart__item__quantity__input {

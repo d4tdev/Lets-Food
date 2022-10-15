@@ -212,6 +212,10 @@
             buttonMinus.forEach((button, index) => {
                 button.addEventListener('click', () => {
                     productId = button.attributes[1].value;
+                    // nếu số lượng = 1 thì không cho giảm nữa
+                    if (button.nextElementSibling.value == 1) {
+                        return;
+                    }
                     deleteForm.action = `/cart/update-quantity-minus/${productId}?_method=PATCH`;
                     deleteForm.submit();
                 });
