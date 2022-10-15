@@ -117,6 +117,24 @@
     .cart__total__btn {
         width: 100%;
     }
+
+    .modal {
+        width: 90vw;
+    }
+
+    .modal__content__body {
+        padding: 15px;
+        flex-direction: column;
+    }
+
+    .modal__content__body__text {
+        max-width: 500px;
+        text-align: center;
+    }
+
+    .modal__content__body img {
+        width: 70%;
+    }
 }
 
 /* Medium devices (tablets, less than 992px) */

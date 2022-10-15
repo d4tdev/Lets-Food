@@ -56,7 +56,8 @@ class CartController {
 
          const cart = await cartService.updateQuantityPlus(productId, _id);
 
-         return res.status(200).json(cart);
+         // return res.status(200).json(cart);
+         return res.redirect('/cart/show/' + _id);
       } catch (e) {
          return res.status(500).json({ message: e.message });
       }
@@ -72,7 +73,8 @@ class CartController {
 
          const cart = await cartService.updateQuantityMinus(productId, _id);
 
-         return res.status(200).json(cart);
+         // return res.status(200).json(cart);
+         return res.redirect('/cart/show/' + _id);
       } catch (e) {
          return res.status(500).json({ message: e.message });
       }

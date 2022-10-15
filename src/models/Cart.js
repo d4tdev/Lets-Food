@@ -18,6 +18,7 @@ const CartUserSchema = new mongoose.Schema(
       ],
       count: {
          type: Number,
+         default: 0,
       }
    },
    { collection: 'Cart', timestamps: true }

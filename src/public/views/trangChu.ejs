@@ -97,16 +97,16 @@
                     <div class="navbar__cart__login">
                         <div class="navbar__cart">
                             <% if(user) { %>
-                            <a href="/cart/show/<%= user._id %>"
-                                ><i class="fas fa-shopping-cart navbar__cart-icon"></i
-                            ></a>
-                            <span class="navbar__cart__number"><%= cart.count %> </span>
-                            <a data="<%= user._id %>" class="user_id"></a>
+                                <a href="/cart/show/<%= user._id %>"
+                                    ><i class="fas fa-shopping-cart navbar__cart-icon"></i
+                                ></a>
+                                <span class="navbar__cart__number"><%= cart.count%> </span>
+                                <a data="<%= user._id %>" class="user_id"></a>
                             <% } else { %>
-                            <a href="/auth/getLoginLocal"
-                                ><i class="fas fa-shopping-cart navbar__cart-icon"></i
-                            ></a>
-                            <span class="navbar__cart__number"> 0 </span>
+                                <a href="/auth/getLoginLocal"
+                                    ><i class="fas fa-shopping-cart navbar__cart-icon"></i
+                                ></a>
+                                <span class="navbar__cart__number"> 0 </span>
                             <% } %>
                         </div>
 
