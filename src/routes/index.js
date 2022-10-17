@@ -13,8 +13,8 @@ const Cart = require('../models/Cart');
 //
 
 const routes = app => {
-    app.use('/zohoverify/zohoverify.html', (req, res) => {
-        res.sendFile(path.join(__dirname, '../public/views/zohoverify.html'));
+    app.use('/zohoverify/verifyforzoho.html', (req, res) => {
+        res.sendFile(path.join(__dirname, '../public/views/verifyforzoho.html'));
     });
 
     app.use('/auth', authRouter);
