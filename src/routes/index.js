@@ -49,6 +49,10 @@ const routes = app => {
     app.use('/', (req, res) => {
     	res.redirect('/home');
     });
+    
+    app.use('/about_us', (req, res) => {
+        res.render('aboutUs');
+    })
 };
 
 module.exports = routes;
