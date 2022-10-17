@@ -1,6 +1,6 @@
 const menuItems = document.querySelector('.menu__items');
 
-const url = 'http://localhost:3000/product/get';
+const url = 'https://letsfood.click/product/get';
 
 let login = false;
 
@@ -14,7 +14,7 @@ const formatPrice = (price) => {
 };
 
 const checkLogin = () => {
-    fetch('http://localhost:3000/check_login')
+    fetch('https://letsfood.click/check_login')
         .then(res => res.json())
         .then(data => {
             if (data) {

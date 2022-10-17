@@ -7,7 +7,7 @@ class AuthController {
          // return res.status(200).json(user);
          return res.render('sendMail', { user });
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         return res.render('dangKy', { message: e.message });
       }
    };
 
@@ -18,10 +18,10 @@ class AuthController {
          if (response) {
             return res.redirect('/auth/getLoginLocal');
          } else {
-            return res.render('verifyOTP', { response });
+            return res.render('otp', { response });
          }
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         return res.render('otp', { message: e.message });
       }
    };
 
@@ -31,7 +31,7 @@ class AuthController {
          // return res.status(200).json(user);
          return res.render('sendMail', { user });
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         return res.render('sendMail', { message: e.message });
       }
    };
 
@@ -40,7 +40,7 @@ class AuthController {
          const user = await userService.getOTPPage(req.params);
          return res.render('otp', { user });
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         return res.render('otp', { message: e.message });
       }
    };
 }

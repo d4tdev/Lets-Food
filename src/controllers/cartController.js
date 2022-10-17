@@ -10,7 +10,7 @@ class CartController {
          // return res.status(200).json(cart);
          return res.redirect('/home');
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         return res.render('home', { message: e.message });
       }
    };
 
@@ -22,7 +22,7 @@ class CartController {
          return res.render('gioHang', { cart, user: req.user });
       } catch (e) {
          // return res.status(500).json({ message: e.message });
-         return res.render('gioHang', { cart: null });
+         return res.render('gioHang', { cart: null, message: e.message });
       }
    };
 
@@ -51,15 +51,16 @@ class CartController {
          const { productId } = req.params;
          const { _id } = req.user;
          if (!productId) {
-            return res.status(400).json({ message: 'Product id is required' });
+            return res.render('gioHang', { message: 'Product id is required' });
          }
 
-         const cart = await cartService.updateQuantityPlus(productId, _id);
+         const message = await cartService.updateQuantityPlus(productId, _id);
 
          // return res.status(200).json(cart);
-         return res.redirect('/cart/show/' + _id);
+         // return res.redirect('/cart/show/' + _id);
+         return res.render('gioHang', { message, user: req.user, });
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         return res.render('gioHang', { message: e.message });
       }
    };
 
@@ -71,12 +72,13 @@ class CartController {
             return res.status(400).json({ message: 'Product id is required' });
          }
 
-         const cart = await cartService.updateQuantityMinus(productId, _id);
+         const message = await cartService.updateQuantityMinus(productId, _id);
 
          // return res.status(200).json(cart);
-         return res.redirect('/cart/show/' + _id);
+         // return res.redirect('/cart/show/' + _id);
+         return res.render('gioHang', { message, user: req.user });
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         return res.render('gioHang', { message: e.message})
       }
    };
 
@@ -88,12 +90,13 @@ class CartController {
             return res.status(400).json({ message: 'Product id is required' });
          }
 
-         const cart = cartService.deleteOneCartProduct(productId, _id);
+         const message = cartService.deleteOneCartProduct(productId, _id);
 
          // res.status(200).json(cart);
-         return res.redirect('/cart/show/' + _id);
+         // return res.redirect('/cart/show/' + _id);
+         return res.render('gioHang', { message, user: req.user });
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         return res.render('gioHang', { message: e.message})
       }
    };
 

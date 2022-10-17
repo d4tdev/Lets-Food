@@ -30,15 +30,15 @@ class UserController {
             style="
                background-color: #ffac4b;
                min-height: 80vh;
-               width: 77vw;
+               min-width: 76vw;
                font-family: 'Readex Pro', sans-serif;
             ">
-            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px;">
+            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px; padding-bottom: 100px;">
                <div
                   class="container"
                   style="
                      max-width: 500px;
-                     height: 500px;
+                     max-height: 500px;
                      background-color: #fff9ea;
                      border-radius: 12px;
                      padding: 20px;
@@ -161,15 +161,15 @@ class UserController {
             style="
                background-color: #ffac4b;
                min-height: 80vh;
-               width: 77vw;
+               min-width: 76vw;
                font-family: 'Readex Pro', sans-serif;
             ">
-            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px;">
+            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px; padding-bottom: 100px;">
                <div
                   class="container"
                   style="
                      max-width: 500px;
-                     height: 500px;
+                     max-height: 500px;
                      background-color: #fff9ea;
                      border-radius: 12px;
                      padding: 20px;
@@ -331,7 +331,7 @@ class UserController {
          // return res.status(200).json(user);
          return res.render('thongTinNguoiDung', { user: req.user });
       } catch (e) {
-         return res.status(500).json({ error: e });
+         return res.render('thongTinNguoiDung', { message: 'No user found!!!', user: req.user });
       }
    };
 
@@ -350,9 +350,9 @@ class UserController {
             { firstName: firstName, lastName: lastName, number: number, address: address }
          );
 
-         return res.status(200).json('Updated profile successfully');
+         return res.render('thongTinNguoiDung', { message: 'Update profile successfully', user: req.user });
       } catch (e) {
-         return res.status(500).json({ error: e });
+         return res.render('thongTinNguoiDung', { message: 'Update profile failed', user: req.user });
       }
    };
 }

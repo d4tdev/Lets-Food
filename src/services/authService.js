@@ -58,15 +58,15 @@ const sendOtpVerification = user => {
                   style="
                         background-color: #ffac4b;
                         min-height: 80vh;
-                        width: 76vw;
+                        min-width: 76vw;
                         font-family: 'Readex Pro', sans-serif;
                   ">
-                  <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px;">
+                  <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px; padding-bottom: 100px;">
                         <div
                            class="container"
                            style="
                            max-width: 500px;
-                           height: 500px;
+                           max-height: 500px;
                            background-color: #fff9ea;
                            border-radius: 12px;
                            padding: 20px;

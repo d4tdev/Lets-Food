@@ -13,16 +13,17 @@ const Cart = require('../models/Cart');
 //
 
 const routes = app => {
-    app.use('/zohoverify/verifyforzoho.html', (req, res) => {
-        res.sendFile(path.join(__dirname, '../public/views/verifyforzoho.html'));
-    });
-
     app.use('/auth', authRouter);
+
     app.use('/cart', cartRouter);
 
     app.use('/user', userRouter);
 
     app.use('/product', productRouter);
+
+    app.use('/about_us', (req, res) => {
+        res.render('aboutUs');
+    })
 
     app.use('/home', async (req, res) => {
         if (req.user) {
@@ -49,10 +50,7 @@ const routes = app => {
     app.use('/', (req, res) => {
     	res.redirect('/home');
     });
-    
-    app.use('/about_us', (req, res) => {
-        res.render('aboutUs');
-    })
+
 };
 
 module.exports = routes;
