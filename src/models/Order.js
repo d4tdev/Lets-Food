@@ -22,6 +22,11 @@ const OrderSchema = new mongoose.Schema({
    },
    note: {
       type: String,
+   },
+   expireAt: {
+      type: Date,
+      default: Date.now,
+      index: { expires: '30d' },
    }
 }, {collection: 'Order', timestamps: true});
 
