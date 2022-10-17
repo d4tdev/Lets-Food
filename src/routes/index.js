@@ -46,9 +46,9 @@ const routes = app => {
         res.json(req.user);
     });
 
-    // app.use('/', (req, res) => {
-    // 	res.render('home', { user: req.user });
-    // });
+    app.use('/', (req, res) => {
+    	res.redirect('/home');
+    });
 };
 
 module.exports = routes;

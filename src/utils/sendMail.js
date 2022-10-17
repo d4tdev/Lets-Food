@@ -35,7 +35,7 @@ module.exports = async (email, subject, html) => {
 		});
 
 		await transporter.sendMail({
-			from: process.env.USER_MAIL,
+			from: '"Let\'s Food 🍲" <process.env.USER_MAIL>',
 			to: email,
 			subject: subject,
 			html: html,
