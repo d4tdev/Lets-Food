@@ -14,11 +14,11 @@
         />
 
         <!-- css -->
-        <link rel="stylesheet" href="../css/css-sendVerify/style.css" />
-        <link rel="stylesheet" href="../css/css-sendVerify/responsive.css" />
+        <link rel="stylesheet" href="../../css/css-sendVerify/style.css" />
+        <link rel="stylesheet" href="../../css/css-sendVerify/responsive.css" />
 
         <!-- alert -->
-        <link rel="stylesheet" href="../css/css-alert/style.css" />
+        <link rel="stylesheet" href="../../css/css-alert/style.css" />
 
         <title>Gửi xác nhận đến email</title>
     </head>
@@ -26,10 +26,10 @@
         <div class="container">
             <div class="content">
                 <div class="orange">
-                    <img src="../images/Saly-3.png" alt="" class="image__bg" />
+                    <img src="../../images/Saly-3.png" alt="" class="image__bg" />
                 </div>
                 <div class="white">
-                    <img src="../images/Saly-2.png" alt="" class="image__bg" />
+                    <img src="../../images/Saly-2.png" alt="" class="image__bg" />
                 </div>
                 <div class="form__container">
                     <div class="welcome">
@@ -37,12 +37,12 @@
                         <h2>Xác thực</h2>
                     </div>
 
-                    <form action="" class="form__content">
+                    <form action="/auth/getOTPPage/<%= user._id %> " class="form__content" method="GET">
                         <p class="message__send">
-                            Đã gửi mã xác thực đến email <span>hongducyb123@gmail.com</span>
+                            Đã gửi mã xác thực đến email <span><%= user.email %> </span>
                         </p>
 
-                        <button class="btn">Xác thực</button>
+                        <button type="submit" class="btn">Xác thực</button>
                     </form>
 
                 </div>

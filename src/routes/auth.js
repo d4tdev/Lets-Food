@@ -8,7 +8,8 @@ const { validUser } = require('../middleware/checkAuthentication');
 // register local
 router.post('/register', authController.handleCreateUser);
 router.post('/verifyOTP/:userId', authController.handleVerifyUser);
-router.post('/resendOTP/:userId', authController.handleResendOTP);
+router.get('/resendOTP/:userId', authController.handleResendOTP);
+router.get('/getOTPPage/:userId', authController.handleGetOTPPage);
 
 // chuyển hướng đến trang đăng ký và hiện thị ra trang dangKy.ejs
 

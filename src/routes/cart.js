@@ -10,5 +10,6 @@ router.delete('/delete-all', cartController.handleDeleteAllCartProduct);
 router.patch('/update-quantity/:productId', cartController.handleUpdateQuantity);
 router.patch('/update-quantity-plus/:productId', cartController.handleUpdateQuantityPlus);
 router.patch('/update-quantity-minus/:productId', cartController.handleUpdateQuantityMinus);
+router.post('/checkout', cartController.handleCheckout);
 
 module.exports = router;

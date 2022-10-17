@@ -22,7 +22,7 @@ class CartController {
          return res.render('gioHang', { cart, user: req.user });
       } catch (e) {
          // return res.status(500).json({ message: e.message });
-         return res.render('404');
+         return res.render('gioHang', { cart: null });
       }
    };
 
@@ -61,7 +61,7 @@ class CartController {
       } catch (e) {
          return res.status(500).json({ message: e.message });
       }
-   }
+   };
 
    handleUpdateQuantityMinus = async (req, res) => {
       try {
@@ -78,7 +78,7 @@ class CartController {
       } catch (e) {
          return res.status(500).json({ message: e.message });
       }
-   }
+   };
 
    handleDeleteOneCartProduct = (req, res) => {
       try {
@@ -95,7 +95,7 @@ class CartController {
       } catch (e) {
          return res.status(500).json({ message: e.message });
       }
-   }
+   };
 
    handleDeleteAllCartProduct = (req, res) => {
       try {
@@ -106,8 +106,21 @@ class CartController {
       } catch (e) {
          return res.status(500).json({ message: e.message });
       }
-   }
-};
+   };
 
+   handleCheckout = async (req, res) => {
+      try {
+         const user = req.user;
+         // const { user } = req.body;
+         const { note } = req.body;
+         const cart = await cartService.checkOut(user, note);
+
+         return res.render('gioHang', { cart });
+      } catch (e) {
+         let cart = null;
+         return res.render('gioHang', { cart });
+      }
+   };
+}
 
 module.exports = new CartController();

@@ -134,7 +134,8 @@ svg {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: 5px;
 }
 
 input {
@@ -165,23 +166,22 @@ input::selection {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 90%;
 }
 
 .very__btn {
-    width: 82%;
-    height: 60px;
-    background-color: var(--orange-color);
-    border-radius: 10px;
+    width: 90%;
+    color: var(--black-color);
+    font-weight: 700;
+    background-color: var(--yellow-color);
+    padding: 1rem 2rem;
     border: none;
-    color: #fff;
-    font-size: 20px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
 }
 
 .very__btn:hover {
-    background-color: var(--yellow-color);
+    background-color: var(--orange-color);
 }
 
 .text__resend {
