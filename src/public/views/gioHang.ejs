@@ -97,12 +97,12 @@
                      </div>
                   </div>
                   <% }) } else {%>
-                     <p>Giỏ hàng trống</p>
+                     <p class="cart__empty">Giỏ hàng trống</p>
                   <% } %>
                </div>
 
-               <div class="cart__footer">
-                  <form action="/cart/checkout" method="POST">
+               <div>
+                  <form action="/cart/checkout" method="POST" class="cart__footer">
                      <div class="cart__message">
                         <h3 class="cart__message__title">Thêm chú thích cho đơn hàng</h3>
                         <input
