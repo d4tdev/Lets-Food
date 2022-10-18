@@ -11,7 +11,10 @@ router.post('/change_password/:userId', userController.changePassword);
 router.post('/update_profile/:userId', userController.updateUserProfile);
 
 router.get('/forgot_password', (req, res) => {
-    res.render('quenMatKhau');
-})
+   res.render('getQuenMatKhau');
+});
+router.get('/change_password', (req, res) => {
+   res.render('doiMatKhau', { user: req.user, message: '' });
+});
 
 module.exports = router;

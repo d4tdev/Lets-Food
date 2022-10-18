@@ -18,13 +18,15 @@ module.exports = function (passport) {
 					if (!user) {
 						return done(null, false, req.flash('loginLocal', 'Tài khoản hoặc mật khẩu không chính xác'));
 					}
-					if (!user.validPassword(password)) {
+					const isMatch = await user.validPassword(password)
+
+					if (!isMatch) {
 						return done(null, false, req.flash('loginLocal', 'Tài khoản hoặc mật khẩu không chính xác'));
 					}
-			
+
 					return done(null, user);
 				} catch (e) {
-					done(e);
+					done(e, false);
 				}
 			}
 		)

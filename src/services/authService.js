@@ -10,17 +10,27 @@ const createUser = data => {
          const { username, password, email } = data;
          if (!username || !password || !email) {
             return reject({
-               message: 'Username and password are required',
+               message: 'Thiếu thông tin đăng ký',
             });
          }
-         const isExist = await User.findOne({
+         const isExistUsername = await User.findOne({
             username: username,
          });
-         if (isExist) {
+         if (isExistUsername) {
             return reject({
-               message: 'Username already exists',
+               message: 'Username đã tồn tại',
             });
          }
+
+         const isExistEmail = await User.findOne({
+            email: email,
+         });
+         if (isExistEmail) {
+            return reject({
+               message: 'Email đã tồn tại',
+            });
+         }
+
          const newUser = await User.create({
             username: username,
             password: password,
@@ -135,7 +145,7 @@ const sendOtpVerification = user => {
                               </p>
                               <div class="button" style="margin-top: 40px">
                                     <a
-                                       href="https://api-lets-food.cleverapps.io/auth/getVerifyOTP/${user._id}"
+                                       href="https://letsfood.click/auth/getVerifyOTP/${user._id}"
                                        class="btn"
                                        style="
                                           padding: 10px 20px;
@@ -199,7 +209,7 @@ const verifyUser = (body, params) => {
          // check user id and otp input
          if (!userId || !otp) {
             return reject({
-               message: 'User Id and OTP are required',
+               message: 'Thiếu thông tin người dùng hoặc mã OTP',
             });
          }
          const user = await User.findOne({ userId });
@@ -210,13 +220,13 @@ const verifyUser = (body, params) => {
          // check user id is exist
          if (!user) {
             return reject({
-               message: "User Id doesn't exist",
+               message: 'Người dùng không tồn tại',
             });
          }
 
          if (!userOtp) {
             return reject({
-               message: 'OTP is not exist',
+               message: 'Mã OTP không tồn tại',
             });
          }
 
@@ -224,7 +234,7 @@ const verifyUser = (body, params) => {
          if (userOtp.expireAt < Date.now()) {
             await UserVerified.deleteMany({ userId });
             return reject({
-               message: 'OTP is expired',
+               message: 'Mã OTP đã hết hạn',
             });
          }
 
@@ -232,7 +242,7 @@ const verifyUser = (body, params) => {
          const validOTP = await bcrypt.compare(otp, userOtp.otp);
          if (!validOTP) {
             return reject({
-               message: 'OTP is invalid',
+               message: 'Mã OTP không hợp lệ',
             });
          }
 
@@ -265,7 +275,7 @@ const resendOTP = params => {
          // check user id input
          if (!userId) {
             return reject({
-               message: 'User Id is required',
+               message: 'Người dùng không tồn tại',
             });
          }
          const user = await User.findOne({
@@ -275,7 +285,7 @@ const resendOTP = params => {
          // check user id is exist
          if (!user) {
             return reject({
-               message: "User Id doesn't exist",
+               message: 'Người dùng không tồn tại',
             });
          }
 
@@ -298,7 +308,7 @@ const getOTPPage = params => {
          const { userId } = params;
          if (!userId) {
             return reject({
-               message: 'User Id is required',
+               message: 'Người dùng không tồn tại',
             });
          }
          const user = await User.findOne({

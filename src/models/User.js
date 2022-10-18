@@ -46,13 +46,13 @@ const UserSchema = new mongoose.Schema(
 			required: true,
 			match: [
 				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-				'product email must be provided',
+				'Email không hợp lệ',
 			],
 		},
 		password: {
 			type: String,
 			// required: true,
-			minLength: 6,
+			minLength: [6, 'Mật khẩu tối thiểu 6 ký tự'],
 		},
 		authType: {
 			type: String,
@@ -84,6 +84,12 @@ UserSchema.pre('save', async function () {
 // check valid password
 UserSchema.methods.validPassword = async function (password) {
 	return await bcrypt.compare(password, this.password);
+};
+
+// hash password
+UserSchema.methods.hashPassword = async function (password) {
+	const salt = await bcrypt.genSalt(10);
+	return await bcrypt.hash(password, salt);
 };
 
 // generate token
