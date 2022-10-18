@@ -64,10 +64,10 @@ li {
     background-color: var(--orange-color);
     width: 30vw;
     height: 100vh;
+    position: relative;
 }
 
 .navbar__block {
-    display: block;
 }
 
 .navbar {
@@ -80,8 +80,37 @@ li {
     font-size: 1.4rem;
     transition: all 0.3s ease;
 }
+
 .navbar:hover .arrow__home {
     transform: translateX(-10px);
+}
+
+.navbar__block-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    transition: all 0.3s ease;
+}
+
+.change__password {
+    color: var(--black-color);
+    font-size: 1.4rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 2px solid var(--black-color);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.change__password:hover {
+    text-decoration: underline;
 }
 
 .white {
