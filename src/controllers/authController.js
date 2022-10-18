@@ -18,7 +18,7 @@ class AuthController {
          if (response) {
             return res.redirect('/auth/getLoginLocal');
          } else {
-            return res.render('otp', { response });
+            return res.render('otp', { message: response });
          }
       } catch (e) {
          return res.render('otp', { message: e.message });
