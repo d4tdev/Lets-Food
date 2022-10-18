@@ -35,7 +35,7 @@ const isVerified = async (req, res, next) => {
       next();
    } else {
       res.clearCookie('connect.sid');
-      res.redirect('/auth/getOTPPage/' + user._id);
+      res.redirect('/auth/getOTPPage/' + user._id, { message: 'Vui lòng xác thực tài khoản' });
    }
 };
 
