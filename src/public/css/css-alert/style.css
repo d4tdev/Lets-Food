@@ -23,9 +23,11 @@ body {
     background-color: white;
     padding: 10px 20px 10px 30px;
     border-radius: 4px;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     gap: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: none;
 }
 
 .alert__icon {
@@ -77,6 +79,10 @@ body {
 
 .alert-error {
     border-left: 5px solid var(--red-color);
+}
+
+.alert-error.active {
+    display: flex;
 }
 
 .alert-error__icon {

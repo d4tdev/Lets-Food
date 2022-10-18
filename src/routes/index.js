@@ -51,6 +51,9 @@ const routes = app => {
     	res.redirect('/home');
     });
 
+    app.use('/change_password', (req, res) => {
+        res.render('changePassword3');
+    })
 };
 
 module.exports = routes;
