@@ -14,10 +14,13 @@
 
       <!-- css -->
       <link rel="stylesheet" href="../../css/css-verifyOTP/style.css" />
+      <!-- alert -->
+      <link rel="stylesheet" href="../../css/css-alert/style.css" />
 
       <title>Xác thực</title>
    </head>
    <body>
+      <p> <%= message %> </p>
       <div class="container">
          <div class="content">
             <div class="orange">
@@ -126,8 +129,27 @@
             </div>
          </div>
       </div>
+
+      <!-- alert -->
+      <% if(message.length > 0) { %>
+      <div class="alert">
+         <div class="alert-error alert__container">
+            <div class="alert-error__icon alert__icon">
+               <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="alert-error__content alert__content">
+               <p class="alert-error__desc alert__desc"><%= message %></p>
+            </div>
+            <div class="alert__icon alert__icon-close">
+               <i class="fas fa-times"></i>
+            </div>
+         </div>
+      </div>
+      <% } %>
+
       <!-- javascript -->
       <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
+      <script src="../javascript/alert.js"></script>
       <script src="../../javascript/verifyOTP.js"></script>
    </body>
 </html>

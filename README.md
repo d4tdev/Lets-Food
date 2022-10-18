@@ -3,13 +3,13 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/d4rtj/Lets-Food?style=flat-square)
 [![GitHub Contributors](https://img.shields.io/github/contributors/d4rtj/Lets-Food.svg?style=flat-square)](https://github.com/d4rtj/Lets-Food/graphs/contributors)
 
-### Website bán và giao đồ ăn 
+### Website bán và giao đồ ăn
 
 > Đường dẫn truy cập website: https://letsfood.click <br>
 
-| Font End | Back End |           
-|--- | --- |                    
-| ejs | nodejs |              
+| Font End | Back End |
+|--- | --- |
+| ejs | nodejs |
 | html | expressjs |
 | css | passportjs |
 | axios | bcryptjs |
