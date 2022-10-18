@@ -1,5 +1,5 @@
 # Let Food
-![LOC](https://tokei.rs/b1/github/d4rtj/Lets-Food?category=code)
+![LineOfCode](https://tokei.rs/b1/github/d4rtj/Lets-Food?category=code)
 ![GitHub top language](https://img.shields.io/github/languages/top/d4rtj/Lets-Food?style=flat-square)
 [![GitHub Contributors](https://img.shields.io/github/contributors/d4rtj/Lets-Food.svg?style=flat-square)](https://github.com/d4rtj/Lets-Food/graphs/contributors)
 
