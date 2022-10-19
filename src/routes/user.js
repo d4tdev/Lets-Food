@@ -14,7 +14,7 @@ router.get('/forgot_password', (req, res) => {
    res.render('getQuenMatKhau', { message: ''});
 });
 router.get('/verify_reset_password/:userId', (req, res) => {
-   res.render('verifyResetPassword', { message: ''});
+   res.render('quenMatKhau', { message: ''});
 })
 router.get('/change_password', (req, res) => {
    res.render('doiMatKhau', { user: req.user, message: '' });
