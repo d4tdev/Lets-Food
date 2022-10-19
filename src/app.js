@@ -8,9 +8,9 @@ const methodOverride = require('method-override');
 
 // security
 const cors = require('cors');
-const helmet = require('helmet');
-const xss = require('xss-clean');
-const rateLimit = require('express-rate-limit');
+// const helmet = require('helmet');
+// const xss = require('xss-clean');
+// const rateLimit = require('express-rate-limit');
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -57,13 +57,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // anti ddos
-app.set('trust proxy', 1);
-app.use(
-   rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 150, // limit each IP to 100 requests per windowMs
-   })
-);
+// app.set('trust proxy', 1);
+// app.use(
+//    rateLimit({
+//       windowMs: 15 * 60 * 1000, // 15 minutes
+//       max: 150, // limit each IP to 100 requests per windowMs
+//    })
+// );
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public', 'views'));
@@ -75,11 +75,15 @@ app.use(flash());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(helmet());
-app.use(xss());
+// app.use(
+//    helmet({
+//       contentSecurityPolicy: false,
+//    })
+// );
+// app.use(xss());
 
 routes(app);
-app.use(notFound);
+// app.use(notFound);
 
 app.listen(process.env.PORT, () => {
    console.log(`Server is running on port ${process.env.PORT}`);
