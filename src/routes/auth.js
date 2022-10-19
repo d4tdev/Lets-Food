@@ -30,7 +30,6 @@ router.get('/getLoginLocal', (req, res) => {
 // login local
 router.post(
    '/loginLocal',
-   isVerified,
    passport.authenticate('local-login', {
       successRedirect: '/home',
       failureRedirect: '/auth/getLoginLocal',

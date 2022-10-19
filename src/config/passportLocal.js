@@ -4,42 +4,59 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User');
 
 module.exports = function (passport) {
-	passport.use(
-		'local-login',
-		new LocalStrategy(
-			{
-				usernameField: 'username',
-				passwordField: 'password',
-				passReqToCallback: true,
-			},
-			async (req, username, password, done) => {
-				try {
-					const user = await User.findOne({ username });
-					if (!user) {
-						return done(null, false, req.flash('loginLocal', 'Tài khoản hoặc mật khẩu không chính xác'));
-					}
-					const isMatch = await user.validPassword(password)
+   passport.use(
+      'local-login',
+      new LocalStrategy(
+         {
+            usernameField: 'username',
+            passwordField: 'password',
+            passReqToCallback: true,
+         },
+         async (req, username, password, done) => {
+            try {
+               const user = await User.findOne({ username });
+               if (!user) {
+                  return done(
+                     null,
+                     false,
+                     req.flash('loginLocal', 'Tài khoản hoặc mật khẩu không chính xác')
+                  );
+               } else {
+                  if (user.verified === true) {
+                     const isMatch = await user.validPassword(password);
 
-					if (!isMatch) {
-						return done(null, false, req.flash('loginLocal', 'Tài khoản hoặc mật khẩu không chính xác'));
-					}
+                     if (!isMatch) {
+                        return done(
+                           null,
+                           false,
+                           req.flash('loginLocal', 'Tài khoản hoặc mật khẩu không chính xác')
+                        );
+                     }
 
-					return done(null, user);
-				} catch (e) {
-					done(e, false);
-				}
-			}
-		)
-	);
+                     return done(null, user);
+                  } else {
+                     return done(
+                        null,
+                        false,
+                        req.flash('loginLocal', 'Vui lòng xác thực tài khoản')
+                     );
+                  }
+               }
+            } catch (e) {
+               done(e, false);
+            }
+         }
+      )
+   );
 
-	// used to serialize the user for the session
-	passport.serializeUser(function (user, done) {
-		done(null, user.id);
-	});
-	// used to deserialize the user
-	passport.deserializeUser(function (id, done) {
-		User.findById(id, function (err, user) {
-			done(err, user);
-		});
-	});
+   // used to serialize the user for the session
+   passport.serializeUser(function (user, done) {
+      done(null, user.id);
+   });
+   // used to deserialize the user
+   passport.deserializeUser(function (id, done) {
+      User.findById(id, function (err, user) {
+         done(err, user);
+      });
+   });
 };
