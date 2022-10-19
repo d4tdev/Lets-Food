@@ -14,6 +14,9 @@ module.exports = function (passport) {
          },
          async (req, username, password, done) => {
             try {
+					if (!username || !password) {
+						return done(null, false, req.flash('loginLocal', 'Vui lòng nhập đầy đủ thông tin'));
+					}
                const user = await User.findOne({ username });
                if (!user) {
                   return done(
@@ -22,6 +25,7 @@ module.exports = function (passport) {
                      req.flash('loginLocal', 'Tài khoản hoặc mật khẩu không chính xác')
                   );
                } else {
+						console.log(user.verified)
                   if (user.verified === true) {
                      const isMatch = await user.validPassword(password);
 
