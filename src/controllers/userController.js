@@ -9,11 +9,11 @@ class UserController {
 
          if (inputForgot) {
             let user = await User.findOne({ email: inputForgot, authType: 'local' });
-            console.log(typeof inputForgot)
+            console.log(typeof inputForgot);
             if (user.username) {
                await UserVerified.create({
                   userId: user._id,
-                  otp: `https://letsfood.click/user/verify_reset_password/${user._id}`,
+                  otp: `http://localhost:3000/user/verify_reset_password/${user._id}`,
                   createAt: Date.now(),
                });
 
@@ -94,7 +94,7 @@ class UserController {
                         </p>
                         <div class="button" style="margin-top: 40px">
                            <a
-                              href="https://letsfood.click/user/verify_reset_password/${user._id}"
+                              href="http://localhost:3000/user/verify_reset_password/${user._id}"
                               class="btn"
                               style="
                                     padding: 10px 20px;
@@ -142,7 +142,7 @@ class UserController {
             if (user) {
                await UserVerified.create({
                   userId: user._id,
-                  otp: `https://letsfood.click/user/verify_reset_password/${user._id}`,
+                  otp: `http://localhost:3000/user/verify_reset_password/${user._id}`,
                   createAt: Date.now(),
                });
 
@@ -223,7 +223,7 @@ class UserController {
                         </p>
                         <div class="button" style="margin-top: 40px">
                            <a
-                              href="https://letsfood.click/user/verify_reset_password/${user._id}"
+                              href="http://localhost:3000/user/verify_reset_password/${user._id}"
                               class="btn"
                               style="
                                     padding: 10px 20px;
