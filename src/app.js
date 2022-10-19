@@ -9,7 +9,7 @@ const methodOverride = require('method-override');
 // security
 const cors = require('cors');
 const helmet = require('helmet');
-const xss = require('xss');
+const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 
 const session = require('express-session');
