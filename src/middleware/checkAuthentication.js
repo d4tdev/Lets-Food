@@ -26,19 +26,19 @@ const validAdmin = (req, res, next) => {
    }
 };
 
-const isVerified = async (req, res, next) => {
+// const isVerified = async (req, res, next) => {
 
-	const { username } = req.body;
-   const user = await User.findOne({ username: username });
+// 	const { username } = req.body;
+//    const user = await User.findOne({ username: username });
 
-   if (user.verified === true) {
-      next();
-   } else {
-      res.clearCookie('connect.sid');
-      // res.redirect('/auth/getOTPPage/' + user._id);
-      res.render('otp', { user, message: 'Vui lòng xác thực tài khoản' });
-   }
-};
+//    if (user.verified === true) {
+//       next();
+//    } else {
+//       res.clearCookie('connect.sid');
+//       // res.redirect('/auth/getOTPPage/' + user._id);
+//       res.render('otp', { user, message: 'Vui lòng xác thực tài khoản' });
+//    }
+// };
 
 // const isLoading = (req, res, next) => {
 // 	if (req.status === 302) {
@@ -48,4 +48,4 @@ const isVerified = async (req, res, next) => {
 // 	}
 // }
 
-module.exports = { validUser, validAuth, validAdmin, isVerified };
+module.exports = { validUser, validAuth, validAdmin };
