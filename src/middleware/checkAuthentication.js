@@ -19,8 +19,8 @@ const validUser = (req, res, next) => {
 
 const validAdmin = (req, res, next) => {
    if (req.user.role === 'admin') {
-      res.redirect('/admin');
-      next();
+      res.redirect('/auth/admin');
+      // next();
    } else {
       res.redirect('/home');
    }

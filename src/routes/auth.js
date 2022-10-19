@@ -3,7 +3,7 @@ const passport = require('passport');
 const router = express.Router();
 
 const authController = require('../controllers/authController');
-const { validUser, isVerified } = require('../middleware/checkAuthentication');
+const { validUser, validAdmin } = require('../middleware/checkAuthentication');
 
 // register local
 router.post('/register', authController.handleCreateUser);
@@ -26,15 +26,18 @@ router.get('/login', validUser, (req, res) => {
 router.get('/getLoginLocal', (req, res) => {
    res.render('dangNhap', { message: req.flash('loginLocal') });
 });
-
+router.get('/admin', (req, res) => {
+   return res.render('admin_products');
+});
 // login local
 router.post(
    '/loginLocal',
    passport.authenticate('local-login', {
-      successRedirect: '/home',
+      // successRedirect: '/home',
       failureRedirect: '/auth/getLoginLocal',
       failureFlash: true,
-   })
+   }),
+   validAdmin
 );
 
 // login google
