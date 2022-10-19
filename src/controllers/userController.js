@@ -5,25 +5,22 @@ const UserVerified = require('../models/UserVerified');
 class UserController {
    resetPassword = async (req, res) => {
       try {
-         const username = req.body.username;
-         const email = req.body.email;
+         const { inputForgot } = req.body;
 
-         if (email) {
-            const user = await User.findOne({ email: email, authType: 'local' });
-            if (!user) {
-               return res.status(403).json('Email not found');
-            }
+         if (inputForgot) {
+            let user = await User.findOne({ email: inputForgot, authType: 'local' });
+            console.log(typeof inputForgot)
+            if (user.username) {
+               await UserVerified.create({
+                  userId: user._id,
+                  otp: `https://letsfood.click/user/verify_reset_password/${user._id}`,
+                  createAt: Date.now(),
+               });
 
-            await UserVerified.create({
-               userId: user._id,
-               otp: `https://letsfood.click/user/verifyResetPassword/${user._id}`,
-               createAt: Date.now(),
-            });
-
-            await sendMail(
-               user.email,
-               'Quên mật khẩu',
-               `
+               await sendMail(
+                  user.email,
+                  'Quên mật khẩu',
+                  `
             <body style="padding: 0; margin: 0;">
             <div
             class="root"
@@ -97,7 +94,7 @@ class UserController {
                         </p>
                         <div class="button" style="margin-top: 40px">
                            <a
-                              href="https://letsfood.click/user/verifyResetPassword/${user._id}"
+                              href="https://letsfood.click/user/verify_reset_password/${user._id}"
                               class="btn"
                               style="
                                     padding: 10px 20px;
@@ -135,26 +132,24 @@ class UserController {
                </div>
             </div>
       </div></body>`
-            );
-            return res.status(200).json('Send mail success');
-         }
-
-         if (username) {
-            const user = await User.findOne({ username: username, authType: 'local' });
-            if (!user) {
-               return res.status(403).json('Username not found');
+               );
+               return res.render('getQuenMatKhau', {
+                  message: 'Đã gửi một email tới hòm thư của bạn',
+               });
             }
 
-            await UserVerified.create({
-               userId: user._id,
-               otp: `https://letsfood.click/user/verifyResetPassword/${user._id}`,
-               createAt: Date.now(),
-            });
+            user = await User.findOne({ username: inputForgot, authType: 'local' });
+            if (user) {
+               await UserVerified.create({
+                  userId: user._id,
+                  otp: `https://letsfood.click/user/verify_reset_password/${user._id}`,
+                  createAt: Date.now(),
+               });
 
-            await sendMail(
-               user.email,
-               'Quên mật khẩu',
-               `
+               await sendMail(
+                  user.email,
+                  'Quên mật khẩu',
+                  `
             <body style="padding: 0; margin: 0;">
             <div
             class="root"
@@ -228,7 +223,7 @@ class UserController {
                         </p>
                         <div class="button" style="margin-top: 40px">
                            <a
-                              href="https://letsfood.click/user/verifyResetPassword/${user._id}"
+                              href="https://letsfood.click/user/verify_reset_password/${user._id}"
                               class="btn"
                               style="
                                     padding: 10px 20px;
@@ -266,14 +261,18 @@ class UserController {
                </div>
             </div>
       </div></body>`
-            );
-            return res.status(200).json('Send mail success');
-         }
-         if (!username && !email) {
-            return res.status(403).json('Please provide username or email');
+               );
+               return res.render('getQuenMatKhau', {
+                  message: 'Đã gửi một email tới hòm thư của bạn',
+               });
+            }
+         } else {
+            return res.render('getQuenMatKhau', {
+               message: 'Vui lòng nhập email hoặc tên đăng nhập',
+            });
          }
       } catch (e) {
-         return res.status(500).json({ error: e });
+         return res.render('getQuenMatKhau', { message: 'Gửi mail thất bại' });
       }
    };
 

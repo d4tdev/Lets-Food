@@ -1,3 +1,4 @@
+const User = require('../models/User');
 const userService = require('../services/authService');
 
 class AuthController {
@@ -13,6 +14,7 @@ class AuthController {
 
    handleVerifyUser = async (req, res) => {
       try {
+
          const response = await userService.verifyUser(req.body, req.params);
          // return res.status(200).json(user);
          if (response) {
@@ -21,7 +23,8 @@ class AuthController {
             return res.render('otp', { message: response });
          }
       } catch (e) {
-         return res.render('otp', { message: e.message });
+         const user = await User.findOne({ _id: req.params.userId });
+         return res.render('otp', { user, message: e.message });
       }
    };
 
@@ -31,16 +34,18 @@ class AuthController {
          // return res.status(200).json(user);
          return res.render('sendMail', { user });
       } catch (e) {
-         return res.render('sendMail', { message: e.message });
+         const user = await User.findOne({ _id: req.params.userId });
+         return res.render('sendMail', { user, message: e.message });
       }
    };
 
    handleGetOTPPage = async (req, res) => {
       try {
          const user = await userService.getOTPPage(req.params);
-         return res.render('otp', { user });
+         return res.render('otp', { user, message: '' });
       } catch (e) {
-         return res.render('otp', { message: e.message });
+         const user = await User.findOne({ _id: req.params.userId });
+         return res.render('otp', { user, message: e.message });
       }
    };
 }
