@@ -38,9 +38,11 @@
                </ul>
 
                <div class="cart__list">
-                  <% if (cart && cart !== null) { %>
+                  <% if (cart && cart !== '') { %>
                   <!-- hiện thị sản phẩm trong giỏ hàng -->
-                  <% cart.products.forEach( (product) => { %>
+                  <% let cartProducts = [] %>
+                  <% cartProducts = cart.products %>
+                  <% cartProducts.forEach((product) => { %>
                   <div class="cart__item">
                      <div class="cart__item__info">
                         <div class="cart__item__img">
@@ -96,8 +98,10 @@
                         </div>
                      </div>
                   </div>
-                  <% }) } else {%>
-                     <p class="cart__empty">Giỏ hàng trống</p>
+                  <% }); %> <% } else { %>
+                     <div class="cart__item">
+                        <p class="cart__empty">Giỏ hàng trống</p>
+                     </div>
                   <% } %>
                </div>
 
@@ -116,9 +120,9 @@
                            <!-- hiện thị tổng tiền -->
                            <!-- tính tổng tiền -->
                            <% if (cart && cart !== null) { %>
-                           <% let total = 0 %> <% cart.products.forEach((product) => { %> <% total
-                           += (Number(product.productId.price) * Number(product.quantity)) %> <% })
-                           %>
+                           <% let total = 0 %>
+                           <% cart.products.forEach((product) => { %>
+                           <% total += (Number(product.productId.price) * Number(product.quantity)) %> <% }) %>
                            <!-- tiền ship -->
                            <% let ship = 10000 %>
                            <!-- tổng tiền -->
@@ -126,46 +130,44 @@
                            <div class="cart__total__block">
                               <span class="cart__total__title"> Tạm tính </span>
                               <span class="cart__total__price total__price__origin"
-                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
-                                 'VND', }).format(total) %>
+                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', }).format(total) %>
                               </span>
                            </div>
                            <div class="cart__total__block">
                               <span class="cart__total__title"> Phí vận chuyển </span>
                               <span class="cart__total__price ship__price"
-                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
-                                 'VND', }).format(ship) %>
+                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', }).format(ship) %>
                               </span>
                            </div>
                            <div class="cart__total__block">
                               <span class="cart__total__title"> Tổng cộng </span>
                               <span class="cart__total__price total__price"
-                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
-                                 'VND', }).format(totalMoney) %>
+                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', }).format(totalMoney) %>
                               </span>
                            </div>
+                           <% } else { %>
+                           <div class="cart__total__block">
+                              <span class="cart__total__title"> Tạm tính </span>
+                              <span class="cart__total__price total__price__origin">0</span>
+                           </div>
+                           <div class="cart__total__block">
+                              <span class="cart__total__title"> Phí vận chuyển </span>
+                              <span class="cart__total__price ship__price">0</span>
+                           </div>
+                           <div class="cart__total__block">
+                              <span class="cart__total__title"> Tổng cộng </span>
+                              <span class="cart__total__price total__price">0</span>
+                           </div>
+                           <% } %>
                         </div>
-                        <% } else { %>
-                        <div class="cart__total__block">
-                           <span class="cart__total__title"> Tạm tính </span>
-                           <span class="cart__total__price total__price__origin">0</span>
-                        </div>
-                        <div class="cart__total__block">
-                           <span class="cart__total__title"> Phí vận chuyển </span>
-                           <span class="cart__total__price ship__price">0</span>
-                        </div>
-                        <div class="cart__total__block">
-                           <span class="cart__total__title"> Tổng cộng </span>
-                           <span class="cart__total__price total__price">0</span>
-                        </div>
-                        <% } %>
-                     </div>
 
-                     <button type="submit" class="cart__total__btn">Đặt hàng</button>
-                  </form>
+                        <button type="submit" class="cart__total__btn">Đặt hàng</button>
+                     </form>
+                  </div>
                </div>
             </div>
          </div>
+         
          <div class="orange">
             <div class="pay">
                <h3 class="pay__title">Lựa chọn phương thức thanh toán</h3>

@@ -97,6 +97,7 @@ const updateQuantity = (productId, userId, quantity) => {
       }
    });
 };
+
 const updateQuantityPlus = (productId, userId) => {
    return new Promise(async (resolve, reject) => {
       try {
@@ -146,12 +147,24 @@ const deleteOneCartProduct = (productId, userId) => {
          if (!cartProduct) {
             return reject('Product not found');
          }
-         await CartProduct.deleteOne({ _id: productId});
+         await cartProduct.deleteOne();
 
          // tìm thằng cart của user đó
-         let cart = await Cart.findOne({ userId: userId });
-         await cart.updateOne({ count: cart.count - 1 });
-         return resolve({ cart });
+         let cart = await Cart.findOne({ userId: userId }).populate({
+            path: 'products',
+            populate: { path: 'productId' },
+         });
+
+         let newCount = cart.count - 1;
+         if (newCount === 0) {
+            // nếu cart.count = 0 thì xóa cart
+            await cart.deleteOne();
+         } else {
+            // cập nhật lại số lượng sản phẩm trong cart
+            await cart.updateOne({ $pull: { products: cartProduct._id }, count: newCount });
+         }
+
+         return resolve(cart);
       } catch (e) {
          return reject(e);
       }

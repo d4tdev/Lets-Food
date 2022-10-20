@@ -82,7 +82,7 @@ class CartController {
       }
    };
 
-   handleDeleteOneCartProduct = (req, res) => {
+   handleDeleteOneCartProduct = async (req, res) => {
       try {
          const { productId } = req.params;
          const { _id } = req.user;
@@ -90,13 +90,14 @@ class CartController {
             return res.status(400).json({ message: 'Product id is required' });
          }
 
-         const cart = cartService.deleteOneCartProduct(productId, _id);
+         const cart = await cartService.deleteOneCartProduct(productId, _id);
 
          // res.status(200).json(cart);
          // return res.redirect('/cart/show/' + _id);
+         res.redirect('/cart/show/' + _id);
          return res.render('gioHang', { cart, message: 'Xóa sản phẩm thành công', user: req.user });
       } catch (e) {
-         return res.render('gioHang', { message: e.message });
+         return res.render('404', { message: e.message });
       }
    };
 
@@ -118,6 +119,7 @@ class CartController {
          const { note } = req.body;
          const cart = await cartService.checkOut(user, note);
 
+         res.redirect('/cart/show/' + user._id);
          return res.render('gioHang', { cart });
       } catch (e) {
          let cart = null;
