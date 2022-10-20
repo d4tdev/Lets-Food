@@ -151,7 +151,7 @@ const deleteOneCartProduct = (productId, userId) => {
          // tìm thằng cart của user đó
          let cart = await Cart.findOne({ userId: userId });
          await Cart.updateOne({ count: cart.count - 1 });
-         return resolve({ msg: 'Product in cart deleted' });
+         return resolve({ cart });
       } catch (e) {
          return reject(e);
       }

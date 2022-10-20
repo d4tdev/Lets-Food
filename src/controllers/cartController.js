@@ -90,11 +90,11 @@ class CartController {
             return res.status(400).json({ message: 'Product id is required' });
          }
 
-         const message = cartService.deleteOneCartProduct(productId, _id);
+         const cart = cartService.deleteOneCartProduct(productId, _id);
 
          // res.status(200).json(cart);
          // return res.redirect('/cart/show/' + _id);
-         return res.render('gioHang', { message, user: req.user });
+         return res.render('gioHang', { cart, message: 'Xóa sản phẩm thành công', user: req.user });
       } catch (e) {
          return res.render('gioHang', { message: e.message})
       }
