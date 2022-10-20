@@ -83,7 +83,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(xss());
 
 routes(app);
-// app.use(notFound);
+app.use(notFound);
 
 app.listen(process.env.PORT, () => {
    console.log(`Server is running on port ${process.env.PORT}`);

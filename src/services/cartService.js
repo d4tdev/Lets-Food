@@ -61,7 +61,7 @@ const createCart = (productId, userId) => {
    });
 };
 
-const getCart = userId => {
+const getACart = userId => {
    return new Promise(async (resolve, reject) => {
       try {
          const cart = await Cart.findOne({ userId: userId }).populate({
@@ -146,11 +146,11 @@ const deleteOneCartProduct = (productId, userId) => {
          if (!cartProduct) {
             return reject('Product not found');
          }
-         await cartProduct.deleteOne();
+         await CartProduct.deleteOne({ _id: productId});
 
          // tìm thằng cart của user đó
          let cart = await Cart.findOne({ userId: userId });
-         await Cart.updateOne({ count: cart.count - 1 });
+         await cart.updateOne({ count: cart.count - 1 });
          return resolve({ cart });
       } catch (e) {
          return reject(e);
@@ -355,7 +355,7 @@ const sendOtpVerification = (user, note) => {
 
 module.exports = {
    createCart,
-   getCart,
+   getACart,
    updateQuantity,
    updateQuantityPlus,
    updateQuantityMinus,

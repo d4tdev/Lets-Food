@@ -14,10 +14,10 @@ class CartController {
       }
    };
 
-   handleShowCart = async (req, res) => {
+   handleShowACart = async (req, res) => {
       try {
          const { userId } = req.params;
-         const cart = await cartService.getCart(userId);
+         const cart = await cartService.getACart(userId);
 
          return res.render('gioHang', { cart, user: req.user });
       } catch (e) {
@@ -58,7 +58,7 @@ class CartController {
 
          // return res.status(200).json(cart);
          // return res.redirect('/cart/show/' + _id);
-         return res.render('gioHang', { message, user: req.user, });
+         return res.render('gioHang', { message, user: req.user });
       } catch (e) {
          return res.render('gioHang', { message: e.message });
       }
@@ -78,7 +78,7 @@ class CartController {
          // return res.redirect('/cart/show/' + _id);
          return res.render('gioHang', { message, user: req.user });
       } catch (e) {
-         return res.render('gioHang', { message: e.message})
+         return res.render('gioHang', { message: e.message });
       }
    };
 
@@ -96,7 +96,7 @@ class CartController {
          // return res.redirect('/cart/show/' + _id);
          return res.render('gioHang', { cart, message: 'Xóa sản phẩm thành công', user: req.user });
       } catch (e) {
-         return res.render('gioHang', { message: e.message})
+         return res.render('gioHang', { message: e.message });
       }
    };
 
