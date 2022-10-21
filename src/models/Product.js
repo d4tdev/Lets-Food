@@ -20,7 +20,16 @@ const ProductSchema = new mongoose.Schema({
    category: {
       type: String,
       required: true,
+   },
+   element: {
+      type: String,
+      required: true,
+   },
+   processing:{
+      type: String,
+      required: true,
    }
+   
 }, { collection: 'Product', timestamps: true });
 
 module.exports = mongoose.model('Product', ProductSchema);
