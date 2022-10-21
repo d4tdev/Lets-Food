@@ -21,11 +21,11 @@ const ProductSchema = new mongoose.Schema({
       type: String,
       required: true,
    },
-   element: {
+   ingredient: {
       type: String,
       required: true,
    },
-   processing:{
+   process:{
       type: String,
       required: true,
    }
