@@ -16,6 +16,10 @@ const CartUserSchema = new mongoose.Schema(
             unique: true,
          },
       ],
+      count: {
+         type: Number,
+         default: 0,
+      }
    },
    { collection: 'Cart', timestamps: true }
 );

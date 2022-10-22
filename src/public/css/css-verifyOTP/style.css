@@ -1,0 +1,263 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+body {
+    font-family: 'Readex Pro', sans-serif;
+    line-height: 1.5;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+    outline: none;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+a {
+    text-decoration: none;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+:root {
+    --max-width: 1200px;
+    --background-color: #fff9ea;
+    --yellow-color: #ffcb45;
+    --orange-color: #ffac4b;
+    --black-color: #1d1d1d;
+}
+
+.container {
+    position: relative;
+}
+
+.content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.orange {
+    width: 50vw;
+    height: 100vh;
+    background-color: var(--orange-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.white {
+    width: 50vw;
+    height: 100vh;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome p {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--black-color);
+    opacity: 0.6;
+}
+
+.welcome h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--black-color);
+    margin-bottom: 20px;
+}
+
+.form__container {
+    position: absolute;
+    width: 600px;
+    height: 650px;
+    background: #ffffff;
+    box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
+    border-radius: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px 40px;
+}
+
+svg {
+    margin: 0 auto;
+}
+
+.text__send {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--black-color);
+    opacity: 0.6;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.text__send-mail {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black-color);
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+#form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+input {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--black-color);
+    border: 1px solid var(--black-color);
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+input::placeholder {
+    color: var(--black-color);
+}
+
+input:focus {
+    border: 1px solid var(--orange-color);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+input::selection {
+    background-color: var(--orange-color);
+}
+
+.very__btn-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.very__btn {
+    width: 90%;
+    color: var(--black-color);
+    font-weight: 700;
+    background-color: var(--yellow-color);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+}
+
+.very__btn:hover {
+    background-color: var(--orange-color);
+}
+
+.text__resend {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black-color);
+    text-align: center;
+    margin-top: 20px;
+}
+
+.text__resend a {
+    color: var(--orange-color);
+}
+
+/* responsive */
+
+@media (max-width: 575.98px) {
+    .text__send {
+        font-size: 14px;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .form__container {
+        width: 90%;
+        height: 80%;
+        padding: 30px 20px;
+        border-radius: 20px;
+        /* padding: 0 15px; */
+    }
+
+    svg {
+        width: 100px;
+        height: 100px;
+    }
+
+    .welcome p {
+        font-size: 14px;
+    }
+
+    .welcome h2 {
+        font-size: 30px;
+    }
+
+    #form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        max-width: 100%;
+    }
+
+    input {
+        font-size: 20px;
+        padding: 10px 15px;
+    }
+
+    .very__btn {
+        width: 100%;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .text__resend {
+        font-size: 14px;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .image__bg {
+        display: none;
+    }
+}
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+}

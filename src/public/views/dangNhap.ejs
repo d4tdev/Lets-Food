@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- font google -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- css -->
+        <link rel="stylesheet" href="../css/css-signUp/style.css" />
+        <link rel="stylesheet" href="../css/css-signUp/responsive.css">
+
+        <!-- css alert -->
+        <link rel="stylesheet" href="../css/css-alert/style.css">
+
+        <title>Đăng nhập</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <div class="orange">
+                    <img src="../images/Saly-3.png" alt="" class="image__bg" />
+                </div>
+                <div class="white">
+                    <img src="../images/Saly-2.png" alt="" class="image__bg" />
+                </div>
+                <div class="form__container">
+                    <div class="welcome">
+                        <p>Chào mừng bạn đến với Let's Food</p>
+                        <h2>Đăng nhập</h2>
+                    </div>
+
+                    <form action="/auth/loginLocal" class="form__content" method="POST">
+                        <label for="" class="label">Tên đăng nhập</label>
+                        <input type="text" class="input" placeholder="Nhập tên đăng nhập của bạn" name="username" />
+                        <label for="" class="label">Mật khẩu</label>
+                        <input type="password" class="input" placeholder="Nhập mật khẩu của bạn" name="password"/>
+                        <a href="/user/forgot_password">
+                            <p class="forgot__password">Quên mật khẩu?</p>
+                        </a>
+                        <button class="btn" type="submit">Đăng nhập</button>
+                    </form>
+
+                    <div class="or">
+                        <span>Hoặc</span>
+                    </div>
+
+                    <div class="social">
+                        <a class="social__item" href="/auth/loginGoogle">
+                            <svg
+                                width="26"
+                                height="26"
+                                viewBox="0 0 26 26"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M24.3761 13.2528C24.3761 12.3175 24.2987 11.635 24.1311 10.9272H13.2333V15.1486H19.6301C19.5011 16.1976 18.8047 17.7775 17.2571 18.8391L17.2354 18.9804L20.6811 21.5964L20.9198 21.6197C23.1122 19.6354 24.3761 16.7158 24.3761 13.2528"
+                                    fill="#00AA11"
+                                />
+                                <path
+                                    d="M13.2326 24.3749C16.3664 24.3749 18.9974 23.3637 20.919 21.6196L17.2563 18.8389C16.2762 19.5088 14.9607 19.9764 13.2326 19.9764C10.1632 19.9764 7.55803 17.9922 6.62938 15.2495L6.49326 15.2608L2.9104 17.9782L2.86354 18.1059C4.77224 21.8217 8.69287 24.3749 13.2326 24.3749Z"
+                                    fill="#34A853"
+                                />
+                                <path
+                                    d="M6.63006 15.2496C6.38502 14.5418 6.24321 13.7834 6.24321 12.9999C6.24321 12.2162 6.38502 11.4579 6.61716 10.7501L6.61067 10.5994L2.9829 7.83838L2.86421 7.89371C2.07754 9.43567 1.62614 11.1672 1.62614 12.9999C1.62614 14.8325 2.07754 16.564 2.86421 18.1059L6.63006 15.2496"
+                                    fill="#FBBC05"
+                                />
+                                <path
+                                    d="M13.2326 6.0233C15.4122 6.0233 16.8824 6.94594 17.7207 7.71696L20.9965 4.5825C18.9846 2.74987 16.3665 1.625 13.2326 1.625C8.69291 1.625 4.77225 4.17804 2.86354 7.89384L6.61651 10.7503C7.55806 8.00763 10.1632 6.0233 13.2326 6.0233"
+                                    fill="#EB4335"
+                                />
+                            </svg>
+
+                            <span>Đăng nhập bằng Google</span>
+                        </a>
+                        <a class="social__item" href="/auth/loginFacebook">
+                            <svg
+                                width="29"
+                                height="29"
+                                viewBox="0 0 29 29"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <circle cx="14.5" cy="13.3398" r="12.6875" fill="url(#paint0_linear_45_50)" />
+                                <path
+                                    d="M19.2249 18.3802L19.7885 14.7992H16.2629V12.4763C16.2629 11.4964 16.7544 10.5407 18.3336 10.5407H19.9375V7.49196C19.9375 7.49196 18.4825 7.25 17.0921 7.25C14.1872 7.25 12.2903 8.96548 12.2903 12.0698V14.7992H9.0625V18.3802H12.2903V27.0375C12.9383 27.1367 13.6012 27.1875 14.2766 27.1875C14.9519 27.1875 15.6148 27.1367 16.2629 27.0375V18.3802H19.2249Z"
+                                    fill="#F7F7F7"
+                                />
+                                <defs>
+                                    <linearGradient
+                                        id="paint0_linear_45_50"
+                                        x1="14.5"
+                                        y1="0.652344"
+                                        x2="14.5"
+                                        y2="25.9521"
+                                        gradientUnits="userSpaceOnUse"
+                                    >
+                                        <stop stop-color="#18ACFE" />
+                                        <stop offset="1" stop-color="#0163E0" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+
+                            <span>Đăng nhập bằng Facebook</span>
+                        </a>
+                    </div>
+
+                    <div class="footer">
+                        <span>Bạn chưa có tài khoản?</span>
+                        <a href="/auth/register">Đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- alert -->
+        <% if(message.length > 0) { %>
+            <div class="alert">            
+                <div class="alert-error alert__container">
+                <div class="alert-error__icon alert__icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="alert-error__content alert__content">
+                    <p class="alert-error__desc alert__desc"><%= message %></p>
+                </div>
+                <div class="alert__icon alert__icon-close">
+                    <i class="fas fa-times"></i>
+                </div>
+                </div>
+            </div>
+        <% } %>
+
+        <!-- javascript -->
+        <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
+
+        <script src="../javascript/alert.js"></script>
+    </body>
+</html>

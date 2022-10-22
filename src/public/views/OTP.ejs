@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <!-- font google -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+         rel="stylesheet" />
+
+      <!-- css -->
+      <link rel="stylesheet" href="../../css/css-verifyOTP/style.css" />
+      <!-- alert -->
+      <link rel="stylesheet" href="../../css/css-alert/style.css" />
+
+      <title>Xác thực</title>
+   </head>
+   <body>
+      <div class="container">
+         <div class="content">
+            <div class="orange">
+               <img src="../../images/Saly-3.png" alt="" class="image__bg" />
+            </div>
+            <div class="white">
+               <img src="../../images/Saly-2.png" alt="" class="image__bg" />
+            </div>
+            <div class="form__container">
+               <div class="welcome">
+                  <p>Chào mừng bạn đến với Let's Food</p>
+                  <h2>Xác thực</h2>
+               </div>
+               <svg
+                  width="134"
+                  height="134"
+                  viewBox="0 0 134 134"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                     d="M132 49.2956L69.453 94.4847C68.2567 95.3491 66.6536 95.3545 65.4517 94.4982L2 49.2956M85.2 83.6091L130.7 129.8M49.2333 83.6091L3.73333 129.8M61.9984 3.61303L5.66504 44.0268C3.36662 45.6757 2 48.3549 2 51.2121V123.202C2 128.061 5.8802 132 10.6667 132H123.333C128.12 132 132 128.061 132 123.202V51.2121C132 48.3549 130.633 45.6757 128.335 44.0268L72.0016 3.61304C69.0037 1.46232 64.9963 1.46232 61.9984 3.61303Z"
+                     stroke="url(#paint0_linear_3529_13405)"
+                     stroke-width="3" />
+                  <circle
+                     cx="96.4665"
+                     cy="21.9333"
+                     r="19.9333"
+                     fill="white"
+                     stroke="url(#paint1_linear_3529_13405)"
+                     stroke-width="3" />
+                  <defs>
+                     <linearGradient
+                        id="paint0_linear_3529_13405"
+                        x1="113.367"
+                        y1="1.78434"
+                        x2="0.0810735"
+                        y2="130.308"
+                        gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#ffcb45" />
+                        <stop offset="1" stop-color="#FF37B1" />
+                     </linearGradient>
+                     <linearGradient
+                        id="paint1_linear_3529_13405"
+                        x1="110.333"
+                        y1="4.6"
+                        x2="82.5999"
+                        y2="38.8333"
+                        gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#ffac4b" />
+                        <stop offset="1" stop-color="#FF3AAE" />
+                     </linearGradient>
+                  </defs>
+               </svg>
+
+               <h4 class="text__send">Mã xác thực đã được gửi đến email của bạn</h4>
+               <p class="text__send-mail"><%= user.email %></p>
+
+               <!-- <div id="form">
+                  <div>
+                     <input
+                        class="input_otp"
+                        type="text"
+                        maxlength="1"
+                        size="1"
+                        min="0"
+                        max="9"
+                        pattern="[0-9]{1}" />
+                     <input
+                        class="input_otp"
+                        type="text"
+                        maxlength="1"
+                        size="1"
+                        min="0"
+                        max="9"
+                        pattern="[0-9]{1}" />
+                     <input
+                        class="input_otp"
+                        type="text"
+                        maxlength="1"
+                        size="1"
+                        min="0"
+                        max="9"
+                        pattern="[0-9]{1}" />
+                     <input
+                        class="input_otp"
+                        type="text"
+                        maxlength="1"
+                        size="1"
+                        min="0"
+                        max="9"
+                        pattern="[0-9]{1}" />
+                  </div>
+               </div> -->
+               <form id="form" action="/auth/verifyOTP/<%= user._id %>" method="POST" id="form">
+                  <div><input class="input_otp_hidden" type="text" value="" name="otp" /></div>
+                  <div class="very__btn-div">
+                     <button type="submit" class="very__btn">Xác thực</button>
+                  </div>
+               </form>
+
+               <div class="text__resend">
+                  <span>Chưa nhận được mã xác thực?</span>
+                  <!-- TODO -->
+                  <a href="/auth/resendOTP/<%= user._id %> ">Gửi lại</a>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- alert -->
+      <% if(message.length > 0) { %>
+      <div class="alert">
+         <div class="alert-error alert__container">
+            <div class="alert-error__icon alert__icon">
+               <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="alert-error__content alert__content">
+               <p class="alert-error__desc alert__desc"><%= message %></p>
+            </div>
+            <div class="alert__icon alert__icon-close">
+               <i class="fas fa-times"></i>
+            </div>
+         </div>
+      </div>
+      <% } %>
+
+      <!-- javascript -->
+      <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
+      <script src="../javascript/alert.js"></script>
+      <script src="../../javascript/verifyOTP.js"></script>
+   </body>
+</html>

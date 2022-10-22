@@ -3,12 +3,19 @@ const passport = require('passport');
 const router = express.Router();
 
 const authController = require('../controllers/authController');
-const { validUser } = require('../middleware/checkAuthentication');
+const { validUser, validAdmin } = require('../middleware/checkAuthentication');
 
 // register local
 router.post('/register', authController.handleCreateUser);
 router.post('/verifyOTP/:userId', authController.handleVerifyUser);
-router.post('/resendOTP/:userId', authController.handleResendOTP);
+router.get('/resendOTP/:userId', authController.handleResendOTP);
+router.get('/getOTPPage/:userId', authController.handleGetOTPPage);
+
+// chuyển hướng đến trang đăng ký và hiện thị ra trang dangKy.ejs
+
+router.get('/register', (req, res) => {
+   res.render('dangKy', { message: '' });
+});
 
 // website views
 // GET /auth/login
@@ -17,17 +24,20 @@ router.get('/login', validUser, (req, res) => {
 });
 // GET /auth/loginLocal
 router.get('/getLoginLocal', (req, res) => {
-   res.render('loginLocal', { message: req.flash('loginLocal') });
+   res.render('dangNhap', { message: req.flash('loginLocal') });
 });
-
+router.get('/admin', (req, res) => {
+   return res.render('admin_products');
+});
 // login local
 router.post(
    '/loginLocal',
    passport.authenticate('local-login', {
-      successRedirect: '/home',
+      // successRedirect: '/home',
       failureRedirect: '/auth/getLoginLocal',
       failureFlash: true,
-   })
+   }),
+   validAdmin
 );
 
 // login google
@@ -52,8 +62,8 @@ router.get(
 
 // logout
 router.get('/logout', (req, res) => {
-   req.logout();
-   res.redirect('/');
+   res.clearCookie('connect.sid');
+   res.redirect('/home');
 });
 
 module.exports = router;
