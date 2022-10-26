@@ -25,7 +25,8 @@ const OrderSchema = new mongoose.Schema({
    },
    expireAt: {
       type: Date,
-      default: Date.now() + (30 * 24 * 60 * 60 * 1000),
+      default: Date.now,
+      index: { expires: '30d' },
    }
 }, {collection: 'Order', timestamps: true});
 

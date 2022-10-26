@@ -19,7 +19,8 @@ const validUser = (req, res, next) => {
 
 const validAdmin = (req, res, next) => {
    if (req.user.role === 'admin') {
-      res.redirect('/auth/admin');
+      res.redirect('/product/getAllProduct');
+      // res.redirect('/auth/admin');
       // next();
    } else {
       res.redirect('/home');

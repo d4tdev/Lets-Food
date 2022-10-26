@@ -26,9 +26,7 @@ router.get('/login', validUser, (req, res) => {
 router.get('/getLoginLocal', (req, res) => {
    res.render('dangNhap', { message: req.flash('loginLocal') });
 });
-router.get('/admin', (req, res) => {
-   return res.render('admin_products');
-});
+
 // login local
 router.post(
    '/loginLocal',
