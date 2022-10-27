@@ -17,12 +17,14 @@
       <link rel="stylesheet" href="../../css/css-cart/style.css" type="text/css" />
       <link rel="stylesheet" href="../../css/css-cart/responsive.css" type="text/css" />
 
+      <!-- css alert -->
+      <link rel="stylesheet" href="../css/css-alert/style.css" />
+
       <title>Giỏ hàng</title>
    </head>
    <body>
       <div class="root">
          <div class="white">
-            <p><%= cart %> </p>
             <div class="navbar__block">
                <a class="navbar" href="/home">
                   <i class="fas fa-arrow-left arrow__home"></i>
@@ -41,9 +43,8 @@
                <div class="cart__list">
                   <% if (cart && cart !== '') { %>
                   <!-- hiện thị sản phẩm trong giỏ hàng -->
-                  <% let cartProducts = [] %>
-                  <% cartProducts = cart.products %>
-                  <% cartProducts.forEach((product) => { %>
+                  <% let cartProducts = [] %> <% cartProducts = cart.products %> <%
+                  cartProducts.forEach((product) => { %>
                   <div class="cart__item">
                      <div class="cart__item__info">
                         <div class="cart__item__img">
@@ -100,9 +101,9 @@
                      </div>
                   </div>
                   <% }); %> <% } else { %>
-                     <div class="cart__item">
-                        <p class="cart__empty">Giỏ hàng trống</p>
-                     </div>
+                  <div class="cart__item">
+                     <p class="cart__empty">Giỏ hàng trống</p>
+                  </div>
                   <% } %>
                </div>
 
@@ -120,10 +121,9 @@
                         <div class="cart__total__block__mb">
                            <!-- hiện thị tổng tiền -->
                            <!-- tính tổng tiền -->
-                           <% if (cart && cart !== null) { %>
-                           <% let total = 0 %>
-                           <% cart.products.forEach((product) => { %>
-                           <% total += (Number(product.productId.price) * Number(product.quantity)) %> <% }) %>
+                           <% if (cart && cart !== null) { %> <% let total = 0 %> <%
+                           cart.products.forEach((product) => { %> <% total +=
+                           (Number(product.productId.price) * Number(product.quantity)) %> <% }) %>
                            <!-- tiền ship -->
                            <% let ship = 10000 %>
                            <!-- tổng tiền -->
@@ -131,19 +131,22 @@
                            <div class="cart__total__block">
                               <span class="cart__total__title"> Tạm tính </span>
                               <span class="cart__total__price total__price__origin"
-                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', }).format(total) %>
+                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                                 'VND', }).format(total) %>
                               </span>
                            </div>
                            <div class="cart__total__block">
                               <span class="cart__total__title"> Phí vận chuyển </span>
                               <span class="cart__total__price ship__price"
-                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', }).format(ship) %>
+                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                                 'VND', }).format(ship) %>
                               </span>
                            </div>
                            <div class="cart__total__block">
                               <span class="cart__total__title"> Tổng cộng </span>
                               <span class="cart__total__price total__price"
-                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', }).format(totalMoney) %>
+                                 ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                                 'VND', }).format(totalMoney) %>
                               </span>
                            </div>
                            <% } else { %>
@@ -163,10 +166,9 @@
                         </div>
 
                         <button type="submit" class="cart__total__btn">Đặt hàng</button>
-                     </form>
-                  </div>
+                     </div>
+                  </form>
                </div>
-
             </div>
          </div>
 
@@ -208,12 +210,30 @@
          </div>
       </div>
 
+      <!-- alert -->
+      <% if(message.length > 0) { %>
+      <div class="alert">
+         <div class="alert-error alert__container">
+            <div class="alert-error__icon alert__icon">
+               <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="alert-error__content alert__content">
+               <p class="alert-error__desc alert__desc"><%= message %></p>
+            </div>
+            <div class="alert__icon alert__icon-close">
+               <i class="fas fa-times"></i>
+            </div>
+         </div>
+      </div>
+      <% } %>
+
       <form method="POST" name="delete-form"></form>
 
       <!-- javascript -->
       <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
       <!-- <script src="../../javascript/cartUser.js"></script> -->
 
+      <script src="../javascript/alert.js"></script>
       <script>
          // const pointer = document.querySelectorAll(".pointer");
          const deleteForm = document.forms['delete-form'];

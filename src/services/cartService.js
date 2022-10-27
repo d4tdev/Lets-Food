@@ -70,7 +70,7 @@ const getACart = userId => {
          });
 
          if (!cart) {
-            return reject({ msg: 'Cart not found' });
+            return reject({ message: 'Cart not found' });
          }
 
          return resolve(cart);
@@ -134,13 +134,13 @@ const updateQuantityMinus = (productId, userId) => {
             return reject('Product not found');
          }
 
+         let newQuantity = cartProduct.quantity - 1;
+         await cartProduct.updateOne({ quantity: newQuantity });
+
          const cart = await Cart.findOne({ userId: userId }).populate({
             path: 'products',
             populate: { path: 'productId' },
          });
-
-         let newQuantity = cartProduct.quantity - 1;
-         await cartProduct.updateOne({ quantity: newQuantity });
          return resolve(cart);
       } catch (e) {
          return reject(e);
@@ -207,10 +207,10 @@ const checkOut = (user, note) => {
          }
 
          if (!user.number) {
-            return reject('User number not found');
+            return reject('Chưa thêm số điện thoại');
          }
          if (!user.address) {
-            return reject('User address not found');
+            return reject('Chưa thêm địa chỉ nhà');
          }
 
          const cartProducts = await CartProduct.find({ userId: user._id });
@@ -218,11 +218,15 @@ const checkOut = (user, note) => {
             return reject('Cart product not found');
          }
 
+         console.log('Trên gửi mail');
          const sendOtp = await sendOtpVerification(user, note);
+         console.log('Dưới gửi mail');
 
          if (sendOtp) {
-            return resolve({ msg: 'Send otp success' });
+            console.log('Chạy');
+            return resolve('Send otp success');
          } else {
+            console.log('Không chạy');
             return reject('Send otp fail');
          }
       } catch (e) {
@@ -246,7 +250,7 @@ const sendOtpVerification = (user, note) => {
          });
 
          await CartProduct.deleteMany({ userId: user._id });
-         await Cart.deleteOne({ userId: user._id });
+         await cart.deleteOne();
 
          await sendEmail(
             user.email,
