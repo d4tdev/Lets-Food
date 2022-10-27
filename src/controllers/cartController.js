@@ -57,7 +57,7 @@ class CartController {
          const cart = await cartService.updateQuantityPlus(productId, _id);
 
          // return res.status(200).json(cart);
-         res.redirect('/cart/show/' + _id);
+         // res.redirect('/cart/show/' + _id);
          return res.render('gioHang', { cart, user: req.user });
       } catch (e) {
          return res.render('gioHang', { message: e.message });
@@ -75,7 +75,7 @@ class CartController {
          const cart = await cartService.updateQuantityMinus(productId, _id);
 
          // return res.status(200).json(cart);
-         res.redirect('/cart/show/' + _id);
+         // res.redirect('/cart/show/' + _id);
          return res.render('gioHang', { cart, user: req.user });
       } catch (e) {
          return res.render('gioHang', { message: e.message });

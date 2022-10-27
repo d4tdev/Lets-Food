@@ -109,13 +109,13 @@ const updateQuantityPlus = (productId, userId) => {
             return reject('Product not found');
          }
 
+         let newQuantity = cartProduct.quantity + 1;
+         await cartProduct.updateOne({ quantity: newQuantity });
+
          const cart = await Cart.findOne({ userId: userId }).populate({
             path: 'products',
             populate: { path: 'productId' },
          });
-
-         let newQuantity = cartProduct.quantity + 1;
-         await cartProduct.updateOne({ quantity: newQuantity });
          return resolve(cart);
       } catch (e) {
          return reject(e);
