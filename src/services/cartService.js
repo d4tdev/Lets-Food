@@ -70,7 +70,7 @@ const getACart = userId => {
          });
 
          if (!cart) {
-            return reject({ message: 'Cart not found' });
+            return reject({ message: 'Không tìm thấy sản phẩm trong giỏ hàng' });
          }
 
          return resolve(cart);
@@ -215,18 +215,14 @@ const checkOut = (user, note) => {
 
          const cartProducts = await CartProduct.find({ userId: user._id });
          if (!cartProducts) {
-            return reject('Cart product not found');
+            return reject('Không tìm thấy sản phẩm trong giỏ hàng');
          }
 
-         console.log('Trên gửi mail');
          const sendOtp = await sendOtpVerification(user, note);
-         console.log('Dưới gửi mail');
 
          if (sendOtp) {
-            console.log('Chạy');
             return resolve('Send otp success');
          } else {
-            console.log('Không chạy');
             return reject('Send otp fail');
          }
       } catch (e) {
