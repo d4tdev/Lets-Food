@@ -88,6 +88,30 @@ const productController = {
          return res.render('admin_products_del', { message: 'Xóa sản phẩm thất bại' });
       }
    },
+
+   getOneProduct: async (req, res) => {
+      try{
+         const {productId} = req.params;
+         const productItem = await product.findById(productId);
+         return res.render('productItem',{
+            productItem
+         });
+      } catch (err) {
+         res.render('productItem', { message: 'Lỗi', user: req.user });
+      }
+   },
+
+   getOneProductAdmin: async (req, res) => {
+      try{
+         const {productId} = req.params;
+         const productItem = await product.findById(productId);
+         return res.render('admin_products _del',{
+            productItem
+         });
+      } catch (err) {
+         res.render('admin_products _del', { message: 'Lỗi', user: req.user });
+      }
+   }
 };
 
 module.exports = productController;
