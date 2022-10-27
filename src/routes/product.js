@@ -17,4 +17,8 @@ router.get('/getAllProduct', productController.getAllProduct);
 
 router.put('/update/:productId', productController.updateProduct);
 
+router.get('/get_one_product/:productId', productController.getOneProduct);
+
+router.get('/get_one_product_admin/:productId', productController.getOneProductAdmin);
+
 module.exports = router;
