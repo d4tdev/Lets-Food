@@ -37,7 +37,7 @@
          </nav>
          <div class="container">
             <!-- thêm sản phẩm -->
-            <!-- <div class="add__product">
+            <div class="add__product">
                <h3 class="title">
                   Thêm sản phẩm
                </h3>
@@ -56,53 +56,36 @@
                   </div>
                   <div class="form__group">
                      <label for="description" class="form__label">Mô tả sản phẩm</label>
-                     <textarea name="" id="description" cols="30" rows="10" class="form__input"></textarea>
+                     <textarea
+                        name="description"
+                        id="description"
+                        cols="30"
+                        rows="10"
+                        class="form__input"></textarea>
                   </div>
                   <div class="form__group">
-                     <button class="btn btn__add">Thêm sản phẩm</button>
+                     <label for="description" class="form__label">Nguyên liệu sản phẩm</label>
+                     <textarea
+                        name="ingredient"
+                        id="ingredient"
+                        cols="30"
+                        rows="10"
+                        class="form__input"></textarea>
+                  </div>
+                  <div class="form__group">
+                     <label for="description" class="form__label">Cách chế biến</label>
+                     <textarea
+                        name="process"
+                        id="process"
+                        cols="30"
+                        rows="10"
+                        class="form__input"></textarea>
+                  </div>
+                  <div class="button_form">
+                     <button class="btn btn__add">Cập nhật</button>
+                     <button class="btn btn__add">Xóa</button>
                   </div>
                </form>
-            </div> -->
-            
-            <!-- sửa xóa thông tin sản phẩm -->
-            <div class="edit__product">
-               <h3 class="title">
-                  Sửa thông tin sản phẩm
-               </h3>
-               <div class="edit__product__list">
-                  <div class="edit__product__item">
-                     <div class="edit__product__content">
-                        <div class="edit__product__block">
-                           <label for="" class="edit__product__label">
-                              Link hình ảnh
-                           </label>
-                           <input type="url" class="edit__product__input" />
-                        </div>
-                        <div class="edit__product__block">
-                           <label for="" class="edit__product__label">
-                              Tên sản phẩm
-                           </label>
-                           <input type="text" class="edit__product__input" />
-                        </div>
-                        <div class="edit__product__block">
-                           <label for="" class="edit__product__label">
-                              Giá sản phẩm
-                           </label>
-                           <input type="url" class="edit__product__input" />
-                        </div>
-                        <div class="edit__product__block">
-                           <label for="" class="edit__product__label">
-                              Mô tả sản phẩm
-                           </label>
-                           <input type="url" class="edit__product__input" />
-                        </div>
-                     </div>
-                     <div class="edit__product__item__action">
-                        <button class="btn btn__edit">Sửa</button>
-                        <button class="btn btn__delete">Xóa</button>
-                     </div>
-                  </div>
-               </div>
             </div>
          </div>
       </div>

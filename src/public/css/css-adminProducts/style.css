@@ -229,3 +229,10 @@ a {
    align-items: center;
    gap: 20px;
 }
+
+.button_form {
+   margin-left: auto;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
