@@ -11,32 +11,31 @@ const formatPrice = price => {
    return formatter.format(price);
 };
 
-const checkLogin = () => {
-   fetch('https://letsfood.click/check_login')
-      .then(res => res.json())
-      .then(data => {
-         if (data) {
-            return (login = true);
-         } else {
-            return (login = false);
-         }
-      });
-};
+// const checkLogin = () => {
+//    fetch('https://letsfood.click/check_login')
+//       .then(res => res.json())
+//       .then(data => {
+//          if (data) {
+//             return (login = true);
+//          } else {
+//             return (login = false);
+//          }
+//       });
+// };
 
-checkLogin();
+// checkLogin();
 
-addCartBtn.addEventListener('click', () => {
-   if (!login) {
-      addCartBtn.href = '/auth/getLoginLocal';
-   } else {
-      addCartBtn.href = `/cart/create/${addCartBtn.dataset.id}`;
-   }
-});
+// addCartBtn.addEventListener('click', () => {
+//    if (!login) {
+//       addCartBtn.href = '/auth/getLoginLocal';
+//    } else {
+//       addCartBtn.href = `/cart/create/${addCartBtn.dataset.id}`;
+//    }
+// });
 
 fetch('https://letsfood.click/product/get')
    .then(response => response.json())
    .then(data => {
-      console.log(data);
 
       // hiện thị sản phẩm còn lại
       data.forEach(item => {
