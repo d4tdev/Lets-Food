@@ -137,8 +137,7 @@ li {
 
 .btn {
    margin-top: 15px;
-   display: flex;
-   align-items: center;
+   display: inline-block;
    gap: 15px;
    padding: 0.5rem 1rem;
    background-image: linear-gradient(to right, var(--yellow-color), var(--orange-color));
@@ -222,6 +221,11 @@ li {
    align-items: center;
    gap: 10px;
    text-align: center;
+   transition: all 0.3s ease;
+}
+
+.slider__product__item:hover {
+   transform: scale(1.05);
 }
 
 .slider__product__item-img {

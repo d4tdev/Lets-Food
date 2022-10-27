@@ -13,7 +13,7 @@
          rel="stylesheet" />
 
       <!-- css -->
-      <link rel="stylesheet" href="../css/css-adminProducts/style.css" />
+      <link rel="stylesheet" href="../../../css/css-adminProducts/style.css" />
 
       <title>Admin - Products</title>
    </head>
@@ -21,7 +21,7 @@
       <div class="root">
          <nav class="navbar">
             <div class="logo">
-               <img src="../images/logo.png" alt="logo" />
+               <img src="../../../images/logo.png" alt="logo" />
             </div>
 
             <div class="navbar__menu">
@@ -44,42 +44,27 @@
                <form action="" class="form">
                   <div class="form__group">
                      <label for="name" class="form__label">Tên sản phẩm</label>
-                     <input type="text" class="form__input" id="name" />
+                     <input type="text" class="form__input" id="name" value="<%= productItem.name %> " />
                   </div>
                   <div class="form__group">
                      <label for="price" class="form__label">Giá sản phẩm</label>
-                     <input type="text" class="form__input" id="price" />
+                     <input type="text" class="form__input" id="price" value="<%= productItem.price %> "/>
                   </div>
                   <div class="form__group">
                      <label for="image" class="form__label">Link ảnh sản phẩm</label>
-                     <input type="url" class="form__input" id="image" />
+                     <input type="url" class="form__input" id="image" value="<%= productItem.image %> "/>
                   </div>
                   <div class="form__group">
                      <label for="description" class="form__label">Mô tả sản phẩm</label>
-                     <textarea
-                        name="description"
-                        id="description"
-                        cols="30"
-                        rows="10"
-                        class="form__input"></textarea>
+                     <input type="url" class="form__input" id="description" value="<%= productItem.description %> "/>
                   </div>
                   <div class="form__group">
                      <label for="description" class="form__label">Nguyên liệu sản phẩm</label>
-                     <textarea
-                        name="ingredient"
-                        id="ingredient"
-                        cols="30"
-                        rows="10"
-                        class="form__input"></textarea>
+                     <input type="url" class="form__input" id="ingredient" value="<%= productItem.ingredient %> "/>
                   </div>
                   <div class="form__group">
                      <label for="description" class="form__label">Cách chế biến</label>
-                     <textarea
-                        name="process"
-                        id="process"
-                        cols="30"
-                        rows="10"
-                        class="form__input"></textarea>
+                     <input type="url" class="form__input" id="process" value="<%= productItem.process %> "/>
                   </div>
                   <div class="button_form">
                      <button class="btn btn__add">Cập nhật</button>

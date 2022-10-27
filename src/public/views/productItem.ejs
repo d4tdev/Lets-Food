@@ -13,20 +13,14 @@
          rel="stylesheet" />
 
       <!-- css -->
-      <link rel="stylesheet" href="../css/css-productItem/style.css" />
-      <link rel="stylesheet" href="../css/css-productItem/responsive.css">
+      <link rel="stylesheet" href="../../../css/css-productItem/style.css" />
+      <link rel="stylesheet" href="../../../css/css-productItem/responsive.css">
 
-      <!-- alert -->
-      <link rel="stylesheet" href="../css/css-alert/style.css" />
-
-      <title>Bánh mì thịt nướng</title>
+      <title><%= productItem.name %> </title>
    </head>
    <body>
 
       <div class="root">
-         <p>
-            <%= productItem %>
-         </p>
          <div class="container">
             <nav class="navbar">
                <a class="back-home" href="/home">
@@ -34,22 +28,29 @@
                   Trang chủ
                </a>
                <h3 class="product-name">
-
+                  <%= productItem.name %>
                </h3>
             </nav>
 
             <div class="content">
-               <img src="" alt="" class="product__img" />
+               <img src="<%= productItem.image %> " alt="<%= productItem.name %> " class="product__img" />
                <div class="product__content">
-                  <h2 class="product__name"></h2>
-                  <p class="product__desc"></p>
+                  <h2 class="product__name">
+                     <%= productItem.name %>
+                  </h2>
+                  <p class="product__desc">
+                     <%= productItem.description %>
+                  </p>
                   <div class="product__price">
-                     <span class="product__price--old"> </span>
+                     <span class="product__price--old">
+                        <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                              'VND', }).format(productItem.price) %>
+                     </span>
                   </div>
-                  <button class="btn btn__add-cart">
+                  <a class="btn btn__add-cart">
                      <i class="fas fa-shopping-cart"></i>
                      Thêm vào giỏ hàng
-                  </button>
+                  </a>
                </div>
             </div>
 
@@ -59,11 +60,15 @@
                   <h4 class="product__desc-title-text">
                      Nguyên liệu:
                   </h4>
-                  <p class="product__desc-ingredient"></p>
+                  <p class="product__desc-ingredient">
+                     <%= productItem.ingredient %>
+                  </p>
                   <h4 class="product__desc-title-text">
                      Cách chế biến:
                   </h4>
-                  <p class="product__desc-process"></p>
+                  <p class="product__desc-process">
+                     <%= productItem.process %>
+                  </p>
                </div>
             </div>
 
@@ -79,6 +84,6 @@
 
       <!-- javascript -->
       <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
-      <script src="../javascript/productItem.js"></script>
+      <script src="../../../javascript/productItem.js"></script>
    </body>
 </html>
