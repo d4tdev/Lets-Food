@@ -12,7 +12,7 @@ const productController = {
          let { name, price, description, image, category, ingredient, process } = req.body;
 
          if (!name || !price || !description || !image || !ingredient || !process) {
-            return res.render('admin_addProduct', { message: 'Vui lòng điền đầy đủ thông tin' });
+            return res.render('admin_products_add', { message: 'Vui lòng điền đầy đủ thông tin' });
          }
 
          if (!category) {
@@ -29,10 +29,10 @@ const productController = {
             process,
          });
 
-         res.redirect('/auth/admin');
-         return res.render('admin_products', { message: 'Thêm sản phẩm thành công' });
+         res.redirect('/product/getAllProduct');
+         return res.render('Admin', { message: 'Thêm sản phẩm thành công', user: req.user });
       } catch (err) {
-         res.render('admin_addProduct', { message: 'Thêm sản phẩm thất bại' });
+         res.render('admin_products_add', { message: 'Thêm sản phẩm thất bại', user: req.user });
       }
    },
 
@@ -49,13 +49,15 @@ const productController = {
       try {
          const users = await user.find({});
          const products = await product.find({});
-         return res.render('admin_products', {
+         return res.render('Admin', {
             products,
             countProducts: products.length,
             countUsers: users.length,
+            user: req.user,
+            message: '',
          });
       } catch (err) {
-         res.render('admin_products', { message: 'Lỗi' });
+         res.render('Admin', { message: 'Lỗi', user: req.user });
       }
    },
 
@@ -65,9 +67,9 @@ const productController = {
          const productItem = await product.findById(productId);
          await productItem.updateOne({ $set: req.body });
 
-         res.render('admin_products', { message: 'Cập nhật sản phẩm thành công' });
+         res.render('admin_products_del', { message: 'Cập nhật sản phẩm thành công' });
       } catch (err) {
-         res.render('admin_products', { message: 'Cập nhật sản phẩm thất bại' });
+         res.render('admin_products_del', { message: 'Cập nhật sản phẩm thất bại' });
       }
    },
 
@@ -81,9 +83,9 @@ const productController = {
          const productItem = await product.findById(productId);
          await productItem.deleteOne();
 
-         res.render('admin_products', { message: 'Xóa sản phẩm thành công' });
+         res.render('admin_products_del', { message: 'Xóa sản phẩm thành công' });
       } catch (err) {
-         return res.render('admin_products', { message: 'Xóa sản phẩm thất bại' });
+         return res.render('admin_products_del', { message: 'Xóa sản phẩm thất bại' });
       }
    },
 };

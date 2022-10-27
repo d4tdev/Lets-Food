@@ -32,3 +32,4 @@ arrInput = arrInput.join('');
 inputHidden.value=arrInput;
 console.log(inputHidden.attributes[2].value);
 
+

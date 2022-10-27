@@ -190,3 +190,9 @@ li {
 .form__save__btn:hover {
     background-color: var(--yellow-color);
 }
+
+.forgot__pass__mb {
+    color: var(--orange-color);
+    margin-left: auto;
+    display: none;
+}

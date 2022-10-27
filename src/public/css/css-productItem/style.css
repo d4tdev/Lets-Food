@@ -64,14 +64,9 @@ li {
 }
 
 ::-webkit-scrollbar-thumb {
-   background-image: linear-gradient(
-      90deg,
-      var(--yellow-color) 0%,
-      var(--orange-color) 100%
-   );
+   background-image: linear-gradient(90deg, var(--yellow-color) 0%, var(--orange-color) 100%);
    border-radius: 10px;
 }
-
 
 .container {
    width: 100%;
@@ -80,22 +75,16 @@ li {
 }
 
 .navbar {
-   background-image: linear-gradient(
-      to right,
-      var(--yellow-color),
-      var(--orange-color)
-   );
-   padding: 0 1rem;
+   background-image: linear-gradient(to right, var(--yellow-color), var(--orange-color));
    display: flex;
    justify-content: space-between;
    align-items: center;
+   padding: 1rem 2rem;
    position: fixed;
+   z-index: 999;
    top: 0;
    left: 0;
-   right: 0;
-   z-index: 999;
-   height: 80px;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   width: 100vw;
 }
 
 .back-home {
@@ -108,7 +97,7 @@ li {
    letter-spacing: 1px;
 }
 
-.product-name h3 {
+.product-name {
    font-size: 1.5rem;
    font-weight: 600;
    letter-spacing: 1px;
@@ -116,7 +105,7 @@ li {
 }
 
 .content {
-   padding-top: 200px;
+   padding-top: 100px;
    max-width: var(--max-width);
    margin: 0 auto;
    display: flex;
@@ -152,11 +141,7 @@ li {
    align-items: center;
    gap: 15px;
    padding: 0.5rem 1rem;
-   background-image: linear-gradient(
-      to right,
-      var(--yellow-color),
-      var(--orange-color)
-   );
+   background-image: linear-gradient(to right, var(--yellow-color), var(--orange-color));
    border-radius: 5px;
    font-size: 1.2rem;
    font-weight: 600;
@@ -178,12 +163,13 @@ li {
 }
 
 .product__desc--title {
-   font-size: 1.4rem;
+   font-size: 1.6rem;
    font-weight: 600;
    letter-spacing: 1px;
    color: var(--black-color);
    text-align: center;
    margin-bottom: 20px;
+   text-align: center;
 }
 
 .product__desc--content {
@@ -191,6 +177,19 @@ li {
    font-weight: 400;
    letter-spacing: 1px;
    color: var(--black-color);
+}
+
+.product__desc-title-text {
+   font-size: 1.2rem;
+   font-weight: 600;
+   letter-spacing: 1px;
+   color: var(--black-color);
+   margin: 10px 0;
+}
+
+.product__desc-process,
+.product__desc-ingredient {
+   max-width: var(--max-width);
 }
 
 .slider__product {
@@ -248,4 +247,3 @@ li {
    letter-spacing: 1px;
    color: var(--orange-color);
 }
-
