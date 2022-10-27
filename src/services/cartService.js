@@ -109,9 +109,11 @@ const updateQuantityPlus = (productId, userId) => {
             return reject('Product not found');
          }
 
+         const cart = await Cart.findOne({ userId: userId });
+
          let newQuantity = cartProduct.quantity + 1;
          await cartProduct.updateOne({ quantity: newQuantity });
-         return resolve({ msg: 'Product quantity updated' });
+         return resolve({ cart });
       } catch (e) {
          return reject(e);
       }
@@ -128,9 +130,12 @@ const updateQuantityMinus = (productId, userId) => {
          if (!cartProduct) {
             return reject('Product not found');
          }
+
+         const cart = await Cart.findOne({ userId: userId });
+
          let newQuantity = cartProduct.quantity - 1;
          await cartProduct.updateOne({ quantity: newQuantity });
-         return resolve({ msg: 'Product quantity updated' });
+         return resolve({ cart });
       } catch (e) {
          return reject(e);
       }
