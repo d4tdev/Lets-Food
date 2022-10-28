@@ -58,8 +58,8 @@ class CartController {
          const cart = await cartService.updateQuantityPlus(productId, _id);
 
          // return res.status(200).json(cart);
-         // res.redirect('/cart/show/' + _id);
-         return res.render('gioHang', { cart, user: req.user });
+         res.redirect('/cart/show/' + _id);
+         return res.render('gioHang', { cart, user: req.user, message: '' });
       } catch (e) {
          return res.render('gioHang', { message: e.message });
       }
@@ -77,7 +77,7 @@ class CartController {
 
          // return res.status(200).json(cart);
          res.redirect('/cart/show/' + _id);
-         return res.render('gioHang', { cart, user: req.user });
+         return res.render('gioHang', { cart, user: req.user, message: '' });
       } catch (e) {
          return res.render('gioHang', { message: e.message });
       }
