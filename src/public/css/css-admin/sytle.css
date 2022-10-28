@@ -375,4 +375,26 @@ a {
 .manage__product__content-item__action {
    width: 15%;
    color: black;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 30px;
+}
+
+.fix__product__btn {
+   background-color: var(--background-color);
+   padding: 10px 20px;
+   border-radius: 5px;
+   color: var(--black-color);
+   cursor: pointer;
+}
+
+.del__product__button {
+   background-color: var(--background-color);
+   padding: 10px 20px;
+   border-radius: 5px;
+   color: red;
+   outline: none;
+   border: none;
+   cursor: pointer;
 }

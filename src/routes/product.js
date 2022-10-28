@@ -15,7 +15,7 @@ router.get('/get', productController.getProductJson);
 
 router.get('/getAllProduct', productController.getAllProduct);
 
-router.put('/update/:productId', productController.updateProduct);
+router.patch('/update/:productId', productController.updateProduct);
 
 router.get('/get_one_product/:productId', productController.getOneProduct);
 

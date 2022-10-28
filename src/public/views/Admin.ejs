@@ -13,10 +13,10 @@
          rel="stylesheet" />
 
       <!-- css -->
-      <link rel="stylesheet" href="../css/css-admin/sytle.css" />
+      <link rel="stylesheet" href="../../css/css-admin/sytle.css" />
 
       <!-- alert -->
-      <link rel="stylesheet" href="../css/css-alert/style.css" />
+      <link rel="stylesheet" href="../../css/css-alert/style.css" />
 
       <title>Admin - Products</title>
    </head>
@@ -24,7 +24,7 @@
       <div class="root">
          <nav class="navbar">
             <div class="logo">
-               <img src="../images/logo.png" alt="logo" />
+               <img src="../../images/logo.png" alt="logo" />
             </div>
 
             <div class="navbar__menu">
@@ -87,7 +87,7 @@
                   </div>
                   <div class="manage__product__content-list">
                      <!-- hiện thị toàn bộ sản phẩm -->
-                     <% products.forEach(function(product){ %>
+                     <% products.forEach(function(product){ %> 
                         <div class="manage__product__content-item">
                            <div class="manage__product__content-item__name">
                               <%= product.name %>
@@ -106,9 +106,14 @@
                               <%= product.ingredient%> <%= product.process%> 
                            </div>
                            <div class="manage__product__content-item__action">
-                              <a href="/product/get_one_product_admin/<%= product._id %>" class="text-black">
+                              <a href="/product/get_one_product_admin/<%= product._id %>" class="fix__product__btn">
                                  <i class="fas fa-pen"></i>
                               </a>
+                              <form class="del__product" method="POST">
+                                 <a class="del__product__button" data="<%= product._id %>">
+                                    <i class="fas fa-trash"></i>
+                                 </a>
+                              </form>
                            </div>
                         </div>
                      <% }) %>
@@ -138,6 +143,21 @@
       <!-- font awesome -->
       <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
       <!-- javascript alert -->
-      <script src="../javascript/alert.js"></script>
+      <script src="../../javascript/alert.js"></script>
+
+      <!-- js -->
+      <script>
+         const form = document.querySelector('.del__product');
+         const buttonDel = document.querySelectorAll('.del__product__button');
+
+         buttonDel.forEach((button) => {
+            button.addEventListener('click', (e) => {
+               const id = button.attributes[1].value;
+               console.log(id);
+               form.action = `/product/delete/${id}?_method=DELETE`;
+               form.submit();
+            });
+         });
+      </script>
    </body>
 </html>

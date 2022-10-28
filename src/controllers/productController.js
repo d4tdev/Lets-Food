@@ -62,14 +62,45 @@ const productController = {
    },
 
    updateProduct: async (req, res) => {
+      // try {
+      //    const { productId } = req.params;
+      //    const productItem = await product.findById(productId);
+      //    await productItem.updateOne({ $set: req.body });
+
+      //    res.render('admin_products_del', { message: 'Cập nhật sản phẩm thành công', productItem, user: req.user });
+      // } catch (err) {
+      //    res.render('admin_products_del', { message: 'Cập nhật sản phẩm thất bại' });
+      // }
       try {
          const { productId } = req.params;
          const productItem = await product.findById(productId);
-         await productItem.updateOne({ $set: req.body });
+         let { name, price, description, image, category, ingredient, process } = req.body;
 
-         res.render('admin_products_del', { message: 'Cập nhật sản phẩm thành công' });
+         if (!name || !price || !description || !image || !ingredient || !process) {
+            return res.render('admin_products_del', {
+               message: 'Vui lòng điền đầy đủ thông tin',
+               productItem,
+               user: req.user,
+            });
+         }
+
+         if (!category) {
+            category = 'Đồ ăn';
+         }
+
+         await productItem.updateOne({
+            name,
+            price,
+            description,
+            image,
+            category,
+            ingredient,
+            process,
+         });
+
+         return res.render('admin_products_del', { message: 'Cập nhật sản phẩm thành công', user: req.user, productItem });
       } catch (err) {
-         res.render('admin_products_del', { message: 'Cập nhật sản phẩm thất bại' });
+         res.render('admin_products_del', { message: 'Cập nhật sản phẩm thất bại', user: req.user });
       }
    },
 
@@ -83,9 +114,20 @@ const productController = {
          const productItem = await product.findById(productId);
          await productItem.deleteOne();
 
-         res.render('admin_products_del', { message: 'Xóa sản phẩm thành công' });
+         const users = await user.find({});
+         const products = await product.find({});
+
+         res.render('Admin', { message: 'Xóa sản phẩm thành công', productItem, user: req.user, products, countProducts: products.length, countUsers: users.length });
       } catch (err) {
-         return res.render('admin_products_del', { message: 'Xóa sản phẩm thất bại' });
+         const users = await user.find({});
+         const products = await product.find({});
+         return res.render('Admin', {
+            message: 'Xóa sản phẩm thất bại',
+            user: req.user,
+            products,
+            countProducts: products.length,
+            countUsers: users.length,
+         });
       }
    },
 
@@ -105,11 +147,11 @@ const productController = {
       try{
          const {productId} = req.params;
          const productItem = await product.findById(productId);
-         return res.render('admin_products _del',{
+         return res.render('admin_products_del',{
             productItem
          });
       } catch (err) {
-         res.render('admin_products _del', { message: 'Lỗi', user: req.user });
+         res.render('admin_products_del', { message: 'Lỗi', user: req.user });
       }
    }
 };
