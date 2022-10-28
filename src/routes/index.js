@@ -4,6 +4,7 @@ const authRouter = require('./auth');
 const cartRouter = require('./cart');
 const userRouter = require('./user');
 const productRouter = require('./product');
+const orderRouter = require('./order');
 const { validAuth, validAdmin } = require('../middleware/checkAuthentication');
 
 //
@@ -20,6 +21,8 @@ const routes = app => {
     app.use('/user', validAuth, userRouter);
 
     app.use('/product', validAuth, productRouter);
+
+    app.use('/order', orderRouter);
 
     app.use('/about_us', validAuth, (req, res) => {
         res.render('aboutUs');

@@ -23,6 +23,12 @@ const OrderSchema = new mongoose.Schema({
    note: {
       type: String,
    },
+   moneyTotal: {
+      type: Number,
+   },
+   quantityTotal: {
+      type: Number,
+   },
    expireAt: {
       type: Date,
       default: Date.now,

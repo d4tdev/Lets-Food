@@ -55,15 +55,15 @@
                </div>
                <div class="data__number-item">
                   <div class="data__number-item__title">
-                     <span class="data__number-item__title-text">Tổng số người dùng</span>
+                     <span class="data__number-item__title-text">Doanh thu / tháng</span>
                   </div>
-                  <div class="data__number-item__number">100</div>
+                  <div id="money__total" class="data__number-item__number"></div>
                </div>
                <div class="data__number-item">
                   <div class="data__number-item__title">
-                     <span class="data__number-item__title-text">Tổng số người dùng</span>
+                     <span class="data__number-item__title-text">Sản phẩm đã bán / tháng</span>
                   </div>
-                  <div class="data__number-item__number">100</div>
+                  <div id="quantity__total" class="data__number-item__number"></div>
                </div>
             </div>
             <div class="manage__product">
@@ -154,6 +154,20 @@
                form.action = `/product/delete/${id}?_method=DELETE`;
                form.submit();
             });
+         });
+
+         const formatPrice = price => {
+            const formatter = new Intl.NumberFormat('vi-VN', {
+               style: 'currency',
+               currency: 'VND',
+            });
+            return formatter.format(price);
+         };
+
+         fetch('http://localhost:3000/order/show').then(async res => await res.json()).then(data => {
+            console.log(data);
+            document.getElementById('money__total').innerHTML = formatPrice(data.money);
+            document.getElementById('quantity__total').innerHTML = data.count;
          });
       </script>
    </body>
