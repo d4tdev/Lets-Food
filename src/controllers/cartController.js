@@ -61,7 +61,8 @@ class CartController {
          // res.redirect('/cart/show/' + _id);
          return res.render('gioHang', { cart, user: req.user, message: '' });
       } catch (e) {
-         return res.render('gioHang', { message: e.message });
+         let cart = null;
+         return res.render('gioHang', { cart, message: e.message });
       }
    };
 
@@ -79,7 +80,8 @@ class CartController {
          // res.redirect('/cart/show/' + _id);
          return res.render('gioHang', { cart, user: req.user, message: '' });
       } catch (e) {
-         return res.render('gioHang', { message: e.message });
+         let cart = null;
+         return res.render('gioHang', { cart, message: e.message });
       }
    };
 
