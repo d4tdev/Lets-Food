@@ -42,7 +42,7 @@
                      <span class="data__number-item__title-text">Tổng số sản phẩm</span>
                   </div>
                   <div class="data__number-item__number">
-                     <%= countProducts %> 
+                     <%= countProducts %>
                   </div>
                </div>
                <div class="data__number-item">
@@ -50,7 +50,7 @@
                      <span class="data__number-item__title-text">Tổng số người dùng</span>
                   </div>
                   <div class="data__number-item__number">
-                     <%= countUsers %> 
+                     <%= countUsers %>
                   </div>
                </div>
                <div class="data__number-item">
@@ -84,7 +84,7 @@
                   </div>
                   <div class="manage__product__content-list">
                      <!-- hiện thị toàn bộ sản phẩm -->
-                     <% products.forEach(function(product){ %> 
+                     <% products.forEach(function(product){ %>
                         <div class="manage__product__content-item">
                            <div class="manage__product__content-item__name">
                               <%= product.name %>
@@ -95,12 +95,12 @@
                            </div>
                            <div class="manage__product__content-item__image">
                               <img
-                                 src=<%= product.image %> 
+                                 src=<%= product.image %>
                                  alt=""
                                  class="manage__product__content-item__image-img" />
                            </div>
                            <div class="manage__product__content-item__description">
-                              <%= product.ingredient%> <%= product.process%> 
+                              <%= product.ingredient%> <%= product.process%>
                            </div>
                            <div class="manage__product__content-item__action">
                               <a href="/product/get_one_product_admin/<%= product._id %>" class="fix__product__btn">

@@ -6,9 +6,6 @@ const user = require('../models/User');
 const productController = {
    createProduct: async (req, res) => {
       try {
-         // const newProducts = new product(req.body);
-         // const savaProduct = await newProducts.save();
-         // res.status(200).json(savaProduct);
          let { name, price, description, image, category, ingredient, process } = req.body;
 
          if (!name || !price || !description || !image || !ingredient || !process) {
@@ -28,11 +25,31 @@ const productController = {
             ingredient,
             process,
          });
+         const users = await user.find({});
+         const products = await product.find({});
 
-         res.redirect('/product/getAllProduct');
-         return res.render('Admin', { message: 'Thêm sản phẩm thành công', user: req.user });
+         const Cart = await cart.find({});
+         return res.render('Admin', {
+            cart: Cart,
+            countProducts: products.length,
+            countUsers: users.length,
+            message: 'Thêm sản phẩm thành công',
+            user: req.user,
+            products
+         });
       } catch (err) {
-         res.render('admin_products_add', { message: 'Thêm sản phẩm thất bại', user: req.user });
+         const users = await user.find({});
+         const products = await product.find({});
+         const Cart = await cart.find({});
+
+         res.render('admin_products_add', {
+            countProducts: products.length,
+            countUsers: users.length,
+            cart: Cart,
+            message: 'Thêm sản phẩm thất bại',
+            user: req.user,
+            products
+         });
       }
    },
 
@@ -98,9 +115,16 @@ const productController = {
             process,
          });
 
-         return res.render('admin_products_del', { message: 'Cập nhật sản phẩm thành công', user: req.user, productItem });
+         return res.render('admin_products_del', {
+            message: 'Cập nhật sản phẩm thành công',
+            user: req.user,
+            productItem,
+         });
       } catch (err) {
-         res.render('admin_products_del', { message: 'Cập nhật sản phẩm thất bại', user: req.user });
+         res.render('admin_products_del', {
+            message: 'Cập nhật sản phẩm thất bại',
+            user: req.user,
+         });
       }
    },
 
@@ -117,7 +141,14 @@ const productController = {
          const users = await user.find({});
          const products = await product.find({});
 
-         res.render('Admin', { message: 'Xóa sản phẩm thành công', productItem, user: req.user, products, countProducts: products.length, countUsers: users.length });
+         res.render('Admin', {
+            message: 'Xóa sản phẩm thành công',
+            productItem,
+            user: req.user,
+            products,
+            countProducts: products.length,
+            countUsers: users.length,
+         });
       } catch (err) {
          const users = await user.find({});
          const products = await product.find({});
@@ -132,11 +163,11 @@ const productController = {
    },
 
    getOneProduct: async (req, res) => {
-      try{
-         const {productId} = req.params;
+      try {
+         const { productId } = req.params;
          const productItem = await product.findById(productId);
-         return res.render('productItem',{
-            productItem
+         return res.render('productItem', {
+            productItem,
          });
       } catch (err) {
          res.render('productItem', { message: 'Lỗi', user: req.user });
@@ -144,16 +175,16 @@ const productController = {
    },
 
    getOneProductAdmin: async (req, res) => {
-      try{
-         const {productId} = req.params;
+      try {
+         const { productId } = req.params;
          const productItem = await product.findById(productId);
-         return res.render('admin_products_del',{
-            productItem
+         return res.render('admin_products_del', {
+            productItem,
          });
       } catch (err) {
          res.render('admin_products_del', { message: 'Lỗi', user: req.user });
       }
-   }
+   },
 };
 
 module.exports = productController;

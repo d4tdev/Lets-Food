@@ -55,7 +55,7 @@ a {
    --black-color: #1d1d1d;
 }
 
-/* custom scrollbar */
+/*TODO custom scrollbar */
 
 ::-webkit-scrollbar {
    width: 10px;

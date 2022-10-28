@@ -25,20 +25,22 @@ const routes = app => {
         res.render('aboutUs');
     })
 
-    app.use('/home', validAdmin, async (req, res) => {
+    app.use('/home', async (req, res) => {
         if (req.user) {
             const cart = await Cart.findOne({ userId: req.user._id });
+            const role = req.user.role;
 
             if (cart) {
                 // res.json(req.user);
-                return res.render('trangChu', { cart, user: req.user });
+                return res.render('trangChu', { role, cart, user: req.user });
             }
             const newCart = {
                 count: 0,
             };
-            return res.render('trangChu', { cart: newCart, user: req.user });
+            return res.render('trangChu', { role, cart: newCart, user: req.user });
         } else {
-            res.render('trangChu', { cart: null, user: null });
+            const role = 'Đéo có role'
+            res.render('trangChu', { role, cart: null, user: null });
         }
     });
 
