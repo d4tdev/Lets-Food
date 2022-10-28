@@ -106,6 +106,26 @@ a {
    gap: 15px;
 }
 
+.home {
+   margin-top: 50px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.home__link {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 20px;
+   font-size: 1.4rem;
+   color: var(--black-color);
+   font-weight: 600;
+   border: 2px solid var(--black-color);
+   padding: 0.5rem 1rem;
+   border-radius: 5px;
+}
+
 .container {
    background-color: var(--orange-color);
    width: 80vw;

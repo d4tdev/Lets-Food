@@ -9,8 +9,8 @@ alertClose.forEach(alert => {
 });
 
 // sau 3s thì xóa alert
-// setTimeout(() => {
-//    alertClose.forEach(alert => {
-//       alert.parentElement.remove();
-//    });
-// }, 5000);
+setTimeout(() => {
+   alertClose.forEach(alert => {
+      alert.parentElement.remove();
+   });
+}, 3000);
