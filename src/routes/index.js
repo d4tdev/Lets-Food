@@ -51,7 +51,7 @@ const routes = app => {
         res.json(req.user);
     });
 
-    app.use('/', validAuth, (req, res) => {
+    app.use('/', (req, res) => {
     	res.redirect('/home');
     });
 };

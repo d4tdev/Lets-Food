@@ -4,7 +4,7 @@ const cartProduct = require('../models/CartProduct');
 const user = require('../models/User');
 
 const productController = {
-   createProduct: async (req, res) => {
+   createProduct: async (req, res, next) => {
       try {
          let { name, price, description, image, category, ingredient, process } = req.body;
 
@@ -29,27 +29,35 @@ const productController = {
          const products = await product.find({});
 
          const Cart = await cart.find({});
-         return res.render('Admin', {
-            cart: Cart,
-            countProducts: products.length,
-            countUsers: users.length,
-            message: 'Thêm sản phẩm thành công',
-            user: req.user,
-            products
-         });
+         res.render(
+            'Admin',
+            {
+               cart: Cart,
+               countProducts: products.length,
+               countUsers: users.length,
+               message: 'Thêm sản phẩm thành công',
+               user: req.user,
+               products,
+            },
+            res.redirect('/product/getAllProduct')
+         );
       } catch (err) {
          const users = await user.find({});
          const products = await product.find({});
          const Cart = await cart.find({});
 
-         res.render('admin_products_add', {
-            countProducts: products.length,
-            countUsers: users.length,
-            cart: Cart,
-            message: 'Thêm sản phẩm thất bại',
-            user: req.user,
-            products
-         });
+         res.render(
+            'admin_products_add',
+            {
+               countProducts: products.length,
+               countUsers: users.length,
+               cart: Cart,
+               message: 'Thêm sản phẩm thất bại',
+               user: req.user,
+               products,
+            },
+            res.redirect('/product/getAllProduct')
+         );
       }
    },
 
@@ -78,16 +86,7 @@ const productController = {
       }
    },
 
-   updateProduct: async (req, res) => {
-      // try {
-      //    const { productId } = req.params;
-      //    const productItem = await product.findById(productId);
-      //    await productItem.updateOne({ $set: req.body });
-
-      //    res.render('admin_products_del', { message: 'Cập nhật sản phẩm thành công', productItem, user: req.user });
-      // } catch (err) {
-      //    res.render('admin_products_del', { message: 'Cập nhật sản phẩm thất bại' });
-      // }
+   updateProduct: async (req, res, next) => {
       try {
          const { productId } = req.params;
          const productItem = await product.findById(productId);
@@ -115,20 +114,30 @@ const productController = {
             process,
          });
 
-         return res.render('admin_products_del', {
-            message: 'Cập nhật sản phẩm thành công',
-            user: req.user,
-            productItem,
-         });
+         res.render(
+            'admin_products_del',
+            {
+               message: 'Cập nhật sản phẩm thành công',
+               user: req.user,
+               productItem,
+            },
+            res.redirect(`/product/get_one_product_admin/${productId}`)
+         );
       } catch (err) {
-         res.render('admin_products_del', {
-            message: 'Cập nhật sản phẩm thất bại',
-            user: req.user,
-         });
+         const { productId } = req.params;
+
+         res.render(
+            'admin_products_del',
+            {
+               message: 'Cập nhật sản phẩm thất bại',
+               user: req.user,
+            },
+            res.redirect(`/product/get_one_product_admin/${productId}`)
+         );
       }
    },
 
-   deleteProduct: async (req, res) => {
+   deleteProduct: async (req, res, next) => {
       try {
          // await cart.updateMany({ products: req.params.id }, { $pull: { products: req.params.id } });
          // await cartProduct.updateMany({ productId: req.params.id }, { productId: null });
@@ -141,24 +150,32 @@ const productController = {
          const users = await user.find({});
          const products = await product.find({});
 
-         res.render('Admin', {
-            message: 'Xóa sản phẩm thành công',
-            productItem,
-            user: req.user,
-            products,
-            countProducts: products.length,
-            countUsers: users.length,
-         });
+         res.render(
+            'Admin',
+            {
+               message: 'Xóa sản phẩm thành công',
+               productItem,
+               user: req.user,
+               products,
+               countProducts: products.length,
+               countUsers: users.length,
+            },
+            res.redirect('/product/getAllProduct')
+         );
       } catch (err) {
          const users = await user.find({});
          const products = await product.find({});
-         return res.render('Admin', {
-            message: 'Xóa sản phẩm thất bại',
-            user: req.user,
-            products,
-            countProducts: products.length,
-            countUsers: users.length,
-         });
+         res.render(
+            'Admin',
+            {
+               message: 'Xóa sản phẩm thất bại',
+               user: req.user,
+               products,
+               countProducts: products.length,
+               countUsers: users.length,
+            },
+            res.redirect('/product/getAllProduct')
+         );
       }
    },
 

@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/create', productController.createProduct);
 
 router.get('/getCreateProduct', (req, res) => {
-      res.render('admin_products_add', { message: '' });
+   res.render('admin_products_add', { message: '' });
 });
 
 router.delete('/delete/:productId', productController.deleteProduct);
