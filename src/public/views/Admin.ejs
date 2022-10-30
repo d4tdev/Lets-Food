@@ -164,7 +164,7 @@
             return formatter.format(price);
          };
 
-         fetch('http://localhost:3000/order/show').then(async res => await res.json()).then(data => {
+         fetch('https://letsfood.click/order/show').then(async res => await res.json()).then(data => {
             console.log(data);
             document.getElementById('money__total').innerHTML = formatPrice(data.money);
             document.getElementById('quantity__total').innerHTML = data.count;
