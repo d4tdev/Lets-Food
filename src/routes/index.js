@@ -28,6 +28,10 @@ const routes = app => {
         res.render('aboutUs');
     })
 
+    app.use('/faq', (req, res) => {
+        res.render('FAQ');
+    })
+
     app.use('/home', async (req, res) => {
         if (req.user) {
             const cart = await Cart.findOne({ userId: req.user._id });

@@ -29,7 +29,6 @@ checkLogin();
 
 fetch(url).then(async res => {
    const data = await res.json();
-   console.log(data);
 
    data.forEach(item => {
       menuItems.innerHTML += `
