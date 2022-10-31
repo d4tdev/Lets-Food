@@ -11,7 +11,7 @@ class CartController {
          // return res.status(200).json(cart);
          return res.redirect('/home');
       } catch (e) {
-         return res.render('home', { message: e.message });
+         return res.render('trangChu', { message: e.message });
       }
    };
 
@@ -58,11 +58,13 @@ class CartController {
          const cart = await cartService.updateQuantityPlus(productId, _id);
 
          // return res.status(200).json(cart);
-         // res.redirect('/cart/show/' + _id);
-         return res.render('gioHang', { cart, user: req.user, message: '' });
+
+         return res.render('gioHang', { cart, user: req.user, message: '' }, res.redirect('/cart/show/' + _id));
       } catch (e) {
+         const { _id } = req.user;
          let cart = null;
-         return res.render('gioHang', { cart, message: e.message });
+
+         return res.render('gioHang', { cart, message: e.message }, res.redirect('/cart/show/' + _id));
       }
    };
 
@@ -77,11 +79,13 @@ class CartController {
          const cart = await cartService.updateQuantityMinus(productId, _id);
 
          // return res.status(200).json(cart);
-         // res.redirect('/cart/show/' + _id);
-         return res.render('gioHang', { cart, user: req.user, message: '' });
+
+         return res.render('gioHang', { cart, user: req.user, message: '' }, res.redirect('/cart/show/' + _id));
       } catch (e) {
          let cart = null;
-         return res.render('gioHang', { cart, message: e.message });
+         const { _id } = req.user;
+
+         return res.render('gioHang', { cart, message: e.message }, res.redirect('/cart/show/' + _id));
       }
    };
 
@@ -96,10 +100,12 @@ class CartController {
          const cart = await cartService.deleteOneCartProduct(productId, _id);
 
          // res.status(200).json(cart);
-         res.redirect('/cart/show/' + _id);
-         return res.render('gioHang', { cart, message: 'Xóa sản phẩm thành công', user: req.user });
+
+         return res.render('gioHang', { cart, message: 'Xóa sản phẩm thành công', user: req.user }, res.redirect('/cart/show/' + _id));
       } catch (e) {
-         return res.render('404', { message: e.message });
+         const { _id } = req.user;
+
+         return res.render('404', { message: e.message }, res.redirect('/cart/show/' + _id));
       }
    };
 
@@ -122,15 +128,16 @@ class CartController {
          const message = await cartService.checkOut(user, note);
 
          let cart = null;
-         res.redirect('/cart/show/' + user._id);
-         return res.render('gioHang', { message, cart, user: req.user });
+
+         return res.render('gioHang', { message, cart, user: req.user }, res.redirect('/cart/show/' + user._id));
       } catch (e) {
+         const user = req.user;
          let cart = await Cart.findOne({ userId: req.user._id }).populate({
             path: 'products',
             populate: { path: 'productId' },
          });
          console.log(e);
-         return res.render('gioHang', { cart, message: e, user: req.user });
+         return res.render('gioHang', { cart, message: e, user: req.user }, res.redirect('/cart/show/' + user._id));
       }
    };
 }

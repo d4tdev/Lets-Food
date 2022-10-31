@@ -234,7 +234,21 @@ const checkOut = (user, note) => {
 const sendOtpVerification = (user, note) => {
    return new Promise(async (resolve, reject) => {
       try {
-         const cart = await Cart.findOne({ userId: user._id });
+         const cart = await Cart.findOne({ userId: user._id }).populate({
+            path: 'products',
+            populate: { path: 'productId' },
+         });
+
+         // format data from object to array
+         const cartProductArray = Object.keys(cart.products).map(key => cart.products[key]);
+
+         // math total price, total quantity
+         let moneyTotal = 0;
+         let quantityTotal = 0;
+         for (let i = 0; i < cart.products.length; i++) {
+            moneyTotal += cart.products[i].productId.price * cart.products[i].quantity;
+            quantityTotal += cart.products[i].quantity;
+         }
 
          const order = await Order.create({
             userId: user._id,
@@ -243,6 +257,8 @@ const sendOtpVerification = (user, note) => {
             number: user.number,
             address: user.address,
             status: 'shipping',
+            moneyTotal,
+            quantityTotal,
          });
 
          await CartProduct.deleteMany({ userId: user._id });
@@ -372,6 +388,7 @@ const sendOtpVerification = (user, note) => {
             },
          });
       } catch (e) {
+         // console.log(e)
          reject('Error', e);
       }
    });

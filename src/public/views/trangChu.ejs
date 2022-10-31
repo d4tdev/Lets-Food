@@ -143,12 +143,16 @@
 
                      <div class="account__container">
                         <ul class="account__list">
-                           <li class="account__item">
+
+                           <% if(role === 'admin') { %>
+                              <li class="account__item">
                               <a href="/product/getAllProduct" class="account__link">
                                  <i class="fas fa-user-cog"></i>
                                  <span>Trang quản lý</span>
                               </a>
                            </li>
+                           <% } %>
+
                            <li class="account__item">
                               <a href="/user/show/<%= user._id %>" class="account__link">
                                  <i class="fas fa-user"></i>

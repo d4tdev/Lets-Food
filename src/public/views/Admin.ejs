@@ -42,7 +42,7 @@
                      <span class="data__number-item__title-text">Tổng số sản phẩm</span>
                   </div>
                   <div class="data__number-item__number">
-                     <%= countProducts %> 
+                     <%= countProducts %>
                   </div>
                </div>
                <div class="data__number-item">
@@ -50,20 +50,20 @@
                      <span class="data__number-item__title-text">Tổng số người dùng</span>
                   </div>
                   <div class="data__number-item__number">
-                     <%= countUsers %> 
+                     <%= countUsers %>
                   </div>
                </div>
                <div class="data__number-item">
                   <div class="data__number-item__title">
-                     <span class="data__number-item__title-text">Tổng số người dùng</span>
+                     <span class="data__number-item__title-text">Doanh thu / tháng</span>
                   </div>
-                  <div class="data__number-item__number">100</div>
+                  <div id="money__total" class="data__number-item__number"></div>
                </div>
                <div class="data__number-item">
                   <div class="data__number-item__title">
-                     <span class="data__number-item__title-text">Tổng số người dùng</span>
+                     <span class="data__number-item__title-text">Sản phẩm đã bán / tháng</span>
                   </div>
-                  <div class="data__number-item__number">100</div>
+                  <div id="quantity__total" class="data__number-item__number"></div>
                </div>
             </div>
             <div class="manage__product">
@@ -84,7 +84,7 @@
                   </div>
                   <div class="manage__product__content-list">
                      <!-- hiện thị toàn bộ sản phẩm -->
-                     <% products.forEach(function(product){ %> 
+                     <% products.forEach(function(product){ %>
                         <div class="manage__product__content-item">
                            <div class="manage__product__content-item__name">
                               <%= product.name %>
@@ -95,12 +95,12 @@
                            </div>
                            <div class="manage__product__content-item__image">
                               <img
-                                 src=<%= product.image %> 
+                                 src=<%= product.image %>
                                  alt=""
                                  class="manage__product__content-item__image-img" />
                            </div>
                            <div class="manage__product__content-item__description">
-                              <%= product.ingredient%> <%= product.process%> 
+                              <%= product.ingredient%> <%= product.process%>
                            </div>
                            <div class="manage__product__content-item__action">
                               <a href="/product/get_one_product_admin/<%= product._id %>" class="fix__product__btn">
@@ -154,6 +154,20 @@
                form.action = `/product/delete/${id}?_method=DELETE`;
                form.submit();
             });
+         });
+
+         const formatPrice = price => {
+            const formatter = new Intl.NumberFormat('vi-VN', {
+               style: 'currency',
+               currency: 'VND',
+            });
+            return formatter.format(price);
+         };
+
+         fetch('https://letsfood.click/order/show').then(async res => await res.json()).then(data => {
+            console.log(data);
+            document.getElementById('money__total').innerHTML = formatPrice(data.money);
+            document.getElementById('quantity__total').innerHTML = data.count;
          });
       </script>
    </body>

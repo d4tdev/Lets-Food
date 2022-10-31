@@ -43,8 +43,9 @@
                <div class="cart__list">
                   <% if (cart && cart !== '') { %>
                   <!-- hiện thị sản phẩm trong giỏ hàng -->
-                  <% let cartProducts = [] %> <% cartProducts = cart.products %> <%
-                  cartProducts.forEach((product) => { %>
+                  <% let cartProducts = [] %> <% cartProducts = cart.products %>
+                  <%= cartProducts %>
+                  <% cartProducts.forEach((product) => { %>
                   <div class="cart__item">
                      <div class="cart__item__info">
                         <div class="cart__item__img">
