@@ -20,7 +20,7 @@ const routes = app => {
 
     app.use('/user', validAuth, userRouter);
 
-    app.use('/product', validAuth, productRouter);
+    app.use('/product', productRouter);
 
     app.use('/order', orderRouter);
 
