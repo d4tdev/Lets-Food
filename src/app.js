@@ -34,7 +34,7 @@ app.use(
    session({
       store: MongoStore.create({
          autoRemove: 'interval',
-         autoRemoveInterval: 1800,
+         autoRemoveInterval: 16 * 60,
          mongoUrl: process.env.MONGO_URI,
          mongoOptions: {
             useNewUrlParser: true,
@@ -46,8 +46,9 @@ app.use(
       resave: false,
       saveUninitialized: false,
       cookie: {
-         maxAge: 30 * 60 * 1000,
+         maxAge: 15 * 60 * 1000,
          httpOnly: true,
+         secure: false,
       },
    })
 );

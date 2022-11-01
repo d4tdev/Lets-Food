@@ -70,7 +70,7 @@ const getACart = userId => {
          });
 
          if (!cart) {
-            return reject({ msg: 'Cart not found' });
+            return reject({ message: 'Không tìm thấy sản phẩm trong giỏ hàng' });
          }
 
          return resolve(cart);
@@ -111,7 +111,12 @@ const updateQuantityPlus = (productId, userId) => {
 
          let newQuantity = cartProduct.quantity + 1;
          await cartProduct.updateOne({ quantity: newQuantity });
-         return resolve({ msg: 'Product quantity updated' });
+
+         const cart = await Cart.findOne({ userId: userId }).populate({
+            path: 'products',
+            populate: { path: 'productId' },
+         });
+         return resolve(cart);
       } catch (e) {
          return reject(e);
       }
@@ -128,9 +133,15 @@ const updateQuantityMinus = (productId, userId) => {
          if (!cartProduct) {
             return reject('Product not found');
          }
+
          let newQuantity = cartProduct.quantity - 1;
          await cartProduct.updateOne({ quantity: newQuantity });
-         return resolve({ msg: 'Product quantity updated' });
+
+         const cart = await Cart.findOne({ userId: userId }).populate({
+            path: 'products',
+            populate: { path: 'productId' },
+         });
+         return resolve(cart);
       } catch (e) {
          return reject(e);
       }
@@ -196,21 +207,21 @@ const checkOut = (user, note) => {
          }
 
          if (!user.number) {
-            return reject('User number not found');
+            return reject('Chưa thêm số điện thoại');
          }
          if (!user.address) {
-            return reject('User address not found');
+            return reject('Chưa thêm địa chỉ nhà');
          }
 
          const cartProducts = await CartProduct.find({ userId: user._id });
          if (!cartProducts) {
-            return reject('Cart product not found');
+            return reject('Không tìm thấy sản phẩm trong giỏ hàng');
          }
 
          const sendOtp = await sendOtpVerification(user, note);
 
          if (sendOtp) {
-            return resolve({ msg: 'Send otp success' });
+            return resolve('Send otp success');
          } else {
             return reject('Send otp fail');
          }
@@ -223,7 +234,21 @@ const checkOut = (user, note) => {
 const sendOtpVerification = (user, note) => {
    return new Promise(async (resolve, reject) => {
       try {
-         const cart = await Cart.findOne({ userId: user._id });
+         const cart = await Cart.findOne({ userId: user._id }).populate({
+            path: 'products',
+            populate: { path: 'productId' },
+         });
+
+         // format data from object to array
+         const cartProductArray = Object.keys(cart.products).map(key => cart.products[key]);
+
+         // math total price, total quantity
+         let moneyTotal = 0;
+         let quantityTotal = 0;
+         for (let i = 0; i < cart.products.length; i++) {
+            moneyTotal += cart.products[i].productId.price * cart.products[i].quantity;
+            quantityTotal += cart.products[i].quantity;
+         }
 
          const order = await Order.create({
             userId: user._id,
@@ -232,10 +257,12 @@ const sendOtpVerification = (user, note) => {
             number: user.number,
             address: user.address,
             status: 'shipping',
+            moneyTotal,
+            quantityTotal,
          });
 
          await CartProduct.deleteMany({ userId: user._id });
-         await Cart.deleteOne({ userId: user._id });
+         await cart.deleteOne();
 
          await sendEmail(
             user.email,
@@ -361,6 +388,7 @@ const sendOtpVerification = (user, note) => {
             },
          });
       } catch (e) {
+         // console.log(e)
          reject('Error', e);
       }
    });

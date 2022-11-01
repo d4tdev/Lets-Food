@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <!-- font google -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+         rel="stylesheet" />
+
+      <!-- css -->
+      <link rel="stylesheet" href="../../../css/css-adminProducts/style.css" />
+
+      <title>Admin - Products</title>
+   </head>
+   <body>
+      <div class="root">
+         <nav class="navbar">
+            <a href="/product/getAllProduct">
+               <div class="logo">
+                  <img src="../../images/logo.png" alt="logo" />
+               </div>
+            </a>
+            <div class="home">
+               <a href="/home" class="home__link">
+                  <i class="fas fa-home"></i>
+                  <span>Trang chủ</span>
+               </a>
+            </div>
+         </nav>
+         <div class="container">
+            <!-- thêm sản phẩm -->
+            <div class="add__product">
+               <h3 class="title">
+                  Thêm sản phẩm
+               </h3>
+               <form  class="form" method="POST">
+                  <div class="form__group">
+                     <label for="name" class="form__label">Tên sản phẩm</label>
+                     <input type="text" class="form__input" id="name" value="<%= productItem.name %> " name="name" />
+                  </div>
+                  <div class="form__group">
+                     <label for="price" class="form__label">Giá sản phẩm</label>
+                     <input type="text" class="form__input" id="price" value="<%= productItem.price %> " name="price"/>
+                  </div>
+                  <div class="form__group">
+                     <label for="image" class="form__label">Link ảnh sản phẩm</label>
+                     <input type="url" class="form__input" id="image" value="<%= productItem.image %> " name="image"/>
+                  </div>
+                  <div class="form__group">
+                     <label for="description" class="form__label">Mô tả sản phẩm</label>
+                     <input type="text" class="form__input" id="description" value="<%= productItem.description %> " name="description"/>
+                  </div>
+                  <div class="form__group">
+                     <label for="description" class="form__label">Nguyên liệu sản phẩm</label>
+                     <input type="text" class="form__input" id="ingredient" value="<%= productItem.ingredient %> " name="ingredient"/>
+                  </div>
+                  <div class="form__group">
+                     <label for="description" class="form__label">Cách chế biến</label>
+                     <input type="text" class="form__input" id="process" value="<%= productItem.process %> " name="process"/>
+                  </div>
+                  <div class="button_form">
+                     <button class="btn btn__add">Cập nhật</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+
+      <!-- font awesome -->
+      <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
+
+      <!-- js -->
+      <script>
+         const form = document.querySelector(".form");
+         const buttonAdd = document.querySelector(".btn__add");
+
+         buttonAdd.addEventListener("click", (e) => {
+            form.action = "/product/update/<%= productItem._id %>?_method=PATCH";
+            form.submit();
+         });
+      </script>
+   </body>
+</html>

@@ -29,11 +29,11 @@ checkLogin();
 
 fetch(url).then(async res => {
    const data = await res.json();
-   console.log(data);
 
    data.forEach(item => {
       menuItems.innerHTML += `
-                <div class="menu__item">
+         <a href="/product/get_one_product/${item._id}">
+            <div class="menu__item">
                         <img src="${item.image}" alt="${item.name}" class="img__menu" />
                         <div class="content__menu_item_text">
                             <h3 class="menu__title__item">${item.name}</h3>
@@ -54,6 +54,7 @@ fetch(url).then(async res => {
                             }
                         </div>
                     </div>
+         </a>
             `;
    });
 });

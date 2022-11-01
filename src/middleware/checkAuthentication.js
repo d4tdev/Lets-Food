@@ -5,7 +5,7 @@ const validAuth = (req, res, next) => {
       //req.isAuthenticated() will return true if user is logged in
       next();
    } else {
-      res.redirect('/auth/login');
+      res.redirect('/auth/getLoginLocal');
    }
 };
 
@@ -17,12 +17,25 @@ const validUser = (req, res, next) => {
    }
 };
 
-const validAdmin = (req, res, next) => {
+const validAdminLogin = (req, res, next) => {
    if (req.user.role === 'admin') {
-      res.redirect('/auth/admin');
+      res.redirect('/product/getAllProduct');
+      // res.redirect('/auth/admin');
       // next();
    } else {
       res.redirect('/home');
+   }
+};
+
+const validAdmin = (req, res, next) => {
+   if (req.user) {
+      if (req.user.role !== 'admin') {
+      next();
+      } else {
+         res.redirect('/product/getAllProduct');
+      }
+   } else {
+      next();
    }
 };
 
@@ -48,4 +61,4 @@ const validAdmin = (req, res, next) => {
 // 	}
 // }
 
-module.exports = { validUser, validAuth, validAdmin };
+module.exports = { validUser, validAuth, validAdmin, validAdminLogin };
