@@ -535,3 +535,46 @@ input::-webkit-inner-spin-button {
    font-weight: 500;
    color: var(--black-color);
 }
+
+.qr {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   z-index: 100;
+   transform: translate(-50%, -50%);
+   background-color: white;
+   border-radius: 16px;
+   padding: 1rem;
+   display: none;
+}
+
+.qr.active {
+   display: block;
+}
+
+.qr-close {
+   position: absolute;
+   top: 1rem;
+   right: 1rem;
+   font-size: 1.4rem;
+   font-weight: 500;
+   color: var(--black-color);
+   cursor: pointer;
+   transition: all 0.3s ease;
+}
+
+.qr-close:hover {
+   color: var(--orange-color);
+}
+
+.qr_title__text {
+   margin-top: 30px;
+   font-size: 1.4rem;
+   font-weight: 600;
+   color: var(--black-color);
+   text-align: center;
+}
+
+.qr__image {
+   max-height: 500px;
+}
