@@ -18,12 +18,13 @@
       <link rel="stylesheet" href="../../css/css-cart/responsive.css" type="text/css" />
 
       <!-- css alert -->
-      <link rel="stylesheet" href="../../css/css-alert/style.css" />
+      <link rel="stylesheet" href="../css/css-alert/style.css" />
 
       <title>Giỏ hàng</title>
    </head>
    <body>
       <div class="root">
+
          <div class="white">
             <div class="navbar__block">
                <a class="navbar" href="/home">
@@ -44,7 +45,6 @@
                   <% if (cart && cart !== '') { %>
                   <!-- hiện thị sản phẩm trong giỏ hàng -->
                   <% let cartProducts = [] %> <% cartProducts = cart.products %>
-                  <%= cartProducts %>
                   <% cartProducts.forEach((product) => { %>
                   <div class="cart__item">
                      <div class="cart__item__info">
@@ -122,9 +122,10 @@
                         <div class="cart__total__block__mb">
                            <!-- hiện thị tổng tiền -->
                            <!-- tính tổng tiền -->
-                           <% if (cart && cart !== null) { %> <% let total = 0 %> <%
-                           cart.products.forEach((product) => { %> <% total +=
-                           (Number(product.productId.price) * Number(product.quantity)) %> <% }) %>
+                           <% if (cart && cart !== null) { %>
+                           <% let total = 0 %>
+                           <% cart.products.forEach((product) => { %>
+                           <% total += (Number(product.productId.price) * Number(product.quantity)) %> <% }) %>
                            <!-- tiền ship -->
                            <% let ship = 10000 %>
                            <!-- tổng tiền -->
@@ -248,6 +249,7 @@
       <!-- <script src="../../javascript/cartUser.js"></script> -->
 
       <script src="../javascript/alert.js"></script>
+
       <script>
          // const pointer = document.querySelectorAll(".pointer");
          const deleteForm = document.forms['delete-form'];

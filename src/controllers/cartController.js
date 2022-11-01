@@ -23,7 +23,7 @@ class CartController {
          return res.render('gioHang', { cart, user: req.user, message: '' });
       } catch (e) {
          // return res.status(500).json({ message: e.message });
-         return res.render('gioHang', { cart: null, message: e.message });
+         return res.render('gioHang', { cart: null, message: e });
       }
    };
 
@@ -137,7 +137,7 @@ class CartController {
             populate: { path: 'productId' },
          });
          console.log(e);
-         return res.render('gioHang', { cart, message: e, user: req.user }, res.redirect('/cart/show/' + user._id));
+         return res.render('gioHang', { cart, message: e, user: req.user });
       }
    };
 }
