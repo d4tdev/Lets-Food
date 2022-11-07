@@ -102,6 +102,10 @@
       display: block;
    }
 
+   .login__mb {
+      display: block;
+   }
+
    .navbar__list {
       position: fixed;
       top: 0;
