@@ -3,39 +3,42 @@ const User = require('../models/User');
 const UserVerified = require('../models/UserVerified');
 
 class UserController {
-   resetPassword = async (req, res) => {
-      try {
-         const { inputForgot } = req.body;
+	resetPassword = async (req, res) => {
+		try {
+			const username = req.body.username;
+			const email = req.body.email;
 
-         if (inputForgot) {
-            let user = await User.findOne({ email: inputForgot, authType: 'local' });
-            console.log(typeof inputForgot);
-            if (user.username) {
-               await UserVerified.create({
-                  userId: user._id,
-                  otp: `https://letsfood.click/user/verify_reset_password/${user._id}`,
-                  createAt: Date.now(),
-               });
+			if (email) {
+				const user = await User.findOne({ email: email, authType: 'local' });
+				if (!user) {
+					return res.status(403).json('Email not found');
+				}
 
-               await sendMail(
-                  user.email,
-                  'Quên mật khẩu',
-                  `
+				await UserVerified.create({
+					userId: user._id,
+					otp: `https://api-lets-food.cleverapps.io/user/verifyResetPassword/${user._id}`,
+					createAt: Date.now(),
+				});
+
+				await sendMail(
+					user.email,
+					'Quên mật khẩu',
+					`
             <body style="padding: 0; margin: 0;">
             <div
             class="root"
             style="
                background-color: #ffac4b;
                min-height: 80vh;
-               min-width: 76vw;
+               width: 77vw;
                font-family: 'Readex Pro', sans-serif;
             ">
-            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px; padding-bottom: 100px;">
+            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px;">
                <div
                   class="container"
                   style="
                      max-width: 500px;
-                     max-height: 500px;
+                     height: 500px;
                      background-color: #fff9ea;
                      border-radius: 12px;
                      padding: 20px;
@@ -94,7 +97,7 @@ class UserController {
                         </p>
                         <div class="button" style="margin-top: 40px">
                            <a
-                              href="https://letsfood.click/user/verify_reset_password/${user._id}"
+                              href="https://api-lets-food.cleverapps.io/user/verifyResetPassword/${user._id}"
                               class="btn"
                               style="
                                     padding: 10px 20px;
@@ -132,39 +135,41 @@ class UserController {
                </div>
             </div>
       </div></body>`
-               );
-               return res.render('getQuenMatKhau', {
-                  message: 'Đã gửi một email tới hòm thư của bạn',
-               });
-            }
+				);
+				return res.status(200).json('Send mail success');
+			}
 
-            user = await User.findOne({ username: inputForgot, authType: 'local' });
-            if (user) {
-               await UserVerified.create({
-                  userId: user._id,
-                  otp: `https://letsfood.click/user/verify_reset_password/${user._id}`,
-                  createAt: Date.now(),
-               });
+			if (username) {
+				const user = await User.findOne({ username: username, authType: 'local' });
+				if (!user) {
+					return res.status(403).json('Username not found');
+				}
 
-               await sendMail(
-                  user.email,
-                  'Quên mật khẩu',
-                  `
+				await UserVerified.create({
+					userId: user._id,
+					otp: `https://api-lets-food.cleverapps.io/user/verifyResetPassword/${user._id}`,
+					createAt: Date.now(),
+				});
+
+				await sendMail(
+					user.email,
+					'Quên mật khẩu',
+					`
             <body style="padding: 0; margin: 0;">
             <div
             class="root"
             style="
                background-color: #ffac4b;
                min-height: 80vh;
-               min-width: 76vw;
+               width: 77vw;
                font-family: 'Readex Pro', sans-serif;
             ">
-            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px; padding-bottom: 100px;">
+            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px;">
                <div
                   class="container"
                   style="
                      max-width: 500px;
-                     max-height: 500px;
+                     height: 500px;
                      background-color: #fff9ea;
                      border-radius: 12px;
                      padding: 20px;
@@ -223,7 +228,7 @@ class UserController {
                         </p>
                         <div class="button" style="margin-top: 40px">
                            <a
-                              href="https://letsfood.click/user/verify_reset_password/${user._id}"
+                              href="https://api-lets-food.cleverapps.io/user/verifyResetPassword/${user._id}"
                               class="btn"
                               style="
                                     padding: 10px 20px;
@@ -261,24 +266,39 @@ class UserController {
                </div>
             </div>
       </div></body>`
-               );
-               return res.render('getQuenMatKhau', {
-                  message: 'Đã gửi một email tới hòm thư của bạn',
-               });
-            }
-         } else {
-            return res.render('getQuenMatKhau', {
-               message: 'Vui lòng nhập email hoặc tên đăng nhập',
-            });
-         }
-      } catch (e) {
-         return res.render('getQuenMatKhau', { message: 'Gửi mail thất bại' });
-      }
-   };
+				);
+				return res.status(200).json('Send mail success');
+			}
+			if (!username && !email) {
+				return res.status(403).json('Please provide username or email');
+			}
+		} catch (e) {
+			return res.status(500).json({ error: e });
+		}
+	};
 
-   verifyResetPassword = async (req, res) => {
+	verifyResetPassword = async (req, res) => {
+		try {
+			const { newPassword } = req.body;
+			const { userId } = req.params;
+
+			const user = await User.findById(userId);
+			if (!user) {
+				return res.status(403).json('User not found');
+			}
+
+			await User.updateOne({ _id: userId }, { password: newPassword });
+
+			await UserVerified.deleteOne({ userId: userId });
+			return res.status(200).json('Updated password successfully');
+		} catch (e) {
+			return res.status(500).json({ error: e });
+		}
+	};
+
+	changePassword = async (req, res) => {
       try {
-         const { newPassword } = req.body;
+         const { oldPassword, newPassword } = req.body;
          const { userId } = req.params;
 
          const user = await User.findById(userId);
@@ -286,83 +306,52 @@ class UserController {
             return res.status(403).json('User not found');
          }
 
+         const isMatch = await user.validPassword(oldPassword);
+         if (!isMatch) {
+            return res.status(403).json('Old password is incorrect');
+         }
+
          await User.updateOne({ _id: userId }, { password: newPassword });
 
-         await UserVerified.deleteOne({ userId: userId });
          return res.status(200).json('Updated password successfully');
       } catch (e) {
          return res.status(500).json({ error: e });
       }
    };
 
-   changePassword = async (req, res) => {
+	getUserProfile = async (req, res) => {
       try {
-         let { oldPassword, newPassword } = req.body;
          const { userId } = req.params;
-
-         if (!oldPassword || !newPassword) {
-            return res.render('doiMatKhau', {
-               user: req.user,
-               message: 'Vui lòng nhập đầy đủ thông tin',
-            });
-         }
 
          const user = await User.findById(userId);
          if (!user) {
-            return res.render('doiMatKhau', { user: req.user, message: 'Tài khoản không tồn tại' });
+            return res.status(403).json('User not found');
          }
 
-         const isMatch = await user.validPassword(oldPassword);
-         if (!isMatch) {
-            return res.render('doiMatKhau', { user: req.user, message: 'Mật khẩu cũ không đúng' });
-         }
-
-         newPassword = await user.hashPassword(newPassword);
-         await User.updateOne({ _id: userId }, { password: newPassword });
-
-         return res.render('doiMatKhau', { user: req.user, message: 'Đổi mật khẩu thành công' });
+         return res.status(200).json(user);
       } catch (e) {
-         return res.render('doiMatKhau', { user: req.user, message: 'Đổi mật khẩu thất bại' });
-      }
-   };
-
-   getUserProfile = async (req, res) => {
-      try {
-         // const { userId } = req.params;
-
-         // const user = await User.findById(userId);
-         // if (!user) {
-         //    return res.status(403).json('User not found');
-         // }
-
-         // return res.status(200).json(user);
-         return res.render('thongTinNguoiDung', { user: req.user });
-      } catch (e) {
-         return res.render('thongTinNguoiDung', { message: 'No user found!!!', user: req.user });
+         return res.status(500).json({ error: e });
       }
    };
 
    updateUserProfile = async (req, res) => {
       try {
          const { userId } = req.params;
-         const { firstName, lastName, number, address } = req.body;
+         const { firstName, lastName, phone, address } = req.body;
 
          const user = await User.findById(userId);
          if (!user) {
-            return res.render('thongTinNguoiDung', { message: 'No user found!!!', user: req.user });
+            return res.status(403).json('User not found');
          }
 
          await User.updateOne(
             { _id: userId },
-            { firstName: firstName, lastName: lastName, number: number, address: address }
+            { firstName: firstName, lastName: lastName, phone: phone, address: address }
          );
 
-         return res.redirect('/user/show/' + userId);
+         return res.status(200).json('Updated profile successfully');
       } catch (e) {
-         return res.render('thongTinNguoiDung', {
-            message: 'Update profile failed',
-            user: req.user,
-         });
+         return res.status(500).json({ error: e });
       }
    };
 }
