@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <!-- font google -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+         rel="stylesheet" />
+
+      <!-- css -->
+      <link rel="stylesheet" href="../../css/css-admin/sytle.css" />
+
+      <!-- alert -->
+      <link rel="stylesheet" href="../../css/css-alert/style.css" />
+
+      <title>Admin - Products</title>
+   </head>
+   <body>
+      <div class="root">
+         <nav class="navbar">
+            <a href="/product/getAllProduct">
+               <div class="logo">
+                  <img src="../../images/logo.png" alt="logo" />
+               </div>
+            </a>
+            <div class="home">
+               <a href="/home" class="home__link">
+                  <i class="fas fa-home"></i>
+                  <span>Trang chủ</span>
+               </a>
+            </div>
+         </nav>
+         <div class="container">
+            <div class="show__data__number">
+               <div class="data__number-item">
+                  <div class="data__number-item__title">
+                     <span class="data__number-item__title-text">Tổng số sản phẩm</span>
+                  </div>
+                  <div class="data__number-item__number">
+                     <%= countProducts %>
+                  </div>
+               </div>
+               <div class="data__number-item">
+                  <div class="data__number-item__title">
+                     <span class="data__number-item__title-text">Tổng số người dùng</span>
+                  </div>
+                  <div class="data__number-item__number">
+                     <%= countUsers %>
+                  </div>
+               </div>
+               <div class="data__number-item">
+                  <div class="data__number-item__title">
+                     <span class="data__number-item__title-text">Doanh thu / tháng</span>
+                  </div>
+                  <div id="money__total" class="data__number-item__number"></div>
+               </div>
+               <div class="data__number-item">
+                  <div class="data__number-item__title">
+                     <span class="data__number-item__title-text">Sản phẩm đã bán / tháng</span>
+                  </div>
+                  <div id="quantity__total" class="data__number-item__number"></div>
+               </div>
+            </div>
+            <div class="manage__product">
+               <div class="manage__product__header">
+                  <h3 class="manage__product__title">Quản lý sản phẩm</h3>
+                  <a href="/product/getCreateProduct" class="manage__product__add">
+                     <i class="fas fa-plus"></i>
+                     <span class="manage__product__add-text">Thêm sản phẩm</span>
+                  </a>
+               </div>
+               <div class="manage__product__content">
+                  <div class="manage__product__content-title">
+                     <div class="manage__product__content-title-item">Tên sản phẩm</div>
+                     <div class="manage__product__content-title-item">Giá sản phẩm</div>
+                     <div class="manage__product__content-title-item">Hình ảnh</div>
+                     <div class="manage__product__content-title-item">Mô tả</div>
+                     <div class="manage__product__content-title-item">Thao tác</div>
+                  </div>
+                  <div class="manage__product__content-list">
+                     <!-- hiện thị toàn bộ sản phẩm -->
+                     <% products.forEach(function(product){ %>
+                        <div class="manage__product__content-item">
+                           <div class="manage__product__content-item__name">
+                              <%= product.name %>
+                           </div>
+                           <div class="manage__product__content-item__price">
+                              <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                              'VND', }).format(product.price) %>
+                           </div>
+                           <div class="manage__product__content-item__image">
+                              <img
+                                 src=<%= product.image %>
+                                 alt=""
+                                 class="manage__product__content-item__image-img" />
+                           </div>
+                           <div class="manage__product__content-item__description">
+                              <%= product.ingredient%> <%= product.process%>
+                           </div>
+                           <div class="manage__product__content-item__action">
+                              <a href="/product/get_one_product_admin/<%= product._id %>" class="fix__product__btn">
+                                 <i class="fas fa-pen"></i>
+                              </a>
+                              <form class="del__product" method="POST">
+                                 <a class="del__product__button" data="<%= product._id %>">
+                                    <i class="fas fa-trash"></i>
+                                 </a>
+                              </form>
+                           </div>
+                        </div>
+                     <% }) %>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- alert -->
+      <% if(message.length > 0) { %>
+      <div class="alert">
+         <div class="alert-error alert__container">
+            <div class="alert-error__icon alert__icon">
+               <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="alert-error__content alert__content">
+               <p class="alert-error__desc alert__desc"><%= message %></p>
+            </div>
+            <div class="alert__icon alert__icon-close">
+               <i class="fas fa-times"></i>
+            </div>
+         </div>
+      </div>
+      <% } %>
+
+      <!-- font awesome -->
+      <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
+      <!-- javascript alert -->
+      <script src="../../javascript/alert.js"></script>
+
+      <!-- js -->
+      <script>
+         const form = document.querySelector('.del__product');
+         const buttonDel = document.querySelectorAll('.del__product__button');
+
+         buttonDel.forEach((button) => {
+            button.addEventListener('click', (e) => {
+               const id = button.attributes[1].value;
+               console.log(id);
+               form.action = `/product/delete/${id}?_method=DELETE`;
+               form.submit();
+            });
+         });
+
+         const formatPrice = price => {
+            const formatter = new Intl.NumberFormat('vi-VN', {
+               style: 'currency',
+               currency: 'VND',
+            });
+            return formatter.format(price);
+         };
+
+         fetch('https://letsfood.click/order/show').then(async res => await res.json()).then(data => {
+            console.log(data);
+            document.getElementById('money__total').innerHTML = formatPrice(data.money);
+            document.getElementById('quantity__total').innerHTML = data.count;
+         });
+      </script>
+   </body>
+</html>

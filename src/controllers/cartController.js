@@ -1,4 +1,5 @@
 const cartService = require('../services/cartService');
+const Cart = require('../models/Cart');
 
 class CartController {
    handleCreateCart = async (req, res) => {
@@ -7,20 +8,22 @@ class CartController {
          const { _id } = req.user;
          // const { _id } = req.body;
          const cart = await cartService.createCart(productId, _id);
-         return res.status(200).json(cart);
+         // return res.status(200).json(cart);
+         return res.redirect('/home');
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         return res.render('trangChu', { message: e.message });
       }
    };
 
-   handleShowCart = async (req, res) => {
+   handleShowACart = async (req, res) => {
       try {
          const { userId } = req.params;
-         const cart = await cartService.getCart(userId);
+         const cart = await cartService.getACart(userId);
 
-         return res.status(200).json(cart);
+         return res.render('gioHang', { cart, user: req.user, message: '' });
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         // return res.status(500).json({ message: e.message });
+         return res.render('gioHang', { cart: null, message: e });
       }
    };
 
@@ -49,16 +52,21 @@ class CartController {
          const { productId } = req.params;
          const { _id } = req.user;
          if (!productId) {
-            return res.status(400).json({ message: 'Product id is required' });
+            return res.render('gioHang', { message: 'Product id is required' });
          }
 
          const cart = await cartService.updateQuantityPlus(productId, _id);
 
-         return res.status(200).json(cart);
+         // return res.status(200).json(cart);
+
+         return res.render('gioHang', { cart, user: req.user, message: '' }, res.redirect('/cart/show/' + _id));
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         const { _id } = req.user;
+         let cart = null;
+
+         return res.render('gioHang', { cart, message: e.message }, res.redirect('/cart/show/' + _id));
       }
-   }
+   };
 
    handleUpdateQuantityMinus = async (req, res) => {
       try {
@@ -70,13 +78,18 @@ class CartController {
 
          const cart = await cartService.updateQuantityMinus(productId, _id);
 
-         return res.status(200).json(cart);
-      } catch (e) {
-         return res.status(500).json({ message: e.message });
-      }
-   }
+         // return res.status(200).json(cart);
 
-   handleDeleteOneCartProduct = (req, res) => {
+         return res.render('gioHang', { cart, user: req.user, message: '' }, res.redirect('/cart/show/' + _id));
+      } catch (e) {
+         let cart = null;
+         const { _id } = req.user;
+
+         return res.render('gioHang', { cart, message: e.message }, res.redirect('/cart/show/' + _id));
+      }
+   };
+
+   handleDeleteOneCartProduct = async (req, res) => {
       try {
          const { productId } = req.params;
          const { _id } = req.user;
@@ -84,13 +97,17 @@ class CartController {
             return res.status(400).json({ message: 'Product id is required' });
          }
 
-         const cart = cartService.deleteOneCartProduct(productId, _id);
+         const cart = await cartService.deleteOneCartProduct(productId, _id);
 
-         return res.status(200).json(cart);
+         // res.status(200).json(cart);
+
+         return res.render('gioHang', { cart, message: 'Xóa sản phẩm thành công', user: req.user }, res.redirect('/cart/show/' + _id));
       } catch (e) {
-         return res.status(500).json({ message: e.message });
+         const { _id } = req.user;
+
+         return res.render('404', { message: e.message }, res.redirect('/cart/show/' + _id));
       }
-   }
+   };
 
    handleDeleteAllCartProduct = (req, res) => {
       try {
@@ -101,8 +118,28 @@ class CartController {
       } catch (e) {
          return res.status(500).json({ message: e.message });
       }
-   }
-};
+   };
 
+   handleCheckout = async (req, res) => {
+      try {
+         const user = req.user;
+         // const { user } = req.body;
+         const { note } = req.body;
+         const message = await cartService.checkOut(user, note);
+
+         let cart = null;
+
+         return res.render('gioHang', { message, cart, user: req.user }, res.redirect('/cart/show/' + user._id));
+      } catch (e) {
+         const user = req.user;
+         let cart = await Cart.findOne({ userId: req.user._id }).populate({
+            path: 'products',
+            populate: { path: 'productId' },
+         });
+         console.log(e);
+         return res.render('gioHang', { cart, message: e, user: req.user });
+      }
+   };
+}
 
 module.exports = new CartController();

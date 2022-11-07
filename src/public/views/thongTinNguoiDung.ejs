@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <!-- font google -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+         rel="stylesheet" />
+
+      <!-- css -->
+      <link rel="stylesheet" href="../../../../css/css-userInfo/style.css" />
+      <link rel="stylesheet" href="../../../../css/css-userInfo/responsive.css" />
+
+      <title>Thông tin người dùng</title>
+   </head>
+   <body>
+      <div class="root">
+         <div class="container">
+            <div class="orange">
+               <div class="navbar__block">
+                  <a class="navbar" href="/home">
+                     <i class="fas fa-arrow-left arrow__home"></i>
+                     <span class="navbar__title"> Trang chủ </span>
+                  </a>
+
+                  <div class="navbar__block-content">
+                     <img src="../../images/Saly-3.png" alt="" class="" />
+                     <a href="/user/change_password" class="change__password"
+                        ><i class="fas fa-key"></i> Đổi mật khẩu</a
+                     >
+                  </div>
+               </div>
+            </div>
+            <div class="white">
+               <a href="../../index.html" class="back__home-mb">
+                  <i class="fas fa-arrow-left arrow__home"></i>
+                  <span class="navbar__title"> Trang chủ </span>
+               </a>
+               <form class="form" action="/user/update_profile/<%= user._id %>" method="POST">
+                  <h3 class="form__title">Hồ sơ người dùng</h3>
+                  <div class="userInfo__form__item">
+                     <label for="" class="label__form__userInfo"> Họ và tên đệm </label>
+                     <input
+                        type="text"
+                        class="input__userInfo"
+                        name="firstName"
+                        value="<%= user.firstName %>" />
+                  </div>
+                  <div class="userInfo__form__item">
+                     <label for="" class="label__form__userInfo"> Tên </label>
+                     <input
+                        type="text"
+                        class="input__userInfo"
+                        name="lastName"
+                        value="<%=  user.lastName %>" />
+                  </div>
+                  <div class="userInfo__form__item">
+                     <label for="" class="label__form__userInfo"> Số điện thoại </label>
+                     <input
+                        type="text"
+                        class="input__userInfo"
+                        name="number"
+                        value="<%= user.number %>" />
+                  </div>
+                  <div class="userInfo__form__item">
+                     <label for="" class="label__form__userInfo"> Địa chỉ </label>
+                     <input
+                        type="text"
+                        class="input__userInfo"
+                        name="address"
+                        value="<%= user.address %>" />
+                  </div>
+                  <a href="/user/change_password" class="forgot__pass__mb"> Quên mật khẩu </a>
+                  <div class="form__btn">
+                     <button type="submit" class="form__save__btn">Lưu thông tin</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+
+      <!-- javascript -->
+      <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
+   </body>
+</html>
