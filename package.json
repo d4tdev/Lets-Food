@@ -2,7 +2,7 @@
   "name": "api-lets-food",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
@@ -25,12 +25,9 @@
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "express-rate-limit": "^6.6.0",
     "express-session": "^1.17.3",
     "googleapis": "^108.0.0",
-    "helmet": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
-    "method-override": "^3.0.0",
     "mongoose": "^6.6.2",
     "morgan": "^1.10.0",
     "nodemailer": "^6.8.0",
@@ -41,7 +38,6 @@
     "passport-google-plus-token": "^2.1.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "redis": "^4.3.1",
-    "xss-clean": "^0.1.1"
+    "redis": "^4.3.1"
   }
 }

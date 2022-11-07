@@ -10,27 +10,17 @@ const createUser = data => {
          const { username, password, email } = data;
          if (!username || !password || !email) {
             return reject({
-               message: 'Thiếu thông tin đăng ký',
+               message: 'Username and password are required',
             });
          }
-         const isExistUsername = await User.findOne({
+         const isExist = await User.findOne({
             username: username,
          });
-         if (isExistUsername) {
+         if (isExist) {
             return reject({
-               message: 'Username đã tồn tại',
+               message: 'Username already exists',
             });
          }
-
-         const isExistEmail = await User.findOne({
-            email: email,
-         });
-         if (isExistEmail) {
-            return reject({
-               message: 'Email đã tồn tại',
-            });
-         }
-
          const newUser = await User.create({
             username: username,
             password: password,
@@ -39,7 +29,7 @@ const createUser = data => {
 
          const sendOtp = await sendOtpVerification(newUser);
          if (sendOtp) {
-            return resolve(newUser);
+            return resolve(sendOtp);
          }
       } catch (e) {
          reject(e);
@@ -62,128 +52,127 @@ const sendOtpVerification = user => {
             user.email,
             `${otp} là mã xác nhận của bạn`,
             `
-               <body style="padding: 0; margin: 0;">
-                  <div
-                  class="root"
+				<body style="padding: 0; margin: 0;">
+				<div
+            class="root"
+            style="
+               background-color: #ffac4b;
+               min-height: 80vh;
+               width: 77vw;
+               font-family: 'Readex Pro', sans-serif;
+            ">
+            <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px;">
+               <div
+                  class="container"
                   style="
-                        background-color: #ffac4b;
-                        min-height: 80vh;
-                        min-width: 76vw;
-                        font-family: 'Readex Pro', sans-serif;
+                     max-width: 500px;
+                     height: 500px;
+                     background-color: #fff9ea;
+                     border-radius: 12px;
+                     padding: 20px;
+                     text-align: center;
+							margin-left: auto;
+							margin-right: auto;
                   ">
-                  <div class="main" style="padding-left: 20px; padding-right: 20px; padding-top: 100px; padding-bottom: 100px;">
-                        <div
-                           class="container"
+                     <div
+                        class="logo"
+                        style="
+                           margin: 0 auto;
+                           margin-bottom: 10px;
+                        ">
+                        <img src="cid:logo" alt="logo" class="img__logo" />
+                     </div>
+                     <h2
+                        class="title"
+                        style="
+                           font-size: 1.8rem;
+                           font-weight: 700;
+                           color: #1b1b1b;
+                           margin-bottom: 20px;
+                        ">
+                        Hoàn tất quá trình đăng ký
+                     </h2>
+                     <div
+                        class="line"
+                        style="
+                           width: 100%;
+                           height: 1px;
+                           background-color: #1b1b1b;
+                           margin-bottom: 20px;
+                     "></div>
+                     <div class="content" style="margin: 40px 0">
+                        <h5
+                           class="welcome"
                            style="
-                           max-width: 500px;
-                           max-height: 500px;
-                           background-color: #fff9ea;
-                           border-radius: 12px;
-                           padding: 20px;
-                           text-align: center;
-                           margin-left: auto;
-                           margin-right: auto;
+                              font-size: 1.2rem;
+                              font-weight: 400;
+                              color: #1b1b1b;
+                              margin-bottom: 20px;
                            ">
-                           <div
-                              class="logo"
+                           Xin chào bạn,
+
+                        </h5>
+                        <p
+                           class="description"
+                           style="
+                              font-size: 1rem;
+                              font-weight: 400;
+                              color: #1b1b1b;
+                              margin-bottom: 20px;
+                           ">
+                           Đây là mã OTP của bạn:
+                           <span
+                              class="otp"
                               style="
-                                    margin: 0 auto;
-                                    margin-bottom: 10px;
-                              ">
-                              <img src="cid:logo" alt="logo" class="img__logo" />
-                           </div>
-                           <h2
-                              class="title"
-                              style="
-                                    font-size: 1.8rem;
+                                    font-size: 1.2rem;
                                     font-weight: 700;
                                     color: #1b1b1b;
                                     margin-bottom: 20px;
-                              ">
-                              Hoàn tất quá trình đăng ký
-                           </h2>
-                           <div
-                              class="line"
+                              "
+                              >${otp}</span
+                           >. Vui lòng nhập mã này để hoàn tất quá trình đăng
+                           ký.
+                        </p>
+                        <div class="button" style="margin-top: 40px">
+                           <a
+                              href="https://api-lets-food.cleverapps.io"
+                              class="btn"
                               style="
-                                    width: 100%;
-                                    height: 1px;
-                                    background-color: #1b1b1b;
-                                    margin-bottom: 20px;
-                           "></div>
-                           <div class="content" style="margin: 40px 0">
-                              <h5
-                                    class="welcome"
-                                    style="
-                                       font-size: 1.2rem;
-                                       font-weight: 400;
-                                       color: #1b1b1b;
-                                       margin-bottom: 20px;
-                                    ">
-                                    Xin chào bạn,
-
-                              </h5>
-                              <p
-                                    class="description"
-                                    style="
-                                       font-size: 1rem;
-                                       font-weight: 400;
-                                       color: #1b1b1b;
-                                       margin-bottom: 20px;
-                                    ">
-                                    Đây là mã OTP của bạn:
-                                    <span
-                                       class="otp"
-                                       style="
-                                          font-size: 1.2rem;
-                                          font-weight: 700;
-                                          color: #1b1b1b;
-                                          margin-bottom: 20px;
-                                       "
-                                       >${otp}</span
-                                    >. Vui lòng nhập mã này để hoàn tất quá trình đăng
-                                    ký.
-                              </p>
-                              <div class="button" style="margin-top: 40px">
-                                    <a
-                                       href="https://letsfood.click/auth/getVerifyOTP/${user._id}"
-                                       class="btn"
-                                       style="
-                                          padding: 10px 20px;
-                                          background-color: #ffcb45;
-                                          border: none;
-                                          border-radius: 20px;
-                                          font-size: 1rem;
-                                          font-weight: 700;
-                                          color: #1b1b1b;
-                                          cursor: pointer;
-                                       "
-                                       >Chuyển đến trang xác nhận</a
-                                    >
-                              </div>
-                           </div>
-                           <div
-                              class="line"
-                              style="
-                                    width: 100%;
-                                    height: 1px;
-                                    background-color: #1b1b1b;
-                                    margin-bottom: 20px;
-                              "></div>
-                           <p
-                              class="footer"
-                              style="
-                                    font-size: 0.8rem;
-                                    font-weight: 400;
+                                    padding: 10px 20px;
+                                    background-color: #ffcb45;
+                                    border: none;
+                                    border-radius: 20px;
+                                    font-size: 1rem;
+                                    font-weight: 700;
                                     color: #1b1b1b;
-                                    margin-top: 20px;
-                              ">
-                              Nếu bạn không thực hiện đăng ký, vui lòng bỏ qua email
-                              này. Mã OTP sẽ hết hạn sau 15 phút.
-                           </p>
-                           </div>
+                                    cursor: pointer;
+                              "
+                              >Chuyển đến trang xác nhận</a
+                           >
+                        </div>
                      </div>
-                  </div>
-               </body>`
+                     <div
+                        class="line"
+                        style="
+                           width: 100%;
+                           height: 1px;
+                           background-color: #1b1b1b;
+                           margin-bottom: 20px;
+                        "></div>
+                     <p
+                        class="footer"
+                        style="
+                           font-size: 0.8rem;
+                           font-weight: 400;
+                           color: #1b1b1b;
+                           margin-top: 20px;
+                        ">
+                        Nếu bạn không thực hiện đăng ký, vui lòng bỏ qua email
+                        này. Mã OTP sẽ hết hạn sau 15 phút.
+                     </p>
+               </div>
+            </div>
+        </div></body>`
          );
 
          resolve({
@@ -209,7 +198,7 @@ const verifyUser = (body, params) => {
          // check user id and otp input
          if (!userId || !otp) {
             return reject({
-               message: 'Thiếu thông tin người dùng hoặc mã OTP',
+               message: 'User Id and OTP are required',
             });
          }
          const user = await User.findOne({ userId });
@@ -220,13 +209,13 @@ const verifyUser = (body, params) => {
          // check user id is exist
          if (!user) {
             return reject({
-               message: 'Người dùng không tồn tại',
+               message: "User Id doesn't exist",
             });
          }
 
          if (!userOtp) {
             return reject({
-               message: 'Mã OTP không tồn tại',
+               message: 'OTP is not exist',
             });
          }
 
@@ -234,7 +223,7 @@ const verifyUser = (body, params) => {
          if (userOtp.expireAt < Date.now()) {
             await UserVerified.deleteMany({ userId });
             return reject({
-               message: 'Mã OTP đã hết hạn',
+               message: 'OTP is expired',
             });
          }
 
@@ -242,7 +231,7 @@ const verifyUser = (body, params) => {
          const validOTP = await bcrypt.compare(otp, userOtp.otp);
          if (!validOTP) {
             return reject({
-               message: 'Mã OTP không hợp lệ',
+               message: 'OTP is invalid',
             });
          }
 
@@ -275,7 +264,7 @@ const resendOTP = params => {
          // check user id input
          if (!userId) {
             return reject({
-               message: 'Người dùng không tồn tại',
+               message: 'User Id is required',
             });
          }
          const user = await User.findOne({
@@ -285,7 +274,7 @@ const resendOTP = params => {
          // check user id is exist
          if (!user) {
             return reject({
-               message: 'Người dùng không tồn tại',
+               message: "User Id doesn't exist",
             });
          }
 
@@ -294,7 +283,7 @@ const resendOTP = params => {
          });
          const sendOtp = await sendOtpVerification(user);
          if (sendOtp) {
-            return resolve(user);
+            return resolve(sendOtp);
          }
       } catch (e) {
          reject(e);
@@ -302,23 +291,4 @@ const resendOTP = params => {
    });
 };
 
-const getOTPPage = params => {
-   return new Promise(async (resolve, reject) => {
-      try {
-         const { userId } = params;
-         if (!userId) {
-            return reject({
-               message: 'Người dùng không tồn tại',
-            });
-         }
-         const user = await User.findOne({
-            _id: userId,
-         });
-         resolve(user);
-      } catch (e) {
-         reject(e);
-      }
-   });
-};
-
-module.exports = { sendOtpVerification, createUser, verifyUser, resendOTP, getOTPPage };
+module.exports = { sendOtpVerification, createUser, verifyUser, resendOTP };
