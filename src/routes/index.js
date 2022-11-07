@@ -18,7 +18,7 @@ const routes = app => {
 
     app.use('/cart', validAuth, cartRouter);
 
-    app.use('/user', validAuth, userRouter);
+    app.use('/user', userRouter);
 
     app.use('/product', productRouter);
 

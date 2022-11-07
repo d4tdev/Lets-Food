@@ -29,6 +29,7 @@ const productController = {
          const products = await product.find({});
 
          const Cart = await cart.find({});
+         res.setHeader(message, 'Thêm sản phẩm thành công');
          res.render(
             'Admin',
             {
@@ -39,7 +40,7 @@ const productController = {
                user: req.user,
                products,
             },
-            res.redirect('/product/getAllProduct')
+            res.setHeader(message, 'Thêm sản phẩm thành công').redirect('/product/getAllProduct')
          );
       } catch (err) {
          const users = await user.find({});
@@ -72,17 +73,40 @@ const productController = {
 
    getAllProduct: async (req, res) => {
       try {
+         const { message } = req.headers;
+         console.log(message);
+         if (message) {
+            const users = await user.find({});
+            const products = await product.find({});
+            return res.render('Admin', {
+               products,
+               countProducts: products.length,
+               countUsers: users.length,
+               user: req.user,
+               message: message,
+            });
+         } else {
+            const users = await user.find({});
+            const products = await product.find({});
+            return res.render('Admin', {
+               products,
+               countProducts: products.length,
+               countUsers: users.length,
+               user: req.user,
+               message: '',
+            });
+         }
+      } catch (err) {
          const users = await user.find({});
          const products = await product.find({});
-         return res.render('Admin', {
+
+         res.render('Admin', {
             products,
             countProducts: products.length,
             countUsers: users.length,
+            message: err,
             user: req.user,
-            message: '',
          });
-      } catch (err) {
-         res.render('Admin', { message: 'Lỗi', user: req.user });
       }
    },
 
