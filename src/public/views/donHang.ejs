@@ -36,7 +36,7 @@
             </h2>
 
             <div class="order__list">
-               <% orders.orderUser.map((item) => {%> 
+               <% orders.orderUser.map((item) => {%>
                    <div class="order__item">
                      <div class="order__item__info">
                         <div class="order__item__info__id">
@@ -67,18 +67,18 @@
                            </div>
 
                            <div class="order__item__content">
-                              <% item.products.map((product) => { %> 
+                              <% item.products.map((product) => { %>
                                  <div class="order__item__product">
                                     <div class="order__item__product__info__img">
-                                       <img src="https://source.unsplash.com/random" alt="product" />
+                                       <img src="<%= product.productId.image %> " alt="product" />
                                     </div>
-                                    <p class="order__item__product__info__name">Áo khoác nam</p>
+                                    <p class="order__item__product__info__name"><%= product.productId.name %> </p>
 
-                                    <p class="order__item__product__quantity">1</p>
+                                    <p class="order__item__product__quantity"><%= product.quantity %> </p>
 
-                                    <p class="order__item__product__total">1.000.000đ</p>
+                                    <p class="order__item__product__total"><%= product.quantity * product.productId.price %> </p>
                                  </div>
-                              <% }) %> 
+                              <% }) %>
                            </div>
 
                             <div class="order__item__total-footer">
@@ -88,7 +88,7 @@
                            </div>
                         </div>
                      </div>
-               <% }) %> 
+               <% }) %>
             </div>
          </div>
       </div>

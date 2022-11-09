@@ -1,4 +1,5 @@
 const Order = require('../models/Order');
+const Cart = require('../models/Cart');
 
 class OrderController {
    handleShowAllOrder = async (req, res) => {
@@ -24,7 +25,10 @@ class OrderController {
    // hiển thị đơn hàng theo id user
    handleShowOrderById = async (req, res) => {
       try {
-         const order = await Order.find({ userId: req.params.id });
+         const order = await Order.find({ userId: req.params.id }).populate({
+            path: 'products',
+            populate: { path: 'productId' },
+         });
 
          let orders = {
             count : 0,
@@ -49,7 +53,8 @@ class OrderController {
             orders.money += order[i].moneyTotal;
          }
 
-         res.render('donHang', { orders });
+         res.render('donHang', { orders, user: req.user });
+         // res.json(order)
       } catch (e) {
          res.status(500).json({ message: e.message });
       }

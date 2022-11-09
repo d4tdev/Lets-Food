@@ -261,7 +261,7 @@ const sendOtpVerification = (user, note) => {
             quantityTotal,
          });
 
-         await CartProduct.deleteMany({ userId: user._id });
+         // await CartProduct.deleteMany({ userId: user._id });
          await cart.deleteOne();
 
          await sendEmail(
