@@ -154,6 +154,13 @@
                            <% } %>
 
                            <li class="account__item">
+                              <a href="/order/show/<%= user._id %>" class="account__link">
+                                 <i class="fas fa-shopping-bag"></i>
+                                 <span>Đơn hàng</span>
+                              </a>
+                           </li>
+
+                           <li class="account__item">
                               <a href="/user/show/<%= user._id %>" class="account__link">
                                  <i class="fas fa-user"></i>
                                  <span>Thông tin tài khoản</span>

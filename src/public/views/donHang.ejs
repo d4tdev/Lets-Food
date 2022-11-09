@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <!-- font google -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+         rel="stylesheet" />
+
+      <!-- css -->
+      <link rel="stylesheet" href="../../../css/css-donHang/style.css" />
+
+      <title>Đơn hàng</title>
+   </head>
+   <body>
+      <div class="root">
+         <div class="container">
+            <nav class="navbar">
+               <a class="back-home" href="/home">
+                  <i class="fas fa-arrow-left"></i>
+                  Trang chủ
+               </a>
+               <h3 class="page-name">Quản lý đơn hàng</h3>
+            </nav>
+         </div>
+
+         <div class="content">
+            <h2 class="content-title">
+               <i class="fas fa-shopping-cart"></i>
+               Đơn hàng
+            </h2>
+
+            <div class="order__list">
+               <% orders.orderUser.map((item) => {%> 
+                   <div class="order__item">
+                     <div class="order__item__info">
+                        <div class="order__item__info__id">
+                           <span class="order__item__info__id__title">Mã đơn hàng:</span>
+                           <span class="order__item__info__id__value"><%= item._id %> </span>
+                        </div>
+
+                        <div class="order__item__info__date">
+                           <span class="order__item__info__date__title">Ngày đặt hàng:</span>
+                           <span class="order__item__info__date__value"><%= item.updatedAt %> </span>
+                        </div>
+
+                        <div class="order__item__info__status">
+                           <span class="order__item__info__status__title">Trạng thái:</span>
+                           <span class="order__item__info__status__value"><%= item.status %> </span>
+                        </div>
+                        <div class="order__item__info__address">
+                           <span class="order__item__info__address__title">Trạng thái:</span>
+                           <span class="order__item__info__address__value"><%= item.address %> </span>
+                        </div>
+
+                        <div class="order__item__product-list">
+                           <div class="order__item__product-list-header">
+                              <p class="order__item__image">Hình ảnh</p>
+                              <p class="order__item__title">Tên sản phẩm</p>
+                              <p class="order__item__quantity">Số lượng</p>
+                              <p class="order__item__total">Thành tiền</p>
+                           </div>
+
+                           <div class="order__item__content">
+                              <% item.products.map((product) => { %> 
+                                 <div class="order__item__product">
+                                    <div class="order__item__product__info__img">
+                                       <img src="https://source.unsplash.com/random" alt="product" />
+                                    </div>
+                                    <p class="order__item__product__info__name">Áo khoác nam</p>
+
+                                    <p class="order__item__product__quantity">1</p>
+
+                                    <p class="order__item__product__total">1.000.000đ</p>
+                                 </div>
+                              <% }) %> 
+                           </div>
+
+                            <div class="order__item__total-footer">
+                              <p class="order__item__total__title">Tổng tiền:</p>
+                              <p class="order__item__total__value"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                              'VND', }).format(item.moneyTotal) %></p>
+                           </div>
+                        </div>
+                     </div>
+               <% }) %> 
+            </div>
+         </div>
+      </div>
+
+      <!-- javascript -->
+      <script src="https://kit.fontawesome.com/7dd86c08e8.js" crossorigin="anonymous"></script>
+   </body>
+</html>
