@@ -88,7 +88,7 @@ class OrderController {
             productsBestSell.push(products[i]);
          }
 
-         res.json(productsBestSell);
+         return res.json({productsBestSell});
          // res.render('Admin', { productsBestSell, user: req.user });
       } catch (e) {
          res.status(500).json({ message: e.message });

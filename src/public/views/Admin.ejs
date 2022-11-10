@@ -119,7 +119,9 @@
             </div>
 
             <div class="best__sell">
-               
+               <h2 class="best__sell-title">
+                  Top 5 sản phẩm bán chạy nhất
+               </h2>
             </div>
          </div>
       </div>
@@ -174,7 +176,14 @@
             document.getElementById('quantity__total').innerHTML = data.count;
          });
 
+         const bestSell = document.querySelector('.best__sell');
          fetch('http://localhost:3000/order/best_sell')
+         .then(async res => 
+            await res.json()
+         )
+         .then(data => {
+            console.log(data);
+         })
       </script>
    </body>
 </html>
