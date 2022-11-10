@@ -12,7 +12,7 @@ const formatPrice = price => {
 };
 
 // const checkLogin = () => {
-//    fetch('https://letsfood.click/check_login')
+//    fetch('http://localhost:3000/check_login')
 //       .then(res => res.json())
 //       .then(data => {
 //          if (data) {
@@ -33,10 +33,9 @@ const formatPrice = price => {
 //    }
 // });
 
-fetch('https://letsfood.click/product/get')
+fetch('http://localhost:3000/product/get')
    .then(response => response.json())
    .then(data => {
-
       // hiện thị sản phẩm còn lại
       data.forEach(item => {
          sliderProduct.innerHTML += `
@@ -52,5 +51,5 @@ fetch('https://letsfood.click/product/get')
                   </div>
             </a>
          `;
+      });
    });
-});
