@@ -76,7 +76,8 @@
 
                                     <p class="order__item__product__quantity"><%= product.quantity %> </p>
 
-                                    <p class="order__item__product__total"><%= product.quantity * product.productId.price %> </p>
+                                    <p class="order__item__product__total"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                              'VND', }).format(product.quantity * product.productId.price) %> </p>
                                  </div>
                               <% }) %>
                            </div>

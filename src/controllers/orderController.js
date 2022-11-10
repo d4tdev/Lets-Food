@@ -63,17 +63,33 @@ class OrderController {
    // hiện thị sản phẩm bán chạy nhất
    handleShowProductBestSell = async (req, res) => {
       try {
-         const order = await Order.find({});
+         const order = await Order.find({}).populate({
+            path: 'products',
+            populate: { path: 'productId' },
+         });
 
-         let prodBestSell = {
-            products: {
-               id: '',
-               quantity: 0,
-               total: 0,
+         let products = [];
+
+         // lấy ra các sản phẩm bán được kèm số lượng
+         for( let i =0; i < order.length; i++) {
+            for( let j = 0; j < order[i].products.length; j++) {
+               products.push(order[i].products[j]);
             }
          }
 
-         res.json(prodBestSell);
+         // sắp xếp sản phẩm theo số lượng bán được
+         products.sort((a, b) => {
+            return b.quantity - a.quantity;
+         });
+
+         // lấy ra 5 sản phẩm bán chạy nhất
+         let productsBestSell = [];
+         for( let i = 0; i < 5; i++) {
+            productsBestSell.push(products[i]);
+         }
+
+         res.json(productsBestSell);
+         // res.render('Admin', { productsBestSell, user: req.user });
       } catch (e) {
          res.status(500).json({ message: e.message });
       }

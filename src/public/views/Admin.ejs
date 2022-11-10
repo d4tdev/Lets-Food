@@ -117,6 +117,10 @@
                   </div>
                </div>
             </div>
+
+            <div class="best__sell">
+               
+            </div>
          </div>
       </div>
 
@@ -169,6 +173,8 @@
             document.getElementById('money__total').innerHTML = formatPrice(data.money);
             document.getElementById('quantity__total').innerHTML = data.count;
          });
+
+         fetch('http://localhost:3000/order/best_sell')
       </script>
    </body>
 </html>
