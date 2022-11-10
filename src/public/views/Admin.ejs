@@ -122,6 +122,29 @@
                <h2 class="best__sell-title">
                   Top 5 sản phẩm bán chạy nhất
                </h2>
+
+               <div class="best__sell-list">
+                  <div class="best__sell-table-header">
+                     <div class="best__sell-table-index">
+                        <span class="best__sell-table-index-text">STT</span>
+                     </div>
+                     <div class="best__sell-table-name">
+                        <span class="best__sell-table-name-text">Tên sản phẩm</span>
+                     </div>
+                     <div class="best__sell-table-img">
+                        <span class="best__sell-table-img-text">Hình ảnh</span>
+                     </div>
+                     <div class="best__sell-table-count">
+                        <span class="best__sell-table-count-text">Số lượng</span>
+                     </div>
+                     <div class="best__sell-table-money">
+                        <span class="best__sell-table-money-text">Doanh thu</span>
+                     </div>
+                  </div>
+
+                  <div class="best__sell-table-content">
+                  </div>
+               </div>
             </div>
          </div>
       </div>
@@ -176,13 +199,34 @@
             document.getElementById('quantity__total').innerHTML = data.count;
          });
 
-         const bestSell = document.querySelector('.best__sell');
+         const bestSellTable = document.querySelector('.best__sell-table-content');
          fetch('http://localhost:3000/order/best_sell')
          .then(async res =>
             await res.json()
          )
          .then(data => {
             console.log(data);
+            data.productsBestSell.forEach((item, index) => {
+               bestSellTable.innerHTML = `
+                  <div class="best__sell-table-item">
+                     <span class="index">
+                        ${index + 1}
+                     </span>
+                     <span class="name">
+                        ${item.productId.name}
+                     </span>
+                     <div class="img">
+                        <img src="${item.productId.image}" alt="${item.productId.name}" class="img__best-sell">
+                     </div>
+                     <span class="count">
+                        ${item.quantity}
+                     </span>
+                     <span class="money">
+                        ${formatPrice(item.quantity * item.productId.price)}
+                     </span>
+                  </div>
+               `
+            });
          })
       </script>
    </body>
