@@ -207,25 +207,27 @@
          .then(data => {
             console.log(data);
             data.productsBestSell.forEach((item, index) => {
-               bestSellTable.innerHTML = `
-                  <div class="best__sell-table-item">
-                     <span class="index">
-                        ${index + 1}
-                     </span>
-                     <span class="name">
-                        ${item.productId.name}
-                     </span>
-                     <div class="img">
-                        <img src="${item.productId.image}" alt="${item.productId.name}" class="img__best-sell">
-                     </div>
-                     <span class="count">
-                        ${item.quantity}
-                     </span>
-                     <span class="money">
-                        ${formatPrice(item.quantity * item.productId.price)}
-                     </span>
+               const bestSellItem = document.createElement('div');
+               bestSellItem.classList.add('best__sell-table-item');
+               bestSellItem.innerHTML = `
+                  <span class="index">
+                     ${index + 1}
+                  </span>
+                  <span class="name">
+                     ${item.productId.name}
+                  </span>
+                  <div class="img">
+                     <img src="${item.productId.image}" alt="${item.productId.name}" class="img__best-sell">
                   </div>
+                  <span class="count">
+                     ${item.quantity}
+                  </span>
+                  <span class="money">
+                     ${formatPrice(item.quantity * item.productId.price)}
+                  </span>
                `
+
+               bestSellTable.appendChild(bestSellItem);
             });
          })
       </script>
