@@ -146,6 +146,34 @@
                   </div>
                </div>
             </div>
+            <div class="best__sell">
+               <h2 class="best__sell-title">
+                  Danh sách khách hàng <span>(<%= countUsers %>)</span>
+               </h2>
+
+               <div class="member-list">
+                  <div class="member-table-header">
+                     <div class="member-table-index">
+                        <span class="member-table-index-text">STT</span>
+                     </div>
+                     <div class="member-table-name">
+                        <span class="member-table-name-text">Tên khách hàng</span>
+                     </div>
+                     <div class="member-table-img">
+                        <span class="member-table-img-text">Hình ảnh</span>
+                     </div>
+                     <div class="member-table-count">
+                        <span class="member-table-count-text">Địa chỉ</span>
+                     </div>
+                     <div class="member-table-money">
+                        <span class="member-table-money-text">Số điện thoại</span>
+                     </div>
+                  </div>
+
+                  <div class="member-table-content">
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
 
@@ -194,7 +222,6 @@
          };
 
          fetch('http://localhost:3000/order/show').then(async res => await res.json()).then(data => {
-            console.log(data);
             document.getElementById('money__total').innerHTML = formatPrice(data.money);
             document.getElementById('quantity__total').innerHTML = data.count;
          });
@@ -205,7 +232,6 @@
             await res.json()
          )
          .then(data => {
-            console.log(data);
             data.productsBestSell.forEach((item, index) => {
                const bestSellItem = document.createElement('div');
                bestSellItem.classList.add('best__sell-table-item');
@@ -228,6 +254,38 @@
                `
 
                bestSellTable.appendChild(bestSellItem);
+            });
+         })
+
+         const memberTable = document.querySelector('.member-table-content');
+         fetch('http://localhost:3000/user/get_all')
+         .then(async res =>
+            await res.json()
+         )
+         .then(data => {
+            console.log(data);
+            data.forEach((item, index) => {
+               const memberItem = document.createElement('div');
+               memberItem.classList.add('member-table-item');
+               memberItem.innerHTML = `
+                  <span class="index">
+                     ${index + 1}
+                  </span>
+                  <span class="name">
+                     ${item.firstName} ${item.lastName}
+                  </span>
+                  <div class="img">
+                     <img src="${item.avatar}" alt="${item.firstName} ${item.lastName}" class="img__member">
+                  </div>
+                  <span class="address">
+                     ${item.address ? item.address : 'Chưa cập nhật'}
+                  </span>
+                  <span class="phone">
+                     ${item.number ? item.number : 'Chưa cập nhật'}
+                  </span>
+               `
+
+               memberTable.appendChild(memberItem);
             });
          })
       </script>

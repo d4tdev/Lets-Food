@@ -4,6 +4,8 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const { validAuth, validAdmin } = require('../middleware/checkAuthentication');
 
+router.get('/get_all', userController.getAllUsers);
+
 router.get('/show/:userId', validAuth, userController.getUserProfile);
 
 router.post('/reset_password', userController.resetPassword);
