@@ -12,7 +12,7 @@ const formatPrice = price => {
 };
 
 // const checkLogin = () => {
-//    fetch('http://localhost:3000/check_login')
+//    fetch('https://letsfood.click/check_login')
 //       .then(res => res.json())
 //       .then(data => {
 //          if (data) {
@@ -33,7 +33,7 @@ const formatPrice = price => {
 //    }
 // });
 
-fetch('http://localhost:3000/product/get')
+fetch('https://letsfood.click/product/get')
    .then(response => response.json())
    .then(data => {
       // hiện thị sản phẩm còn lại

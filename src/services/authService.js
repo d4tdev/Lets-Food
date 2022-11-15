@@ -145,7 +145,7 @@ const sendOtpVerification = user => {
                               </p>
                               <div class="button" style="margin-top: 40px">
                                     <a
-                                       href="http://localhost:3000/auth/getVerifyOTP/${user._id}"
+                                       href="https://letsfood.click/auth/getVerifyOTP/${user._id}"
                                        class="btn"
                                        style="
                                           padding: 10px 20px;

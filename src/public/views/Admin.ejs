@@ -221,13 +221,13 @@
             return formatter.format(price);
          };
 
-         fetch('http://localhost:3000/order/show').then(async res => await res.json()).then(data => {
+         fetch('https://letsfood.click/order/show').then(async res => await res.json()).then(data => {
             document.getElementById('money__total').innerHTML = formatPrice(data.money);
             document.getElementById('quantity__total').innerHTML = data.count;
          });
 
          const bestSellTable = document.querySelector('.best__sell-table-content');
-         fetch('http://localhost:3000/order/best_sell')
+         fetch('https://letsfood.click/order/best_sell')
          .then(async res =>
             await res.json()
          )
@@ -258,7 +258,7 @@
          })
 
          const memberTable = document.querySelector('.member-table-content');
-         fetch('http://localhost:3000/user/get_all')
+         fetch('https://letsfood.click/user/get_all')
          .then(async res =>
             await res.json()
          )
