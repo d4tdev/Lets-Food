@@ -24,7 +24,6 @@ module.exports = function (passport) {
 					verified: true,
 				};
 				try {
-					console.log(profile);
 					let user = await User.findOne({ googleId: profile.id, authType: 'google' });
 
 					if (user) {

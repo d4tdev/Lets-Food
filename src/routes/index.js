@@ -24,7 +24,7 @@ const routes = app => {
 
     app.use('/order', orderRouter);
 
-    app.use('/about_us', validAuth, (req, res) => {
+    app.use('/about_us', (req, res) => {
         res.render('aboutUs');
     })
 
