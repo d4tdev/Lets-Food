@@ -33,7 +33,7 @@ const formatPrice = price => {
 //    }
 // });
 
-fetch('https://letsfood.click/product/get')
+fetch('https://letsfood.cyclic.app/product/get')
    .then(response => response.json())
    .then(data => {
       // hiện thị sản phẩm còn lại
